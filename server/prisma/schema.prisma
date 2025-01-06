@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(uuid())
+  email    String @unique
+  password String
+
+  notes Note[]
+  tags  Tag[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Note {
+  id    String @id @default(uuid())
+  title String @default("New note")
+  color String @default("")
+  icon  String @default("")
+
+  favourite Boolean @default(false)
+
+  inTrash   Boolean   @default(false)
+  trashedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  parentNoteId String?
+  parentNote   Note?   @relation("ParentNote", fields: [parentNoteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  childNotes   Note[]  @relation("ParentNote")
+
+  User    User     @relation(fields: [userId], references: [id])
+  userId  String
+  tags    Tag[]
+  modules Module[]
+}
+
+enum ModuleType {
+  TEXT
+  IMAGE
+  TODO
+}
+
+model Module {
+  id     String     @id @default(uuid())
+  type   ModuleType
+  order  Float
+  noteId String
+  Note   Note       @relation(fields: [noteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  textModule TextModule?
+}
+
+model TextModule {
+  id       String @id @default(uuid())
+  content  String
+  moduleId String @unique
+  module   Module @relation(fields: [moduleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Tag {
+  id              String @id @default(uuid())
+  name            String @unique
+  textColor       String @default("")
+  backgroundColor String @default("")
+  notes           Note[]
+  User            User   @relation(fields: [userId], references: [id])
+  userId          String
+}
