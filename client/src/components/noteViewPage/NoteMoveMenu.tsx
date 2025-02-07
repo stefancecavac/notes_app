@@ -20,7 +20,7 @@ const NoteMoveMenu = ({
         setMoveMenu(false);
         setMenuOpen(false);
       }}
-      className="absolute inset-0 z-50 flex items-center justify-center bg-black/20  backdrop-blur-sm "
+      className="absolute inset-0 z-50 flex items-center justify-center bg-black/20  backdrop-blur-xs "
     >
       <div onClick={(e) => e.stopPropagation()} className="scale-up-center bg-white rounded-md border p-2 ">
         <p className="text-neutral-400 mb-2">Move to:</p>

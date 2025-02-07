@@ -17,7 +17,7 @@ const SearchModal = ({ setOpenSearch, menuRef }: { setOpenSearch: (value: boolea
   };
 
   return createPortal(
-    <div className="bg-black/20 absolute inset-0 z-50 backdrop-blur-sm flex items-center justify-center">
+    <div className="bg-black/20 absolute inset-0 z-50 backdrop-blur-xs flex items-center justify-center">
       <div ref={menuRef} className="bg-white scale-up-center flex-col rounded-md  w-2/4  overflow-auto  ">
         <div className="flex items-center border-b-2 p-2">
           <svg
@@ -30,7 +30,7 @@ const SearchModal = ({ setOpenSearch, menuRef }: { setOpenSearch: (value: boolea
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
-          <input onChange={handleSearch} placeholder="Search your notes by name or tag" className="p-1 px-3 focus:outline-none w-full"></input>
+          <input onChange={handleSearch} placeholder="Search your notes by name or tag" className="p-1 px-3 focus:outline-hidden w-full"></input>
         </div>
         <table className="w-full ">
           <thead>

@@ -68,7 +68,7 @@ const NoteViewPage = () => {
       {createPortal(
         <DragOverlay>
           {activeId ? (
-            <div className="shadow-md rounded border-dashed border-neutral-400  border-2">
+            <div className="shadow-md rounded-sm border-dashed border-neutral-400  border-2">
               <ModuleComponent key={activeId} module={moduleList.find((module) => module.id === activeId)} />{" "}
             </div>
           ) : null}

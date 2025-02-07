@@ -6,7 +6,7 @@ const SkeletonLoader = ({ height, width }: { height: number; width: string | num
           height: height,
           width: width,
         }}
-        className="p-1   bg-neutral-200 dark:bg-neutral-700 dark:text-neutral-400   rounded"
+        className="p-1   bg-neutral-200 dark:bg-neutral-700 dark:text-neutral-400   rounded-sm"
       ></div>
     </div>
   );

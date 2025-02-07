@@ -68,7 +68,7 @@ const NoteListCardMenu = ({
             autoFocus
             onChange={handleRename}
             placeholder={note.title}
-            className="p-2 rounded-md w-56 text-neutral-500 text-sm shadow-lg border-2 focus:outline-none bg-neutral-50"
+            className="p-2 rounded-md w-56 text-neutral-500 text-sm shadow-lg border-2 focus:outline-hidden bg-neutral-50"
           ></input>
         </div>
       </div>,
@@ -85,7 +85,7 @@ const NoteListCardMenu = ({
           >
             <button
               onClick={() => handleFavourite({ noteId: note.id })}
-              className="flex items-center gap-4  text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 p-1 rounded"
+              className="flex items-center gap-4  text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 p-1 rounded-sm"
             >
               {favourite ? (
                 <>
@@ -121,7 +121,7 @@ const NoteListCardMenu = ({
 
             <button
               onClick={() => createNote({ parentNoteId: note.id, title: "New page", content: "" })}
-              className="flex items-center gap-4  text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 p-1 rounded"
+              className="flex items-center gap-4  text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 p-1 rounded-sm"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -149,7 +149,7 @@ const NoteListCardMenu = ({
                 setRenameMenu(true);
                 e.stopPropagation();
               }}
-              className="flex items-center gap-4  text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 p-1 rounded"
+              className="flex items-center gap-4  text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 p-1 rounded-sm"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                 <path
@@ -164,7 +164,7 @@ const NoteListCardMenu = ({
 
             <button
               onClick={() => duplicateNote({ noteId: note.id })}
-              className="flex items-center gap-4  text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 p-1 rounded"
+              className="flex items-center gap-4  text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 p-1 rounded-sm"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                 <path
@@ -182,7 +182,7 @@ const NoteListCardMenu = ({
                 setMoveMenu(true);
                 e.stopPropagation();
               }}
-              className="flex items-center gap-4  text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 p-1 rounded"
+              className="flex items-center gap-4  text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 p-1 rounded-sm"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -204,7 +204,7 @@ const NoteListCardMenu = ({
             {noteId !== note.id && location.pathname.includes("/notes/") && (
               <Link
                 to={`/notes-split/${noteId}/${note.id}`}
-                className="flex items-center gap-4  text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 p-1 rounded"
+                className="flex items-center gap-4  text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 p-1 rounded-sm"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -230,7 +230,7 @@ const NoteListCardMenu = ({
             <div className="border-t-2 my-1 dark:border-neutral-600"></div>
             <button
               onClick={() => handleDeleteNote(note.id!)}
-              className="flex items-center gap-4 p-1 w-full rounded text-sm hover:text-red-500 transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800"
+              className="flex items-center gap-4 p-1 w-full rounded-sm text-sm hover:text-red-500 transition-all hover:bg-neutral-100 dark:hover:bg-neutral-800"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                 <path

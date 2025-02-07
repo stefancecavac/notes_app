@@ -51,7 +51,7 @@ const TagListCard = ({ expanded }: { expanded: boolean }) => {
         {allNotesExpanded &&
           (favouriteNotesLoading ? (
             <div className=" flex items-center justify-between text-sm   animate-pulse">
-              <div className="p-1 h-5 bg-neutral-200 dark:bg-neutral-700 dark:text-neutral-400  rounded w-full"></div>
+              <div className="p-1 h-5 bg-neutral-200 dark:bg-neutral-700 dark:text-neutral-400  rounded-sm w-full"></div>
             </div>
           ) : (
             <div onClick={(e) => e.stopPropagation()} className="flex flex-col gap-1">

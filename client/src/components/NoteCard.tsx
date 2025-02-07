@@ -58,7 +58,7 @@ const NoteCard = ({ note }: { note: noteData }) => {
           <button
             ref={buttonRef}
             onClick={handleMenuClick}
-            className={`flex bg-inherit flex-shrink-0 relative rounded-lg transition-all hover:bg-neutral-300`}
+            className={`flex bg-inherit shrink-0 relative rounded-lg transition-all hover:bg-neutral-300`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -86,7 +86,7 @@ const NoteCard = ({ note }: { note: noteData }) => {
             strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="size-6 flex-shrink-0 text-neutral-400"
+            className="size-6 shrink-0 text-neutral-400"
           >
             <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
             <path d="M14 2v4a2 2 0 0 0 2 2h4" />
@@ -116,7 +116,7 @@ const NoteCard = ({ note }: { note: noteData }) => {
             <div className="flex flex-col  bg-neutral-100 text-neutral-500 rounded-lg p-2  shadow-[0_4px_6px_rgba(0,0,0,0.1),0_-4px_6px_rgba(0,0,0,0.1)]">
               <button
                 onClick={() => handleFavourite({ noteId: note.id })}
-                className="flex items-center gap-2  text-sm hover:bg-neutral-400 p-1 rounded"
+                className="flex items-center gap-2  text-sm hover:bg-neutral-400 p-1 rounded-sm"
               >
                 {note.favourite ? (
                   <>
@@ -160,7 +160,7 @@ const NoteCard = ({ note }: { note: noteData }) => {
               {note.inTrash ? (
                 <button
                   onClick={() => restoreFromRecycleBin({ value: false, noteId: note.id! })}
-                  className="flex items-center gap-2 p-1 w-full rounded text-sm  transition-all hover:bg-neutral-200"
+                  className="flex items-center gap-2 p-1 w-full rounded-sm text-sm  transition-all hover:bg-neutral-200"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                     <path
@@ -175,7 +175,7 @@ const NoteCard = ({ note }: { note: noteData }) => {
               ) : (
                 <button
                   onClick={() => handleDeleteNote(note.id!)}
-                  className="flex items-center gap-2 p-1 w-full rounded text-sm hover:text-red-500 transition-all hover:bg-neutral-200"
+                  className="flex items-center gap-2 p-1 w-full rounded-sm text-sm hover:text-red-500 transition-all hover:bg-neutral-200"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                     <path

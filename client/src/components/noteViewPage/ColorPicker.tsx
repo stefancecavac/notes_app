@@ -34,7 +34,7 @@ const ColorPicker = ({ setColor }: { setColor: Dispatch<SetStateAction<string | 
         onClick={handleMenuClick}
         type="button"
         name="colorpicker"
-        className="text-neutral-600  text-xs flex items-center gap-2 border shadow-sm  bg-white  dark:text-neutral-600 hover:bg-neutral-100/80 dark:hover:bg-neutral-700/20 rounded-lg transition-all p-1"
+        className="text-neutral-600  text-xs flex items-center gap-2 border shadow-xs  bg-white  dark:text-neutral-600 hover:bg-neutral-100/80 dark:hover:bg-neutral-700/20 rounded-lg transition-all p-1"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

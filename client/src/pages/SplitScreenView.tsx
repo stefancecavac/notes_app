@@ -189,7 +189,7 @@ const SplitScreenView = () => {
       {createPortal(
         <DragOverlay>
           {activeModule ? (
-            <div className="shadow-md rounded border-dashed border-neutral-400  border-2">
+            <div className="shadow-md rounded-sm border-dashed border-neutral-400  border-2">
               <ModuleComponent key={activeModule.id} module={activeModule} />
             </div>
           ) : null}

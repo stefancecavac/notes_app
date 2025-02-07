@@ -123,7 +123,7 @@ const NoteViewComponent = ({
                 onMouseDown={() => setEditable(true)}
                 onChange={(e) => setTitle(e.target.value)}
                 value={title || singleNote?.title || ""}
-                className="focus:outline-none text-4xl font-bold bg-transparent  text-neutral-600 dark:text-neutral-200 w-full   "
+                className="focus:outline-hidden text-4xl font-bold bg-transparent  text-neutral-600 dark:text-neutral-200 w-full   "
               ></input>
               <TagHandleComponent singleNote={singleNote}></TagHandleComponent>
             </div>

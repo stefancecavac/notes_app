@@ -49,9 +49,9 @@ const NoteViewMenu = ({ singleNote }: { singleNote: noteData }) => {
           <div className={` ${menuOpen ? "flex flex-col " : "hidden"} slide-right text-neutral-500   gap-1     p-2 `}>
             <p className="px-3 py-2  font-medium text-neutral-400">Note Actions</p>
             {!location.pathname.includes("/notes-split") && (
-              <label className="inline-flex items-center  pl-3 hover:bg-neutral-200 dark:hover:bg-neutral-800 p-1 rounded cursor-pointer gap-3.5">
+              <label className="inline-flex items-center  pl-3 hover:bg-neutral-200 dark:hover:bg-neutral-800 p-1 rounded-sm cursor-pointer gap-3.5">
                 <input type="checkbox" onChange={toggleWideMode} checked={wideMode} className="sr-only peer" />
-                <div className="relative w-5 h-3 bg-neutral-300 dark:bg-neutral-700  peer-focus:outline-none   rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white dark:peer-checked:after:border-neutral-400  after:content-[''] after:absolute after:top-[2.5px] after:start-[2px] after:bg-white after:border-neutral-300     dark:after:bg-neutral-400 dark:after:border-neutral-400 after:border after:rounded-full after:w-2 after:h-2 after:transition-all peer-checked:bg-neutral-600"></div>
+                <div className="relative w-5 h-3 bg-neutral-300 dark:bg-neutral-700  peer-focus:outline-hidden   rounded-full peer  peer-checked:after:translate-x-full peer-checked:rtl:after:-translate-x-full peer-checked:after:border-white dark:peer-checked:after:border-neutral-400  after:content-[''] after:absolute after:top-[2.5px] after:start-[2px] after:bg-white after:border-neutral-300     dark:after:bg-neutral-400 dark:after:border-neutral-400 after:border after:rounded-full after:w-2 after:h-2 after:transition-all peer-checked:bg-neutral-600"></div>
                 <p className=" text-xs font-medium">Wide mode </p>
               </label>
             )}
@@ -60,7 +60,7 @@ const NoteViewMenu = ({ singleNote }: { singleNote: noteData }) => {
               onClick={() => {
                 handleFavourite({ noteId: singleNote.id });
               }}
-              className="flex items-center gap-4 pl-3  text-xs font-medium hover:bg-neutral-200 dark:hover:bg-neutral-800 p-1 rounded"
+              className="flex items-center gap-4 pl-3  text-xs font-medium hover:bg-neutral-200 dark:hover:bg-neutral-800 p-1 rounded-sm"
             >
               {singleNote.favourite ? (
                 <>
@@ -96,7 +96,7 @@ const NoteViewMenu = ({ singleNote }: { singleNote: noteData }) => {
 
             <button
               onClick={() => createNote({ parentNoteId: singleNote.id, title: "New page", content: "" })}
-              className="flex items-center gap-4  pl-3 text-xs font-medium hover:bg-neutral-200 dark:hover:bg-neutral-800 p-1 rounded"
+              className="flex items-center gap-4  pl-3 text-xs font-medium hover:bg-neutral-200 dark:hover:bg-neutral-800 p-1 rounded-sm"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +121,7 @@ const NoteViewMenu = ({ singleNote }: { singleNote: noteData }) => {
 
             <button
               onClick={() => duplicateNote({ noteId: singleNote.id })}
-              className="flex items-center gap-4 pl-3   text-xs font-medium hover:bg-neutral-200 dark:hover:bg-neutral-800 p-1 rounded"
+              className="flex items-center gap-4 pl-3   text-xs font-medium hover:bg-neutral-200 dark:hover:bg-neutral-800 p-1 rounded-sm"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                 <path
@@ -138,7 +138,7 @@ const NoteViewMenu = ({ singleNote }: { singleNote: noteData }) => {
               onClick={() => {
                 setMoveMenu(true);
               }}
-              className="flex items-center gap-4 pl-3  text-xs font-medium hover:bg-neutral-200 dark:hover:bg-neutral-800 p-1 rounded"
+              className="flex items-center gap-4 pl-3  text-xs font-medium hover:bg-neutral-200 dark:hover:bg-neutral-800 p-1 rounded-sm"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -160,7 +160,7 @@ const NoteViewMenu = ({ singleNote }: { singleNote: noteData }) => {
             <div className="border-t-2 my-0.5 dark:border-neutral-600"></div>
             <button
               onClick={() => handleDeleteNote(singleNote.id!)}
-              className="flex items-center gap-4 pl-3 p-1 w-full rounded  text-xs font-medium hover:text-red-500 transition-all hover:bg-neutral-200 dark:hover:bg-neutral-800"
+              className="flex items-center gap-4 pl-3 p-1 w-full rounded-sm  text-xs font-medium hover:text-red-500 transition-all hover:bg-neutral-200 dark:hover:bg-neutral-800"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                 <path

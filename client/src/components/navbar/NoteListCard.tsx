@@ -100,13 +100,13 @@ const NoteListCard = ({ note }: { note: noteData }) => {
         </div>
 
         <p className="truncate flex-1 text-[0.9em] ">{note?.title}</p>
-        <div className="relative flex-shrink-0 flex items-center">
+        <div className="relative shrink-0 flex items-center">
           <button
             ref={buttonRef}
             onClick={handleMenuClick}
             className={`${
               openMenu ? "flex" : "hidden group-hover:flex"
-            } bg-inherit flex-shrink-0 relative rounded-md transition-all hover:bg-neutral-200 dark:hover:bg-neutral-800`}
+            } bg-inherit shrink-0 relative rounded-md transition-all hover:bg-neutral-200 dark:hover:bg-neutral-800`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
