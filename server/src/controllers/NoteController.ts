@@ -327,7 +327,7 @@ const moveNote = async (req: Request, res: Response) => {
       data: { parentNoteId: parentNoteId },
     });
 
-    res.status(200).json({ message: "Note moved successfully", movedNote });
+    res.status(200).json(movedNote);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Something went wrong" });

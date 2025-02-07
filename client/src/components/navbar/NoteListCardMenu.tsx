@@ -36,7 +36,6 @@ const NoteListCardMenu = ({
   const [name, setName] = useState("");
   const [debouncedSave] = useDebounce(name, 500);
   const inputRef = useRef<HTMLDivElement>(null);
-  console.log(note.favourite);
 
   const handleRename = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);

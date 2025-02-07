@@ -1,27 +1,16 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ToastContextProvider } from "./context/ToastNotificationContext";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { AuthContextProvider } from "./context/AuthContext";
 import App from "./App";
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: false,
-    },
-  },
-});
+import queryClient from "./config/queryClient";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
-        <ToastContextProvider>
-          <App></App>
-        </ToastContextProvider>
+        <App></App>
       </AuthContextProvider>
     </QueryClientProvider>
   </StrictMode>

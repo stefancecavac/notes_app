@@ -3,6 +3,8 @@ import validator from "validator";
 import bcrypt from "bcrypt";
 import { client } from "..";
 import jwt from "jsonwebtoken";
+import { generateAccessToken } from "../util/GenerateAccessToken";
+import { generateRefreshToken } from "../util/GenerateRefreshToken";
 
 const registerUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -42,14 +44,15 @@ const registerUser = async (req: Request, res: Response) => {
       },
     });
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWTSECRET as string, { expiresIn: "1d" });
+    const accessToken = generateAccessToken(user.id);
+    const refreshToken = generateRefreshToken(user.id);
 
-    res.cookie("token", token, {
+    res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      maxAge: 86400000,
+      maxAge: 864000000,
     });
 
-    res.status(201).json({ message: "User successfuly registered" });
+    res.status(201).json({ accessToken });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Something went wrong" });
@@ -80,22 +83,45 @@ const loginUser = async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWTSECRET as string, { expiresIn: "1d" });
+    const accessToken = generateAccessToken(user.id);
+    const refreshToken = generateRefreshToken(user.id);
+    console.log(accessToken);
 
-    res.cookie("token", token, {
+    res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
-      maxAge: 86400000,
+      maxAge: 864000000,
     });
 
-    res.status(201).json({ message: "User successfuly loged in" });
+    res.status(201).json({ accessToken });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Something went wrong" });
   }
 };
 
+const refreshToken = async (req: Request, res: Response) => {
+  const refreshToken = req.cookies.refreshToken;
+  console.log(refreshToken);
+
+  if (!refreshToken) {
+    return res.status(403).json({ message: "Not authorized" });
+  }
+
+  try {
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET as string);
+    console.log("decoded", decoded);
+
+    const accessToken = generateAccessToken((decoded as any).userId);
+
+    return res.status(200).json({ accessToken });
+  } catch (error) {
+    console.log(error);
+    return res.status(403).json({ message: "Invalid refresh token" });
+  }
+};
+
 const logoutUser = async (req: Request, res: Response) => {
-  res.clearCookie("token").json({ message: "User successfuly logged out" });
+  res.clearCookie("refreshToken").json({ message: "User successfuly logged out" });
 };
 
 const getCurrentUser = async (req: Request, res: Response) => {
@@ -106,6 +132,10 @@ const getCurrentUser = async (req: Request, res: Response) => {
         id: userId,
       },
     });
+
+    if (!user) {
+      return res.status(401).json({ message: "not authorized" });
+    }
     res.status(200).json({ email: user?.email });
   } catch (error) {
     console.log(error);
@@ -113,4 +143,4 @@ const getCurrentUser = async (req: Request, res: Response) => {
   }
 };
 
-export { registerUser, loginUser, logoutUser, getCurrentUser };
+export { registerUser, loginUser, logoutUser, getCurrentUser, refreshToken };

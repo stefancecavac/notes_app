@@ -1,29 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { moduleData, noteData } from "../../dataTypes";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import { noteData } from "../../dataTypes";
+import { axiosInstance } from "../api";
 
 export const useCreateTextModule = () => {
   const { noteId } = useParams();
-
   const queryClient = useQueryClient();
+
   const postTextModuleApi = async ({ content, order, noteId }: { content: string; order?: number; noteId: string }) => {
-    const response = await fetch(`${API_BASE_URL}/api/notes/modules/text-module`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ content, order, noteId }),
-      credentials: "include",
-    });
-    const json = await response.json();
-
-    if (!response.ok) {
-      throw new Error(json.message);
-    }
-
-    return json as noteData;
+    const response = await axiosInstance.post(`/api/notes/modules/text-module`, { content, order, noteId }, { withCredentials: true });
+    return response.data as noteData;
   };
 
   const { mutate: createTextModule } = useMutation({
@@ -57,21 +43,12 @@ export const useUpdateTextModule = ({ noteId }: { noteId: string }) => {
     moduleId: string;
     noteId: string;
   }) => {
-    const response = await fetch(`${API_BASE_URL}/api/notes/modules/text-module/update`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ content, order, moduleId, noteId }),
-      credentials: "include",
-    });
-    const json = await response.json();
-
-    if (!response.ok) {
-      throw new Error(json.message);
-    }
-
-    return json;
+    const response = await axiosInstance.put(
+      `/api/notes/modules/text-module/update`,
+      { content, order, moduleId, noteId },
+      { withCredentials: true }
+    );
+    return response.data;
   };
 
   const { mutate: updateTextModule } = useMutation({
@@ -84,7 +61,6 @@ export const useUpdateTextModule = ({ noteId }: { noteId: string }) => {
         console.log("new Data", data);
         console.log("old data", oldData);
 
-        // Assuming 'data' contains the updated module, you can merge this into your note data
         const updatedModules = oldData.modules.map((module) => (module.id === data.id ? { ...module, ...data } : module));
 
         console.log(updatedModules);

@@ -70,8 +70,12 @@ const HeaderComponent = ({ singleNote, singleNoteLoading }: { singleNote: noteDa
           <p>Edited {formatDistanceToNow(new Date(singleNote?.updatedAt).toISOString(), { addSuffix: true })}</p>
         )}
 
-        <p className="font-medium text-xs text-neutral-600 rounded-lg bg-neutral-100 p-1 border">Private</p>
-        <NoteViewMenu singleNote={singleNote}></NoteViewMenu>
+        {!location.pathname.includes("notes-split") && (
+          <>
+            <p className="font-medium text-xs text-neutral-600 rounded-lg bg-neutral-100 p-1 border">Private</p>
+            <NoteViewMenu singleNote={singleNote}></NoteViewMenu>
+          </>
+        )}
       </div>
     </div>
   );

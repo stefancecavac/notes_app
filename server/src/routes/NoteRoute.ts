@@ -25,14 +25,11 @@ router.use("/recycle-bin", recycleBinNoteRouter);
 router.use("/modules", moduleRouter);
 router.get("/", getAllNotes);
 router.get("/graph", getGraphNotes);
-
 router.get("/search", SearchNotes);
-
 router.get("/:noteId", getSingleNote);
 router.post("/", createTextNote);
 router.post("/duplicate", duplicateNote);
 router.put("/move", moveNote);
-
 router.put("/:noteId", updateNote);
 
 export default router;

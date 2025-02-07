@@ -1,21 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { noteData, tagData } from "../dataTypes";
 import { useParams } from "react-router-dom";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import { axiosInstance } from "./api";
 
 export const useGetAllTags = () => {
   const getAllTagsApi = async () => {
-    const response = await fetch(`${API_BASE_URL}/api/tags`, {
-      credentials: "include",
-    });
-    const json = await response.json();
-
-    if (!response.ok) {
-      throw new Error(json.message);
-    }
-
-    return json as tagData[];
+    const response = await axiosInstance.get("/api/tags");
+    return response.data as tagData[];
   };
 
   const { data: tags } = useQuery({
@@ -26,26 +17,19 @@ export const useGetAllTags = () => {
   return { tags };
 };
 
+// Create tag API
 export const useCreateTags = () => {
   const { noteId } = useParams();
   const queryClient = useQueryClient();
 
   const postTagApi = async ({ name, textColor, backgroundColor }: tagData) => {
-    const response = await fetch(`${API_BASE_URL}/api/tags/${noteId}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ name, textColor, backgroundColor }),
-      credentials: "include",
+    const response = await axiosInstance.put(`/api/tags/${noteId}`, {
+      name,
+      textColor,
+      backgroundColor,
     });
-    const json = await response.json();
 
-    if (!response.ok) {
-      throw new Error(json.message);
-    }
-
-    return json as noteData;
+    return response.data as noteData;
   };
 
   const { mutate: addTag } = useMutation({
@@ -61,26 +45,17 @@ export const useCreateTags = () => {
   return { addTag };
 };
 
+// Delete tag API
 export const useDeleteTag = () => {
   const { noteId } = useParams();
   const queryClient = useQueryClient();
 
   const deleteTagApi = async (tagId: string | undefined) => {
-    const response = await fetch(`${API_BASE_URL}/api/tags/${noteId}`, {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ tagId }),
-      credentials: "include",
+    const response = await axiosInstance.delete(`/api/tags/${noteId}`, {
+      data: { tagId },
     });
-    const json = await response.json();
 
-    if (!response.ok) {
-      throw new Error(json.message);
-    }
-
-    return json as noteData;
+    return response.data as noteData;
   };
 
   const { mutate: deleteTag } = useMutation({

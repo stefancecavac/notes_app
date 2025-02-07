@@ -110,7 +110,7 @@ const NoteViewComponent = ({
           </div>
         )}
 
-        <div className={`${!wideMode ? "lg:mx-72 " : "lg:mx-20 "} mx-20 relative sm:mx-5 ${color === "" ? "mt-10" : "mt-14"}    transition-all`}>
+        <div className={`${!wideMode ? "lg:mx-60 " : "lg:mx-20 "} mx-20 relative sm:mx-5 ${color === "" ? "mt-10" : "mt-14"}    transition-all`}>
           {singleNoteLoading ? (
             <div className="flex flex-col gap-2">
               <SkeletonLoader height={40} width={300}></SkeletonLoader>
@@ -131,7 +131,7 @@ const NoteViewComponent = ({
         </div>
       </div>
 
-      <div className={`flex flex-col flex-1 mb-5   ${!wideMode ? "lg:mx-72" : "lg:mx-20 "} mx-20 relative sm:mx-5  mt-10  transition-all  `}>
+      <div className={`flex flex-col flex-1 mb-5   ${!wideMode ? "lg:mx-60" : "lg:mx-20 "} mx-20 relative sm:mx-5  mt-10  transition-all  `}>
         {singleNote?.modules?.length === 0 && (
           <div className="   w-full flex   opacity-0 h-0 my-0 duration-300 ease-in-out group-hover/global:opacity-100   group-hover/global:my-10   transition-all   ">
             <button

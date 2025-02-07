@@ -1,6 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { UseAuthContext } from "./context/AuthContext";
-import DashboardPage from "./pages/NotesExplorerPage";
 import NoteViewPage from "./pages/NoteViewPage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
@@ -11,7 +10,7 @@ import ProfileSettingsComponent from "./components/settings/ProfileSettingsCompo
 import PreferencesSettingsComponent from "./components/settings/PreferencesSettingsComponent";
 import LandingPage from "./pages/LandingPage";
 import SplitScreenView from "./pages/SplitScreenView";
-import ExplorePage from "./pages/ExplorePage";
+import DashboardPage from "./pages/DashboardPage";
 
 const App = () => {
   const { user, userLoading } = UseAuthContext();
@@ -23,27 +22,13 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/*" element={user ? <Navigate to="/notes-feed" /> : <Navigate to="/" />} />
-
+        <Route path="*" element={<Navigate to="/dashboard" />} />
         <Route
-          path="/note-explore"
+          path="/dashboard"
           element={
             user ? (
               <Layout>
-                <ExplorePage />
-              </Layout>
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
-
-        <Route
-          path="/notes-feed"
-          element={
-            user ? (
-              <Layout>
-                <DashboardPage />
+                <DashboardPage></DashboardPage>
               </Layout>
             ) : (
               <Navigate to="/" />

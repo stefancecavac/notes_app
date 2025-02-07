@@ -8,24 +8,25 @@ declare module "express" {
 }
 
 const authenticate = async (req: Request, res: Response, next: NextFunction) => {
-  const token = req.cookies.token;
+  const token = req.headers.authorization?.split(" ")[1];
+  console.log(token);
 
   if (!token) {
-    return res.status(400).json({ message: "No auth token provided" });
+    return res.status(401).json({ message: "No auth token provided" });
   }
   try {
-    const verifiedToken = jwt.verify(token, process.env.JWTSECRET as string);
+    const verifiedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string);
 
     if (!verifiedToken) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid credentials" });
     }
 
     req.user = verifiedToken;
 
     next();
   } catch (error) {
-    console.log(error);
-    return res.status(400).json({ message: "Invalid credentials" });
+    console.log("error ", error);
+    return res.status(401).json({ message: "Invalid credentials" });
   }
 };
 

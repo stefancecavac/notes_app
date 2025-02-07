@@ -47,7 +47,7 @@ const FavouriteNotesList = () => {
           (favouriteNotesLoading ? (
             <SkeletonLoader height={20} width={200}></SkeletonLoader>
           ) : (
-            <div onClick={(e) => e.stopPropagation()} className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1">
               {favouriteNotes?.map((note) => (
                 <NoteListCard key={note.id} note={note}></NoteListCard>
               ))}

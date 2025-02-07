@@ -1,29 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { moduleData, noteData } from "../../dataTypes";
 import { useParams } from "react-router-dom";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
+import { axiosInstance } from "../api";
 export const useUpdateModuleOrder = () => {
   const queryClient = useQueryClient();
   const { noteId } = useParams();
 
   const updateModuleOrderApi = async ({ modules, noteId }: { modules: moduleData[]; noteId: string }) => {
-    const response = await fetch(`${API_BASE_URL}/api/notes/modules/update-module-order`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ modules, noteId }),
-      credentials: "include",
-    });
-    const json = await response.json();
-
-    if (!response.ok) {
-      throw new Error(json.message);
-    }
-
-    return json;
+    const response = await axiosInstance.put(`/api/notes/modules/update-module-order`, { modules, noteId }, { withCredentials: true });
+    return response.data;
   };
 
   const { mutate: updateModuleOrder } = useMutation({
@@ -45,21 +30,11 @@ export const useDeleteModule = () => {
   const { noteId } = useParams();
 
   const deleteModuleApi = async ({ moduleId, noteId }: { moduleId: string; noteId: string }) => {
-    const response = await fetch(`${API_BASE_URL}/api/notes/modules/delete-module`, {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ moduleId, noteId }),
-      credentials: "include",
+    const response = await axiosInstance.delete(`/api/notes/modules/delete-module`, {
+      data: { moduleId, noteId },
+      withCredentials: true,
     });
-    const json = await response.json();
-
-    if (!response.ok) {
-      throw new Error(json.message);
-    }
-
-    return json;
+    return response.data;
   };
 
   const { mutate: deleteModule } = useMutation({

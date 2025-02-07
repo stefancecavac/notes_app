@@ -1,72 +1,49 @@
 import { userData } from "../dataTypes";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import { axiosInstance } from "./api";
 
 export const registerUser = async (data: userData) => {
-  const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-type": "application/json",
-    },
-    credentials: "include",
-  });
-  const json = await response.json();
-
-  if (!response.ok) {
-    throw new Error(json.message);
+  try {
+    const response = await axiosInstance.post(`/api/auth/register`, data);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Registration failed");
   }
-
-  return json as userData;
 };
 
 export const loginUser = async (data: userData) => {
-  const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-type": "application/json",
-    },
-    credentials: "include",
-  });
-  const json = await response.json();
-
-  if (!response.ok) {
-    throw new Error(json.message);
+  try {
+    const response = await axiosInstance.post(`/api/auth/login`, data);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Login failed");
   }
-
-  return json as userData;
 };
 
 export const logoutUser = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/auth/logout`, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    credentials: "include",
-  });
-  const json = await response.json();
-
-  if (!response.ok) {
-    throw new Error(json.message);
+  try {
+    const response = await axiosInstance.post(`/api/auth/logout`);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Logout failed");
   }
-
-  return json;
 };
 
-export const getCurrentUser = async () => {
-  const response = await fetch(`${API_BASE_URL}/api/auth/user`, {
-    headers: {
-      "Content-type": "application/json",
-    },
-    credentials: "include",
-  });
-  const json = await response.json();
-
-  if (!response.ok) {
-    throw new Error(json.message);
+// Refresh token API
+export const refreshTokenApi = async () => {
+  try {
+    const response = await axiosInstance.post(`/api/auth/refresh-token`);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Token refresh failed");
   }
+};
 
-  return json as userData;
+// Get current user
+export const getCurrentUser = async () => {
+  try {
+    const response = await axiosInstance.get(`/api/auth/user`);
+    return response.data as userData;
+  } catch (error: any) {
+    throw new Error(error.response?.data?.message || "Error fetching user");
+  }
 };
