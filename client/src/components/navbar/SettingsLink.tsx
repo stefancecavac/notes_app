@@ -5,19 +5,10 @@ const SettingsLink = () => {
     <NavLink
       to={"/settings"}
       className={({ isActive }) =>
-        ` text-sm font-medium text-[#5f5e5b]  hover:bg-stone-200/50 dark:hover:bg-neutral-700  dark:text-neutral-400  transition-all rounded-lg px-1 py-1  flex items-center gap-4  ${
-          isActive ? "bg-stone-200/50 dark:bg-neutral-700" : ""
-        }`
+        `btn-ghost  btn btn-sm justify-start hover:bg-base-300    transition-all rounded-lg flex items-center gap-4 ${isActive ? "bg-base-300" : ""}`
       }
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={1.5}
-        stroke="currentColor"
-        className="size-5 text-neutral-400"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 ">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"

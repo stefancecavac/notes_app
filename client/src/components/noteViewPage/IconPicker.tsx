@@ -30,12 +30,12 @@ const IconPicker = ({
       onClick={() => setHidden((prev) => !prev)}
       className={`${
         selectedIcon ? `${wideMode ? "-left-0  -top-14" : "  -left-24"} flex ` : "hidden  -left-16"
-      }  scale-up-center absolute  rounded-lg p-1 hover:bg-neutral-100/50  dark:hover:bg-neutral-700 group-hover/titleItems:flex transition-all`}
+      }   absolute  rounded-lg p-1 btn btn-ghost w-fit h-fit  group-hover/titleItems:flex transition-all`}
     >
       {selectedIcon === "" ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="size-8 text-neutral-300 dark:text-neutral-600"
+          className="size-8 "
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -58,12 +58,12 @@ const IconPicker = ({
       onMouseLeave={() => setHidden(true)}
       className={`${
         selectedIcon ? `${wideMode ? "-left-5  -top-24 " : ""}  -left-24` : " -left-20  -"
-      } absolute z-50 slide-bottom w-fit  bg-white  rounded-lg border-2 shadow-md `}
+      } absolute z-50 slide-bottom w-fit  bg-base-100  rounded-lg border border-neutral shadow-md `}
     >
       <div className="flex items-center w-lg justify-between border-b-2 p-1">
-        <p className="text-neutral-500 text-xs">Select Icon</p>
+        <p className=" text-xs">Select Icon</p>
         <button
-          className="text-neutral-500 text-xs rounded-md p-1 hover:cursor-pointer hover:bg-neutral-100 "
+          className=" text-xs rounded-md p-1 hover:cursor-pointer  "
           onClick={() => {
             setSelectedIcon("");
             setHidden(true);
@@ -120,10 +120,7 @@ const IconPicker = ({
         {iconsArray.map((icon, index) => (
           <label key={index}>
             <input onChange={handleIconPick} className="hidden" value={icon.svg} name="group" type="radio"></input>
-            <div
-              className="size-8  text-neutral-600  rounded-md hover:bg-neutral-100 hover:cursor-pointer p-1"
-              dangerouslySetInnerHTML={{ __html: icon.svg }}
-            ></div>
+            <div className="size-8   rounded-md  hover:cursor-pointer p-1" dangerouslySetInnerHTML={{ __html: icon.svg }}></div>
           </label>
         ))}
       </div>

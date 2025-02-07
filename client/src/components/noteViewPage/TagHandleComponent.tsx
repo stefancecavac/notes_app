@@ -59,7 +59,7 @@ const TagHandleComponent = ({ singleNote }: { singleNote: noteData | undefined }
         <button
           ref={buttonRef}
           onClick={() => setTagModal(true)}
-          className="flex items-center gap-1 text-xs relative rounded-full px-2 py-0.5 text-neutral-400 dark:hover:bg-neutral-700 hover:bg-neutral-100 "
+          className="flex items-center gap-1 text-xs relative  btn btn-xs btn-ghost text-info-content"
         >
           <p>Add Tags</p>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
@@ -71,7 +71,7 @@ const TagHandleComponent = ({ singleNote }: { singleNote: noteData | undefined }
           <div className=" absolute -top-3 border-2 bg-white transition-all flex flex-col  rounded-lg   shadow-md z-50 ">
             <div className="flex items-center gap-2 border-b-2 p-3">
               <input value={tagName} onChange={(e) => setTagName(e.target.value)} className="focus:outline-hidden" placeholder="eg. Work"></input>
-              <button className="flex items-center gap-1 text-neutral-500 rounded-md hover:bg-neutral-100 p-1" onClick={handleAddTag}>
+              <button className="flex items-center gap-1  rounded-md p-1" onClick={handleAddTag}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-3">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>

@@ -4,11 +4,7 @@ const DashboardLink = () => {
   return (
     <NavLink
       to={"/dashboard"}
-      className={({ isActive }) =>
-        ` text-sm font-medium text-[#5f5e5b]  hover:bg-stone-200/50 dark:hover:bg-neutral-700  dark:text-neutral-400  transition-all rounded-lg px-1 py-1  flex items-center gap-4  ${
-          isActive ? "bg-stone-200/50 dark:bg-neutral-700" : ""
-        }`
-      }
+      className={({ isActive }) => ` btn btn-ghost btn-sm justify-start p-1    rounded-lg flex items-center gap-4  ${isActive ? "bg-base-300 " : ""}`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +14,7 @@ const DashboardLink = () => {
         strokeWidth={1.5}
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="size-5 text-neutral-400"
+        className="size-5 "
       >
         <rect width="7" height="9" x="3" y="3" rx="1" />
         <rect width="7" height="5" x="14" y="3" rx="1" />

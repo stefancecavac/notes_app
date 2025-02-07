@@ -102,9 +102,7 @@ const NoteViewComponent = ({
         ) : (
           <div
             style={{ background: color }}
-            className={`${
-              color === "" ? "py-7 " : "py-24 "
-            } mx-5 rounded-lg relative  transition-all flex items-center justify-center text-neutral-300  `}
+            className={`${color === "" ? "py-7 " : "py-24 "} mx-5 rounded-lg relative  transition-all flex items-center justify-center   `}
           >
             <ColorPicker setColor={setColor}></ColorPicker>
           </div>
@@ -123,7 +121,7 @@ const NoteViewComponent = ({
                 onMouseDown={() => setEditable(true)}
                 onChange={(e) => setTitle(e.target.value)}
                 value={title || singleNote?.title || ""}
-                className="focus:outline-hidden text-4xl font-bold bg-transparent  text-neutral-600 dark:text-neutral-200 w-full   "
+                className="focus:outline-hidden text-4xl font-bold bg-transparent input-lg input-ghost  w-full   "
               ></input>
               <TagHandleComponent singleNote={singleNote}></TagHandleComponent>
             </div>
@@ -160,18 +158,12 @@ const NoteViewComponent = ({
           </div>
           {singleNote?.childNotes?.length !== 0 && (
             <div className="flex flex-col mt-10 p-1  ">
-              <p className="mb-1 text-neutral-400  dark:text-neutral-200 py-2 font-medium border-b-2 dark:border-neutral-700">Pages:</p>
+              <p className="mb-1 text-info-content   py-2 font-medium border-b-2 border-neutral ">Pages:</p>
               {singleNote?.childNotes?.map((note) => (
-                <div
-                  key={note.id}
-                  className="flex items-center justify-between gap-3 my-1  group dark:hover:bg-neutral-800 hover:bg-neutral-100 rounded-lg p-1"
-                >
-                  <Link
-                    className="flex items-center  text-neutral-400 dark:text-neutral-200  gap-2 hover:underline "
-                    to={`/notes/${note.id}/${note.title}`}
-                  >
+                <div key={note.id} className="flex items-center justify-between gap-3 my-1  group hover:bg-base-200 rounded-lg p-1">
+                  <Link className="flex items-center  text-info-content   gap-2 hover:underline " to={`/notes/${note.id}/${note.title}`}>
                     {note.icon ? (
-                      <div className="size-5 text-neutral-500" dangerouslySetInnerHTML={{ __html: note.icon }}></div>
+                      <div className="size-5 " dangerouslySetInnerHTML={{ __html: note.icon }}></div>
                     ) : (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -181,7 +173,7 @@ const NoteViewComponent = ({
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className="size-4 text-neutral-400 dark:text-neutral-200  "
+                        className="size-4   "
                       >
                         <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
                         <path d="M14 2v4a2 2 0 0 0 2 2h4" />
@@ -191,7 +183,7 @@ const NoteViewComponent = ({
                       </svg>
                     )}
 
-                    <p className="text-neutral-400 dark:text-neutral-200 text-sm ">{note.title}</p>
+                    <p className=" text-sm ">{note.title}</p>
                   </Link>
                   <button onClick={() => handleDeleteNote(note.id)}>
                     <svg

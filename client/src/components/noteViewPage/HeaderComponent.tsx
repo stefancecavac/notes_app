@@ -9,11 +9,7 @@ const HeaderComponent = ({ singleNote, singleNoteLoading }: { singleNote: noteDa
   const { expanded } = useNavbarExpandedStore();
 
   return (
-    <div
-      className={`${
-        expanded ? "" : "pl-10"
-      } sticky top-0  bg-white min-w-full flex z-20 items-center justify-between text-sm dark:bg-neutral-900 px-3 py-2`}
-    >
+    <div className={`${expanded ? "" : "pl-10"} sticky top-0  min-w-full flex z-20 items-center justify-between text-sm bg-base-100 px-3 py-2`}>
       {singleNoteLoading ? (
         <SkeletonLoader height={20} width={90}></SkeletonLoader>
       ) : (
@@ -23,16 +19,16 @@ const HeaderComponent = ({ singleNote, singleNoteLoading }: { singleNote: noteDa
 
             return shouldRender ? (
               <div key={crumb.noteId} className="flex items-center gap-2">
-                {singleNote?.breadCrumbs?.length > 4 && index === array.length - 2 && <p className="text-neutral-400 text-sm">...</p>}
+                {singleNote?.breadCrumbs?.length > 4 && index === array.length - 2 && <p className="text-info-content text-sm">...</p>}
 
                 <Link
                   className={`${
-                    index === array.length - 1 && "font-medium text-neutral-700"
-                  } text-neutral-400 hover:underline gap-2 text-xs flex items-center`}
+                    index === array.length - 1 && "font-bold text-base-content"
+                  } text-info-content hover:underline gap-2 text-xs flex items-center`}
                   to={`/notes/${crumb.noteId}/${crumb.noteTitle}`}
                 >
                   {crumb.icon ? (
-                    <div className="size-4 text-neutral-500" dangerouslySetInnerHTML={{ __html: crumb.icon }}></div>
+                    <div className="size-4 " dangerouslySetInnerHTML={{ __html: crumb.icon }}></div>
                   ) : (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -56,23 +52,23 @@ const HeaderComponent = ({ singleNote, singleNoteLoading }: { singleNote: noteDa
                   {crumb.noteTitle}
                 </Link>
 
-                {array.length > index + 1 ? <p className="text-xl text-neutral-300">/</p> : null}
+                {array.length > index + 1 ? <p className="text-xl text-neutral">/</p> : null}
               </div>
             ) : null;
           })}
         </div>
       )}
 
-      <div className="flex items-center gap-2 text-xs text-neutral-400">
+      <div className="flex items-center gap-2 text-xs ">
         {singleNoteLoading ? (
           <SkeletonLoader height={20} width={120}></SkeletonLoader>
         ) : (
-          <p>Edited {formatDistanceToNow(new Date(singleNote?.updatedAt).toISOString(), { addSuffix: true })}</p>
+          <p className="text-info-content">Edited {formatDistanceToNow(new Date(singleNote?.updatedAt).toISOString(), { addSuffix: true })}</p>
         )}
 
         {!location.pathname.includes("notes-split") && (
           <>
-            <p className="font-medium text-xs text-neutral-600 rounded-lg bg-neutral-100 p-1 border">Private</p>
+            <p className="font-medium text-xs rounded-lg  p-1 border border-neutral">Private</p>
             <NoteViewMenu singleNote={singleNote}></NoteViewMenu>
           </>
         )}
