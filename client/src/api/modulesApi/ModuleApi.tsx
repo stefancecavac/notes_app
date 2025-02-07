@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { moduleData, noteData } from "../../dataTypes";
 import { useParams } from "react-router-dom";
-import { axiosInstance } from "../api";
+import { axiosInstance } from "../../config/ApiClient";
 export const useUpdateModuleOrder = () => {
   const queryClient = useQueryClient();
   const { noteId } = useParams();

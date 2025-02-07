@@ -1,5 +1,5 @@
 import { userData } from "../dataTypes";
-import { axiosInstance } from "./api";
+import { axiosInstance } from "../config/ApiClient";
 
 export const registerUser = async (data: userData) => {
   try {

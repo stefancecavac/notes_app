@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { noteData } from "../dataTypes";
-import { useNavigate, useParams } from "react-router-dom";
-import { axiosInstance } from "./api";
+import { useNavigate } from "react-router-dom";
+import { axiosInstance } from "../config/ApiClient";
 import { useToastStore } from "../Stores/useToastNotificationToast";
 
 export const useSearchNotes = (q: string) => {

@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useContext, useLayoutEffect, useState } from "react";
 import { getCurrentUser, loginUser, logoutUser, registerUser } from "../api/AuthApi";
 import { userData } from "../dataTypes";
-import { axiosInstance } from "../api/api";
+import { axiosInstance } from "../config/ApiClient";
 import { InternalAxiosRequestConfig } from "axios";
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
