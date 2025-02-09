@@ -1,20 +1,20 @@
 import { useState } from "react";
-import NoteListCard from "./NoteListCard";
-import { useGetAllFavouriteNotes } from "../../api/FavouriteNoteApi";
-import SkeletonLoader from "../loaders/SkeletonLoader";
+import { useGetAllNotes } from "../../../api/NoteApi";
+import SkeletonLoader from "../../loaders/SkeletonLoader";
+import { NoteListCard } from "./NoteListCard";
 
-const FavouriteNotesList = () => {
-  const { favouriteNotes, favouriteNotesLoading } = useGetAllFavouriteNotes();
+const AllNotesList = () => {
+  const { notes, notesLoading } = useGetAllNotes();
   const [allNotesExpanded, setAllNotesExpanded] = useState(true);
 
   return (
-    <div className={`flex flex-col text-sm max-h-[30rem] overflow-auto   hover:cursor-pointer   my-1  gap-1`}>
+    <div className={`flex flex-col    text-sm max-h-[30rem] overflow-auto   hover:cursor-pointer  dark:border-neutral-700 my-1   gap-1`}>
       <div>
         <button
           onClick={() => {
             setAllNotesExpanded((prev) => !prev);
           }}
-          className=" text-neutral-400 flex items-center  w-full text-start rounded-md p-1 "
+          className=" text-neutral-400 flex items-center  w-full text-start rounded-md p-1  "
         >
           {allNotesExpanded ? (
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="size-5 fill-neutral-100 stroke-neutral-400">
@@ -40,15 +40,14 @@ const FavouriteNotesList = () => {
             </svg>
           )}
 
-          <p className="text-xs">Favourites</p>
+          <p className="text-xs">All notes</p>
         </button>
-
         {allNotesExpanded &&
-          (favouriteNotesLoading ? (
+          (notesLoading ? (
             <SkeletonLoader height={20} width={200}></SkeletonLoader>
           ) : (
-            <div className="flex flex-col gap-1">
-              {favouriteNotes?.map((note) => (
+            <div onClick={(e) => e.stopPropagation()} className="flex flex-col gap-1">
+              {notes?.map((note) => (
                 <NoteListCard key={note.id} note={note}></NoteListCard>
               ))}
             </div>
@@ -58,4 +57,4 @@ const FavouriteNotesList = () => {
   );
 };
 
-export default FavouriteNotesList;
+export default AllNotesList;

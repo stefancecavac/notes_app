@@ -37,7 +37,7 @@ const App = () => {
         />
 
         <Route
-          path="/notes/:noteId/:noteName"
+          path="/notes/:noteId"
           element={
             user ? (
               <Layout>

@@ -34,7 +34,7 @@
   --color-neutral-content: oklch(10% 0.05 240); /* Dark text for neutral elements */
 
   --color-info: oklch(80% 0.1 220); /* Soft blue for info */
-  --color-info-content: #5f5e5b; /* Light text for info elements */
+  --color-info-content: #8f8d89; /* Light text for info elements */
   --color-success: oklch(70% 0.2 130); /* Soft green for success */
   --color-success-content: oklch(98% 0.01 130); /* Light text for success elements */
   --color-warning: oklch(90% 0.1 50); /* Subtle yellow for warning */

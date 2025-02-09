@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { noteData } from "../dataTypes";
+import { noteData, notesData } from "../dataTypes";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../config/ApiClient";
 import { useToastStore } from "../Stores/useToastNotificationToast";
@@ -25,7 +25,7 @@ export const useGetAllNotes = () => {
   const fetchAllNotes = async () => {
     const response = await axiosInstance.get(`/api/notes`, {});
 
-    return response.data as noteData[];
+    return response.data as notesData[];
   };
 
   const { data: notes, isLoading: notesLoading } = useQuery({
@@ -101,7 +101,7 @@ export const useCreateNote = () => {
     mutationKey: ["notes"],
     mutationFn: postNoteFunction,
     onSuccess: (data) => {
-      navigate(`/notes/${data.id}/${data.title}`);
+      navigate(`/notes/${data.id}`);
       showToast({ message: "Note successfuly created", type: "SUCCESS" });
       queryClient.setQueryData(["notes"], (oldData: noteData[] | undefined) => {
         if (!oldData) return [data];

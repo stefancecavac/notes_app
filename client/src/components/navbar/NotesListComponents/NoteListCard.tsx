@@ -1,9 +1,13 @@
 import { NavLink } from "react-router-dom";
-import { noteData } from "../../dataTypes";
 import { useState, useRef } from "react";
+import { notesData } from "../../../dataTypes";
 import NoteListCardMenu from "./NoteListCardMenu";
 
-const NoteListCard = ({ note }: { note: noteData }) => {
+type noteListCardProps = {
+  note: notesData;
+};
+
+export const NoteListCard = ({ note }: noteListCardProps) => {
   const [openMenu, setOpenMenu] = useState(false);
 
   const [treeViewStates, setTreeViewStates] = useState<{ [key: string]: boolean }>(JSON.parse(localStorage.getItem("treeViewStates")!) || {});
@@ -42,12 +46,12 @@ const NoteListCard = ({ note }: { note: noteData }) => {
   return (
     <div>
       <NavLink
-        to={`/notes/${note.id}/${encodeURIComponent(note.title)}`}
+        to={`/notes/${note.id}`}
         onClick={(e) => {
           if (openMenu) e.preventDefault();
         }}
         className={({ isActive }) =>
-          `relative transition-all  items-center border border-base-200 flex group p-1 gap-2 rounded-md group hover:cursor-pointer hover:bg-base-300 ${
+          `relative transition-all p-0.5  items-center border border-base-200 flex group  gap-2 rounded-md group hover:cursor-pointer hover:bg-base-300 ${
             isActive ? "bg-base-300 font-black  border-neutral" : ""
           }`
         }
@@ -69,7 +73,10 @@ const NoteListCard = ({ note }: { note: noteData }) => {
             }}
           ></div>
 
-          <button className="opacity-0 absolute group-hover:opacity-100 transition-all p-1 rounded-md hover:bg-neutral" onClick={toggleTreeView}>
+          <button
+            className="btn btn-xs btn-square btn-ghost opacity-0 absolute group-hover:opacity-100 transition-all p-0.5 rounded-md hover:bg-neutral"
+            onClick={toggleTreeView}
+          >
             {isTreeViewOpen ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +103,8 @@ const NoteListCard = ({ note }: { note: noteData }) => {
           </button>
         </div>
 
-        <p className="truncate flex-1 text-xs font-medium ">{note?.title}</p>
+        <p className=" truncate flex-1 text-xs py-1 font-medium ">{note?.title}</p>
+
         <div className="relative shrink-0 flex items-center">
           <button
             ref={buttonRef}
@@ -127,5 +135,3 @@ const NoteListCard = ({ note }: { note: noteData }) => {
     </div>
   );
 };
-
-export default NoteListCard;

@@ -4,9 +4,7 @@ const RecycleBinLink = () => {
   return (
     <NavLink
       to={"/recycle-bin"}
-      className={({ isActive }) =>
-        `btn-ghost  btn btn-sm justify-start    transition-all rounded-lg flex items-center gap-4 ${isActive ? "bg-base-300" : ""}`
-      }
+      className={({ isActive }) => ` btn btn-ghost btn-sm justify-start p-1    rounded-lg flex items-center gap-4 ${isActive ? "bg-base-300" : ""}`}
     >
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 ">
         <path

@@ -1,36 +1,31 @@
 import { createPortal } from "react-dom";
 import { useGraphNotes, useMoveNote } from "../../api/NoteApi";
-import { noteData } from "../../dataTypes";
+import { noteData, notesData } from "../../dataTypes";
 
-const NoteMoveMenu = ({
-  singleNote,
-  setMoveMenu,
-  setMenuOpen,
-}: {
-  singleNote: noteData;
-  setMoveMenu: (value: boolean) => void;
-  setMenuOpen: (value: boolean) => void;
-}) => {
+type noteMoveModalProps = {
+  singleNote: notesData | noteData;
+};
+
+export const NoteMoveModal = ({ singleNote }: noteMoveModalProps) => {
   const { graphNotes } = useGraphNotes();
   const { moveNote } = useMoveNote();
 
   return createPortal(
-    <div
-      onClick={() => {
-        setMoveMenu(false);
-        setMenuOpen(false);
-      }}
-      className="absolute inset-0 z-50 flex items-center justify-center bg-black/20  backdrop-blur-xs "
-    >
-      <div onClick={(e) => e.stopPropagation()} className="scale-up-center bg-white rounded-md border p-2 ">
-        <p className="text-neutral-400 mb-2">Move to:</p>
-        <div className="flex flex-col gap-1 ">
+    <dialog id="move-modal" className="modal  rounded-md border p-2 ">
+      <div className="modal-box bg-base-100x">
+        <h3 className="font-bold text-lg">Move to:</h3>
+
+        <button onClick={() => moveNote({ noteId: singleNote.id, parentNoteId: null })} className="btn btn-sm w-full my-5">
+          Move Note to top
+        </button>
+
+        <div className="flex flex-col gap-1 border-y-2 border-neutral py-2  ">
           {graphNotes
             ?.filter((gNote) => gNote.id !== singleNote.id)
             .map((gNote) => (
               <span
                 onClick={() => moveNote({ noteId: singleNote.id, parentNoteId: gNote.id })}
-                className="flex items-center gap-2 text-sm text-[#5f5e5b] hover:cursor-pointer hover:bg-neutral-100  rounded-md p-1"
+                className="flex p-2 items-center gap-2 text-sm text-base-content hover:cursor-pointer hover:bg-base-200  rounded-md p-1"
                 key={gNote.id}
               >
                 {gNote.icon ? (
@@ -58,19 +53,18 @@ const NoteMoveMenu = ({
                 {gNote.title}
               </span>
             ))}
-          <div className="border-t-2 my-1 dark:border-neutral-600"></div>
-
-          <button
-            onClick={() => moveNote({ noteId: singleNote.id, parentNoteId: null })}
-            className="rounded-md p-1 text-neutral-500 bg-neutral-100 hover:bg-neutral-200  text-xs"
-          >
-            Move Note to top
-          </button>
+        </div>
+        <div className="modal-action">
+          <form method="dialog">
+            <button className="btn">Close</button>
+          </form>
         </div>
       </div>
-    </div>,
+
+      <form method="dialog" className="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>,
     document.body
   );
 };
-
-export default NoteMoveMenu;

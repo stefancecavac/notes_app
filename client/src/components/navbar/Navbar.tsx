@@ -4,13 +4,16 @@ import ExpandNavbarButton from "./ExpandNavbarButton";
 import RecycleBinLink from "./RecycleBinLink";
 import SettingsLink from "./SettingsLink";
 import NewItemButton from "./NewItemButton";
-import AllNotesList from "./AllNotesList";
-import FavouriteNotesList from "./FavouriteNotesList";
 import { useNavbarExpandedStore } from "../../Stores/useNavbarExpandedStore";
 import DashboardLink from "./DashboardLink";
+import { NotesList } from "./NotesList";
+import { useGetAllNotes } from "../../api/NoteApi";
+import { useGetAllFavouriteNotes } from "../../api/FavouriteNoteApi";
 
 const Navbar = () => {
   const { expanded, toggleExpanded } = useNavbarExpandedStore();
+  const { notes, notesLoading } = useGetAllNotes();
+  const { favouriteNotes, favouriteNotesLoading } = useGetAllFavouriteNotes();
 
   return (
     <div className={`${expanded ? "w-60      " : "w-0 p-0  "} transition-all relative h-full    flex flex-col `}>
@@ -25,8 +28,8 @@ const Navbar = () => {
             <DashboardLink></DashboardLink>
             <SearchComponent></SearchComponent>
             <NewItemButton></NewItemButton>
-            <FavouriteNotesList></FavouriteNotesList>
-            <AllNotesList></AllNotesList>
+            <NotesList notes={favouriteNotes} notesLoading={favouriteNotesLoading} text="Favourites"></NotesList>
+            <NotesList notes={notes} notesLoading={notesLoading} text="All notes"></NotesList>
           </div>
           <div className={`flex flex-col gap-1 mb-2 `}>
             <RecycleBinLink></RecycleBinLink>

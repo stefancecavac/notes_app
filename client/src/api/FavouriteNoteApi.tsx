@@ -1,12 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { noteData } from "../dataTypes";
+import { noteData, notesData } from "../dataTypes";
 import { useParams } from "react-router-dom";
 import { axiosInstance } from "../config/ApiClient";
 
 export const useGetAllFavouriteNotes = () => {
   const fetchAllNotes = async () => {
     const response = await axiosInstance.get(`/api/notes/favourite`);
-    return response.data as noteData[];
+    return response.data as notesData[];
   };
 
   const { data: favouriteNotes, isLoading: favouriteNotesLoading } = useQuery({

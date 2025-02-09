@@ -1,0 +1,56 @@
+import { useEffect } from "react";
+import { useFavouritesHook } from "../../hooks/useFavouritesHook";
+import { noteData, notesData } from "../../dataTypes";
+
+type favouriteButtonProps = {
+  note: noteData | notesData;
+};
+
+export const FavouriteButton = ({ note }: favouriteButtonProps) => {
+  const { handleFavourite, setFavourite } = useFavouritesHook(note?.favourite);
+
+  useEffect(() => {
+    if (!note) return;
+    setFavourite(note.favourite);
+  }, [note]);
+
+  return (
+    <button
+      onClick={() => {
+        handleFavourite({ noteId: note.id });
+      }}
+      className="flex items-center gap-4  text-sm btn btn-sm justify-start btn-ghost p-1 rounded-sm"
+    >
+      {note.favourite ? (
+        <>
+          <svg
+            className="size-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M8.34 8.34 2 9.27l5 4.87L5.82 21 12 17.77 18.18 21l-.59-3.43" />
+            <path d="M18.42 12.76 22 9.27l-6.91-1L12 2l-1.44 2.91" />
+            <line x1="2" x2="22" y1="2" y2="22" />
+          </svg>
+          <p className=" truncate">Remove from favourites</p>
+        </>
+      ) : (
+        <>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
+            />
+          </svg>
+          <p className="whitespace-nowrap  text-xs font-medium">Add to Favourites</p>
+        </>
+      )}
+    </button>
+  );
+};

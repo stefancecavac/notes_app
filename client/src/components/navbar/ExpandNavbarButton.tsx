@@ -1,7 +1,9 @@
 const ExpandNavbarButton = ({ expanded, setExpanded }: { expanded: boolean; setExpanded: React.Dispatch<React.SetStateAction<boolean>> }) => {
   return (
     <button
-      className={`${expanded ?? "absolute top-0 left-0 z-50"} btn btn-square btn-ghost bg-transparent border-0 hover:bg-base-300  btn-soft `}
+      className={`${
+        expanded ?? "absolute top-0 left-0   z-50"
+      } btn btn-square btn-ghost p-0 size-8 bg-transparent border-0 hover:bg-base-300  btn-soft `}
       onClick={() => setExpanded((prev) => !prev)}
     >
       {expanded ? (

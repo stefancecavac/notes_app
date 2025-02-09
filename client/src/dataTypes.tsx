@@ -35,7 +35,6 @@ export const moduleSchema = z.object({
   updatedAt: z.date(),
 });
 
-// Note schema
 export const noteSchema = z.object({
   id: z.string(),
   title: z.string().default("New note"),
@@ -55,7 +54,26 @@ export const noteSchema = z.object({
   breadCrumbs: z.array(z.object({ noteId: z.string(), noteTitle: z.string(), icon: z.string() })),
 });
 
-// Define the types
+export type notesData = {
+  id: string;
+  title: string;
+  icon: string;
+  favourite: boolean;
+  parentNoteId: string;
+  childNotes: notesData[];
+};
+
+export const notesSchema: z.ZodType<notesData> = z.lazy(() =>
+  z.object({
+    id: z.string(),
+    title: z.string(),
+    icon: z.string(),
+    favourite: z.boolean(),
+    parentNoteId: z.string(),
+    childNotes: z.array(notesSchema),
+  })
+);
+
 export type textModuleData = z.infer<typeof textModuleSchema>;
 export type moduleData = z.infer<typeof moduleSchema>;
 export type noteData = z.infer<typeof noteSchema>;
