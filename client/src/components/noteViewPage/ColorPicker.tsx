@@ -1,9 +1,13 @@
 import { Dispatch, SetStateAction } from "react";
 
-const ColorPicker = ({ setColor }: { setColor: Dispatch<SetStateAction<string | undefined>> }) => {
+type colorPickerProps = {
+  setNoteState: Dispatch<SetStateAction<{ title: string; color: string; selectedIcon: string }>>;
+};
+
+export const ColorPicker = ({ setNoteState }: colorPickerProps) => {
   const handleColorPick = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log("color picked");
-    setColor(e.target.value);
+    setNoteState((prev) => ({ ...prev, color: e.target.value }));
   };
 
   return (
@@ -136,7 +140,7 @@ const ColorPicker = ({ setColor }: { setColor: Dispatch<SetStateAction<string | 
           <button
             className="text-neutral-500 text-sm rounded-md p-1 hover:cursor-pointer hover:bg-neutral-100 "
             onClick={() => {
-              setColor("");
+              setNoteState((prev) => ({ ...prev, color: "" }));
             }}
           >
             Remove
@@ -146,5 +150,3 @@ const ColorPicker = ({ setColor }: { setColor: Dispatch<SetStateAction<string | 
     </div>
   );
 };
-
-export default ColorPicker;

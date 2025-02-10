@@ -16,14 +16,7 @@ const NoteViewMenu = ({ singleNote }: { singleNote: noteData }) => {
   return (
     <>
       <button onClick={() => setMenuOpen((prev) => !prev)} className="rounded-md btn btn-square btn-xs btn-ghost  hover:bg-base-200">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="size-7 text-neutral-500"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-7">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -37,7 +30,7 @@ const NoteViewMenu = ({ singleNote }: { singleNote: noteData }) => {
             <p className="px-3 py-2  font-medium text-info-content">Note Actions</p>
             {!location.pathname.includes("/notes-split") && (
               <label className="text-xs flex items-center gap-3  hover:cursor-pointer hover:bg-base-300 rounded p-1 border border-transparent hover:border-neutral">
-                <input type="checkbox" defaultChecked onChange={toggleWideMode} checked={wideMode} className="toggle toggle-xs" />
+                <input type="checkbox" onChange={toggleWideMode} checked={wideMode} className="toggle toggle-xs" />
                 <p>Wide mode</p>
               </label>
             )}

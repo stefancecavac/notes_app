@@ -10,7 +10,7 @@ type moduleComponentProps = {
   module: moduleData;
   nextModule?: moduleData | null;
   singleNote?: noteData;
-  singleNoteLoading: boolean;
+  singleNoteLoading?: boolean;
 };
 
 const ModuleComponent = ({ module, nextModule, singleNote, singleNoteLoading }: moduleComponentProps) => {

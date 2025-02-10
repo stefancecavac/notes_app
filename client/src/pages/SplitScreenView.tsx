@@ -3,7 +3,7 @@ import { useGetSingleNote } from "../api/NoteApi";
 import NoteViewComponent from "../components/noteViewPage/NoteViewComponent";
 import { arrayMove } from "@dnd-kit/sortable";
 import { useEffect, useRef, useState } from "react";
-import { closestCenter, DndContext, DragEndEvent, DragOverlay } from "@dnd-kit/core";
+import { closestCenter, DndContext, DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
 import { useDragStore } from "../Stores/useDragStore";
 import { createPortal } from "react-dom";
 import ModuleComponent from "../components/moduleComponents/ModuleComponent";
@@ -23,8 +23,6 @@ const SplitScreenView = () => {
 
   const [debouncedModuleList1] = useDebounce(moduleList1, 1000);
   const [debouncedModuleList2] = useDebounce(moduleList2, 1000);
-
-  console.log(activeModule);
 
   useEffect(() => {
     if (singleNote1) {
@@ -51,7 +49,7 @@ const SplitScreenView = () => {
     }
   }, [debouncedModuleList1, debouncedModuleList2]);
 
-  const handleDragStart = (event: any) => {
+  const handleDragStart = (event: DragStartEvent) => {
     const activeNoteId = event.active.data?.current?.noteId;
     const sourceModules = activeNoteId === noteId1 ? moduleList1 : moduleList2;
     const module = sourceModules.find((m) => m.id === event.active.id);

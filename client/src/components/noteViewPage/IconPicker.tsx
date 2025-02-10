@@ -2,19 +2,18 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { icons } from "../../util/Icons";
 import { useWideModeStore } from "../../Stores/useWideModeStore";
 
-const IconPicker = ({
-  selectedIcon,
-  setSelectedIcon,
-}: {
-  selectedIcon: string | undefined;
-  setSelectedIcon: Dispatch<SetStateAction<string | undefined>>;
-}) => {
+type iconPickerProps = {
+  setNoteState: Dispatch<SetStateAction<{ title: string; color: string; selectedIcon: string }>>;
+  noteState: { title: string; color: string; selectedIcon: string };
+};
+
+export const IconPicker = ({ setNoteState, noteState }: iconPickerProps) => {
   const [hidden, setHidden] = useState(true);
   const { wideMode } = useWideModeStore();
   const [iconsArray, setIconArray] = useState(icons);
 
   const handleIconPick = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedIcon(e.target.value);
+    setNoteState((prev) => ({ ...prev, selectedIcon: e.target.value }));
     setHidden(true);
   };
   const handleColorPick = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,10 +28,10 @@ const IconPicker = ({
     <button
       onClick={() => setHidden((prev) => !prev)}
       className={`${
-        selectedIcon ? `${wideMode ? "-left-0  -top-14" : "  -left-24"} flex ` : "hidden  -left-16"
+        noteState.selectedIcon ? `${wideMode ? "-left-0  -top-14" : "  -left-24"} flex ` : "hidden  -left-16"
       }   absolute  rounded-lg p-1 btn btn-ghost w-fit h-fit  group-hover/titleItems:flex transition-all`}
     >
-      {selectedIcon === "" ? (
+      {noteState.selectedIcon === "" ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="size-8 "
@@ -50,14 +49,14 @@ const IconPicker = ({
           <path d="M10 16s.8 1 2 1c1.3 0 2-1 2-1" />
         </svg>
       ) : (
-        <div className=" size-14 " dangerouslySetInnerHTML={{ __html: selectedIcon! }}></div>
+        <div className=" size-14 " dangerouslySetInnerHTML={{ __html: noteState.selectedIcon! }}></div>
       )}
     </button>
   ) : (
     <div
       onMouseLeave={() => setHidden(true)}
       className={`${
-        selectedIcon ? `${wideMode ? "-left-5  -top-24 " : ""}  -left-24` : " -left-20  -"
+        noteState.selectedIcon ? `${wideMode ? "-left-5  -top-24 " : ""}  -left-24` : " -left-20  -"
       } absolute z-50 slide-bottom w-fit  bg-base-100  rounded-lg border border-neutral shadow-md `}
     >
       <div className="flex items-center w-lg justify-between border-b-2 p-1">
@@ -65,7 +64,7 @@ const IconPicker = ({
         <button
           className=" text-xs rounded-md p-1 hover:cursor-pointer  "
           onClick={() => {
-            setSelectedIcon("");
+            setNoteState((prev) => ({ ...prev, selectedIcon: "" }));
             setHidden(true);
           }}
         >

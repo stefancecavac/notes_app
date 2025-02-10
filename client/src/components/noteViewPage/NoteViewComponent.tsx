@@ -4,7 +4,6 @@ import { useUpdateNote } from "../../api/NoteApi";
 import { useWideModeStore } from "../../Stores/useWideModeStore";
 import { useDebounce } from "use-debounce";
 import HeaderComponent from "./HeaderComponent";
-import ColorPicker from "./ColorPicker";
 import IconPicker from "./IconPicker";
 import TagHandleComponent from "./TagHandleComponent";
 import { useDroppable } from "@dnd-kit/core";
@@ -14,6 +13,7 @@ import ModuleComponent from "../moduleComponents/ModuleComponent";
 import { moduleData, noteData } from "../../dataTypes";
 import SkeletonLoader from "../loaders/SkeletonLoader";
 import { SubPagesComponent } from "./SubPagesComponent";
+import { ColorPicker } from "./ColorPicker";
 
 type noteViewComponentProps = {
   singleNote: noteData;
@@ -29,14 +29,13 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
     id: singleNote.id,
   });
 
-  const [editable, setEditable] = useState(false); // TODO make notes not editable to other users
+  const [noteState, setNoteState] = useState({
+    title: singleNote.title,
+    color: singleNote.color,
+    selectedIcon: singleNote.icon,
+  });
 
-  const [title, setTitle] = useState<string | undefined>(singleNote?.title);
-  const [color, setColor] = useState<string | undefined>(singleNote?.color);
-  const [selectedIcon, setSelectedIcon] = useState<string | undefined>(singleNote?.icon);
-  const [debouncedTitle] = useDebounce(title, 500);
-  const [debouncedColor] = useDebounce(color, 500);
-  const [debouncedIcon] = useDebounce(selectedIcon, 500);
+  const [debouncedNoteState] = useDebounce(noteState, 500);
 
   const location = useLocation();
   if (location.pathname.includes("/notes-split")) {
@@ -46,9 +45,11 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
   }
   useEffect(() => {
     if (!singleNote) return;
-    setColor(singleNote?.color);
-    setTitle(singleNote?.title);
-    setSelectedIcon(singleNote?.icon);
+    setNoteState({
+      title: singleNote.title,
+      color: singleNote.color,
+      selectedIcon: singleNote.icon,
+    });
 
     document.title = singleNote.title === "" ? "New note" : singleNote.title;
 
@@ -73,21 +74,16 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
   }, [singleNote]);
 
   useEffect(() => {
-    if (singleNote && !singleNoteLoading) {
-      const titleChanged = title !== singleNote.title;
-      const colorChanged = color !== singleNote.color;
-      const iconChanged = selectedIcon !== singleNote.icon;
+    if (!singleNote || singleNoteLoading) return;
 
-      if (titleChanged || colorChanged || iconChanged) {
-        // navigate(`/notes/${singleNote.id}/${encodeURIComponent(title as string)}`); TODO: this doesnt work in split screen need better way
-        updateNote({
-          title: debouncedTitle,
-          color: debouncedColor,
-          icon: debouncedIcon,
-        });
-      }
+    if (
+      debouncedNoteState.title !== singleNote.title ||
+      debouncedNoteState.color !== singleNote.color ||
+      debouncedNoteState.selectedIcon !== singleNote.icon
+    ) {
+      updateNote(debouncedNoteState);
     }
-  }, [debouncedColor, debouncedTitle, debouncedIcon]);
+  }, [debouncedNoteState]);
 
   return (
     <div ref={setDroppableRef} className="flex flex-col flex-1 h-full w-full group/global overflow-auto ">
@@ -98,14 +94,18 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
           <SkeletonLoader height={200} width={"100%"}></SkeletonLoader>
         ) : (
           <div
-            style={{ background: color }}
-            className={`${color === "" ? "py-7 " : "py-24 "} mx-5 rounded-lg relative  transition-all flex items-center justify-center   `}
+            style={{ background: noteState.color }}
+            className={`${noteState.color === "" ? "py-7 " : "py-24 "}  relative  transition-all flex items-center justify-center   `}
           >
-            <ColorPicker setColor={setColor}></ColorPicker>
+            <ColorPicker setNoteState={setNoteState}></ColorPicker>
           </div>
         )}
 
-        <div className={`${!wideMode ? "lg:mx-60 " : "lg:mx-20 "} mx-20 relative sm:mx-5 ${color === "" ? "mt-10" : "mt-14"}    transition-all`}>
+        <div
+          className={`${!wideMode ? "lg:mx-60 " : "lg:mx-20 "} mx-20 relative sm:mx-5 ${
+            noteState.color === "" ? "mt-10" : "mt-14"
+          }    transition-all`}
+        >
           {singleNoteLoading ? (
             <div className="flex flex-col gap-2">
               <SkeletonLoader height={40} width={300}></SkeletonLoader>
@@ -113,11 +113,10 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
             </div>
           ) : (
             <div className="flex flex-col  ">
-              <IconPicker selectedIcon={selectedIcon} setSelectedIcon={setSelectedIcon}></IconPicker>
+              <IconPicker noteState={noteState} setNoteState={setNoteState}></IconPicker>
               <input
-                onMouseDown={() => setEditable(true)}
-                onChange={(e) => setTitle(e.target.value)}
-                value={title || singleNote?.title || ""}
+                onChange={(e) => setNoteState((prev) => ({ ...prev, title: e.target.value }))}
+                value={noteState.title || singleNote?.title || ""}
                 className="focus:outline-hidden text-4xl h-full font-bold bg-transparent input-lg input-ghost  w-full   "
               ></input>
               <TagHandleComponent singleNote={singleNote}></TagHandleComponent>

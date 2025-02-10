@@ -244,6 +244,7 @@ const updateNote = async (req: Request, res: Response) => {
           select: {
             title: true,
             parentNoteId: true,
+            id: true,
           },
         },
         modules: {
