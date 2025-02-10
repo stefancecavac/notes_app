@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useGetSingleNote } from "../api/NoteApi";
 import NoteViewComponent from "../components/noteViewPage/NoteViewComponent";
-import { closestCenter, DndContext, DragEndEvent, DragOverlay } from "@dnd-kit/core";
+import { closestCenter, DndContext, DragEndEvent, DragOverlay, UniqueIdentifier } from "@dnd-kit/core";
 import { useEffect, useState } from "react";
 import { arrayMove } from "@dnd-kit/sortable";
 import { moduleData } from "../dataTypes";
@@ -9,13 +9,14 @@ import { createPortal } from "react-dom";
 import ModuleComponent from "../components/moduleComponents/ModuleComponent";
 import { useDebounce } from "use-debounce";
 import { useUpdateModuleOrder } from "../api/modulesApi/ModuleApi";
+import { DragStartEvent } from "@dnd-kit/core";
 
 const NoteViewPage = () => {
   const { noteId } = useParams();
   const { updateModuleOrder } = useUpdateModuleOrder();
   const { singleNote, singleNoteLoading } = useGetSingleNote({ noteId: noteId! });
 
-  const [activeId, setActiveId] = useState(null);
+  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [moduleList, setModuleList] = useState(singleNote?.modules || []);
 
   const [debouncedModuleList] = useDebounce(moduleList, 1000);
@@ -40,7 +41,7 @@ const NoteViewPage = () => {
     return null;
   }
 
-  function handleDragStart(event) {
+  function handleDragStart(event: DragStartEvent) {
     setActiveId(event.active.id);
   }
 
@@ -68,8 +69,8 @@ const NoteViewPage = () => {
       {createPortal(
         <DragOverlay>
           {activeId ? (
-            <div className="shadow-md rounded-sm border-dashed border-neutral-400  border-2">
-              <ModuleComponent key={activeId} module={moduleList.find((module) => module.id === activeId)} />{" "}
+            <div className="shadow-md rounded-sm border-dashed border-neutral  border-2">
+              <ModuleComponent singleNoteLoading={singleNoteLoading} key={activeId} module={moduleList.find((module) => module.id === activeId)!} />
             </div>
           ) : null}
         </DragOverlay>,

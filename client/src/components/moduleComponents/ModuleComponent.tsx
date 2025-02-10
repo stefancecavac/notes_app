@@ -2,24 +2,19 @@ import { moduleData, noteData } from "../../dataTypes";
 import { useDeleteModule } from "../../api/modulesApi/ModuleApi";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useState } from "react";
 import TextModuleComponent from "./TextModuleComponent";
-import NewModuleModal from "./NewModuleModal";
 import SkeletonLoader from "../loaders/SkeletonLoader";
+import { NewModuleModal } from "./NewModuleModal";
 
-const ModuleComponent = ({
-  module,
-  nextModule,
-  singleNote,
-  singleNoteLoading,
-}: {
+type moduleComponentProps = {
   module: moduleData;
   nextModule?: moduleData | null;
   singleNote?: noteData;
   singleNoteLoading: boolean;
-}) => {
+};
+
+const ModuleComponent = ({ module, nextModule, singleNote, singleNoteLoading }: moduleComponentProps) => {
   const { deleteModule } = useDeleteModule();
-  const [openMenu, setOpenMenu] = useState(false);
 
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: module?.id,
@@ -28,7 +23,6 @@ const ModuleComponent = ({
     },
   });
 
-  // Define styles for the dragged item
   const style = {
     transform: CSS.Translate.toString(transform),
     transition,
@@ -39,15 +33,15 @@ const ModuleComponent = ({
   if (singleNoteLoading) return <SkeletonLoader height={100} width={"100%"}></SkeletonLoader>;
 
   return (
-    <div style={style} ref={setNodeRef} className={`rounded-lg   bg-white relative group/handle`}>
+    <div style={style} ref={setNodeRef} className={`rounded-lg   relative group/handle`}>
       {(() => {
         switch (module?.type) {
           case "TEXT":
             return <TextModuleComponent module={module} />;
         }
       })()}
-      <div className="absolute  scale-up-center  flex-row-reverse  gap-1  items-center -left-[90px] top-5 px-5 hidden group-hover/handle:flex transition-all">
-        <div {...attributes} {...listeners}>
+      <div className="absolute flex  flex-row-reverse gap-1  items-center -left-28 top-3 px-5 opacity-0 group-hover/handle:opacity-100 transition-all">
+        <div {...attributes} {...listeners} className="btn btn-xs btn-square">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -56,7 +50,7 @@ const ModuleComponent = ({
             strokeWidth="1.5"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="size-5 text-neutral-400"
+            className="size-4 "
           >
             <circle cx="12" cy="5" r="1" />
             <circle cx="19" cy="5" r="1" />
@@ -70,37 +64,12 @@ const ModuleComponent = ({
           </svg>
         </div>
 
-        <div className="relative flex ">
-          <button onClick={() => setOpenMenu((prev) => !prev)}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-5 text-neutral-400"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-          </button>
-          <NewModuleModal
-            menuOpen={openMenu}
-            setMenuOpen={setOpenMenu}
-            module={module}
-            nextModule={nextModule}
-            singleNote={singleNote}
-          ></NewModuleModal>
-        </div>
-
-        <button onClick={() => deleteModule({ moduleId: module?.id, noteId: module?.noteId })}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-4 text-red-400"
-          >
+        <NewModuleModal singleNote={singleNote} module={module} nextModule={nextModule}></NewModuleModal>
+        <button
+          className="btn btn-xs btn-square btn-error btn-soft  transition-all "
+          onClick={() => deleteModule({ moduleId: module?.id, noteId: module?.noteId })}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"

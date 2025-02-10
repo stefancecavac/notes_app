@@ -25,7 +25,7 @@ export const NoteMoveModal = ({ singleNote }: noteMoveModalProps) => {
             .map((gNote) => (
               <span
                 onClick={() => moveNote({ noteId: singleNote.id, parentNoteId: gNote.id })}
-                className="flex p-2 items-center gap-2 text-sm text-base-content hover:cursor-pointer hover:bg-base-200  rounded-md p-1"
+                className="flex p-2 items-center gap-2 text-sm text-base-content hover:cursor-pointer hover:bg-base-200  rounded-md"
                 key={gNote.id}
               >
                 {gNote.icon ? (

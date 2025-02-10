@@ -7,7 +7,7 @@ export const useCreateTextModule = () => {
   const { noteId } = useParams();
   const queryClient = useQueryClient();
 
-  const postTextModuleApi = async ({ content, order, noteId }: { content: string; order?: number; noteId: string }) => {
+  const postTextModuleApi = async ({ content, order, noteId }: { content: string; order?: number; noteId?: string }) => {
     const response = await axiosInstance.post(`/api/notes/modules/text-module`, { content, order, noteId }, { withCredentials: true });
     return response.data as noteData;
   };
