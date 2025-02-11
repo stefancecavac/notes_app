@@ -52,7 +52,7 @@ const updateTextModule = async (req: Request, res: Response) => {
       },
     });
 
-    client.note.update({
+    await client.note.update({
       where: {
         id: noteId,
       },

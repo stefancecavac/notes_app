@@ -57,15 +57,8 @@ export const useUpdateTextModule = ({ noteId }: { noteId: string }) => {
     onSuccess(data) {
       queryClient.setQueryData(["note", noteId], (oldData: noteData | undefined) => {
         if (!oldData) return undefined;
-
-        console.log("new Data", data);
-        console.log("old data", oldData);
-
-        const updatedModules = oldData.modules.map((module) => (module.id === data.id ? { ...module, ...data } : module));
-
-        console.log(updatedModules);
-
-        return { ...oldData, modules: updatedModules };
+        const updatedModules = oldData.modules.map((module) => (module.id === data.id ? { ...module, ...data, updatedAt: new Date() } : module));
+        return { ...oldData, modules: updatedModules, updatedAt: new Date() };
       });
     },
   });

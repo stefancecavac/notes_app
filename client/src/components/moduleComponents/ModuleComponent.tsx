@@ -40,7 +40,7 @@ const ModuleComponent = ({ module, nextModule, singleNote, singleNoteLoading }: 
             return <TextModuleComponent module={module} />;
         }
       })()}
-      <div className="absolute flex  flex-row-reverse gap-1  items-center -left-28 top-3 px-5 opacity-0 group-hover/handle:opacity-100 transition-all">
+      <div className="absolute flex  flex-row-reverse gap-1  items-center -left-28 top-3 px-5 opacity-0 group-hover/handle:opacity-100 ">
         <div {...attributes} {...listeners} className="btn btn-xs btn-square">
           <svg
             xmlns="http://www.w3.org/2000/svg"
