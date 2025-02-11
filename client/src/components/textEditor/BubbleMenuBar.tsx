@@ -2,8 +2,7 @@ import { BubbleMenu, Editor } from "@tiptap/react";
 import { useEffect, useState } from "react";
 
 const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
-  const [menuColor, setMenuColor] = useState(false);
-  const [selectedColor, setSelectedColor] = useState();
+  const [selectedColor, setSelectedColor] = useState<string>("");
   useEffect(() => {
     if (!editor) return;
 
@@ -33,14 +32,12 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
 
   return (
     <BubbleMenu editor={editor}>
-      <div className=" flex  z-50 bg-white scale-up-center dark:bg-neutral-800 dark:border-neutral-800 dark:text-neutral-200 text-neutral-800 gap-2 rounded-md shadow-md p-1 border w-fit  ">
+      <div className=" flex  z-50 bg-base-100 rounded-md shadow-md p-1 border border-neutral w-fit  ">
         <div className="flex  items-center gap-1">
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleBold().run()}
-            className={`hover:bg-neutral-200 dark:hover:bg-neutral-700 rounded-md p-1 relative group ${
-              editor.isActive("bold") ? "bg-neutral-200 dark:bg-neutral-700" : ""
-            }`}
+            className={`btn btn-square btn-xs btn-ghost relative group ${editor.isActive("bold") ? "bg-base-300" : ""}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
               <path
@@ -49,7 +46,7 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
               />
             </svg>
 
-            <span className="group-hover:flex hidden dark:bg-neutral-700 dark:text-neutral-200 dark:border-neutral-500 bg-white shadow-md px-2 py-1 text-sm text-neutral-500 border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
+            <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
               Bold Style
             </span>
           </button>
@@ -57,15 +54,13 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleItalic().run()}
-            className={`hover:bg-neutral-200 rounded-md dark:hover:bg-neutral-700 p-1 relative group ${
-              editor.isActive("italic") ? "bg-neutral-200 dark:bg-neutral-700" : ""
-            }`}
+            className={`btn btn-square btn-xs btn-ghost p-1 relative group ${editor.isActive("italic") ? "bg-base-300" : ""}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-4">
               <path strokeLinecap="round" strokeLinejoin="round" d="M5.248 20.246H9.05m0 0h3.696m-3.696 0 5.893-16.502m0 0h-3.697m3.697 0h3.803" />
             </svg>
 
-            <span className="group-hover:flex hidden dark:bg-neutral-700 dark:text-neutral-200 dark:border-neutral-500 bg-white shadow-md px-2 py-1 text-sm text-neutral-500 border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
+            <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
               Italic Style
             </span>
           </button>
@@ -73,9 +68,7 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleUnderline().run()}
-            className={`hover:bg-neutral-200 rounded-md dark:hover:bg-neutral-700 p-1 relative group ${
-              editor.isActive("underline") ? "bg-neutral-200 dark:bg-neutral-700" : ""
-            }`}
+            className={`btn btn-square btn-xs btn-ghost p-1 relative group ${editor.isActive("underline") ? "bg-base-300" : ""}`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -90,78 +83,67 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
               <path d="M6 4v6a6 6 0 0 0 12 0V4" />
               <line x1="4" x2="20" y1="20" y2="20" />
             </svg>
-            <span className="group-hover:flex hidden dark:bg-neutral-700 dark:text-neutral-200 dark:border-neutral-500 bg-white shadow-md px-2 py-1 text-sm text-neutral-500 border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
+            <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
               Underline Style
             </span>
           </button>
         </div>
-        <div className="border-r dark:border-neutral-600 "></div>
+        <div className="divider divider-horizontal mx-0 "></div>
 
         <div className="flex  items-center gap-1 ">
-          <button
-            style={{ borderColor: selectedColor }}
-            onClick={() => setMenuColor((prev) => !prev)}
-            className="relative group p-1 rounded-lg border"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{ color: selectedColor }}
-              className={`size-4 ${selectedColor ? `text-[${selectedColor}]` : "text-[#eae8e8]"}`}
-            >
-              <path d="M14 16.5a.5.5 0 0 0 .5.5h.5a2 2 0 0 1 0 4H9a2 2 0 0 1 0-4h.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5V8a2 2 0 0 1-4 0V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3a2 2 0 0 1-4 0v-.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5Z" />
-            </svg>
-            <span className="group-hover:flex hidden dark:bg-neutral-700 dark:text-neutral-200 dark:border-neutral-500 bg-white shadow-md px-2 py-1 text-sm text-neutral-500 border rounded-md absolute top-8 whitespace-nowrap items-center">
-              Text Color
-            </span>
-            {menuColor && (
-              <div
-                onMouseLeave={() => setMenuColor(false)}
-                className="flex absolute flex-col slide-bottom p-2 w-max top-8 bg-white shadow-md dark:bg-neutral-800 rounded-lg"
+          <div className="dropdown">
+            <div style={{ borderColor: selectedColor }} tabIndex={0} role="button" className="btn m-1 flex btn-xs  flex-col btn-square  ">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                style={{ color: selectedColor }}
+                className={`size-4 ${selectedColor ? `text-[${selectedColor}]` : "text-[#eae8e8]"}`}
               >
-                <p className="text-xs text-start">Text color</p>
-                <div className="grid grid-cols-4 my-2 gap-3">
-                  {colors.map(({ color, border }) => (
-                    <button
-                      key={color}
-                      onClick={() => {
-                        editor.chain().focus().setColor(color).run();
-                        setSelectedColor(color);
-                        setMenuColor(false);
-                      }}
-                      className={`rounded-lg border-[${border}] border flex p-1 `}
+                <path d="M14 16.5a.5.5 0 0 0 .5.5h.5a2 2 0 0 1 0 4H9a2 2 0 0 1 0-4h.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5V8a2 2 0 0 1-4 0V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3a2 2 0 0 1-4 0v-.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5Z" />
+              </svg>
+              <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
+                Text Color
+              </span>
+            </div>
+            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+              <div className="grid grid-cols-4 my-2 gap-3">
+                {colors.map(({ color, border }) => (
+                  <button
+                    key={color}
+                    onClick={() => {
+                      editor.chain().focus().setColor(color).run();
+                      setSelectedColor(color);
+                    }}
+                    className={`btn btn-xs btn-square border-[${border}] flex p-1 `}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ color: color }}
+                      className={`size-4 ${color ? `text-[${color}]` : "text-[#eae8e8]"}`}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        style={{ color: color }}
-                        className={`size-4 ${color ? `text-[${color}]` : "text-[#eae8e8]"}`}
-                      >
-                        <path d="M14 16.5a.5.5 0 0 0 .5.5h.5a2 2 0 0 1 0 4H9a2 2 0 0 1 0-4h.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5V8a2 2 0 0 1-4 0V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3a2 2 0 0 1-4 0v-.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5Z" />
-                      </svg>
-                    </button>
-                  ))}
-                </div>
+                      <path d="M14 16.5a.5.5 0 0 0 .5.5h.5a2 2 0 0 1 0 4H9a2 2 0 0 1 0-4h.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5V8a2 2 0 0 1-4 0V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3a2 2 0 0 1-4 0v-.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5Z" />
+                    </svg>
+                  </button>
+                ))}
               </div>
-            )}
-          </button>
+            </ul>
+          </div>
 
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleHighlight({ color: "#faf594" }).run()}
-            className={`size-5 hover:bg-neutral-200 rounded-md dark:hover:bg-neutral-700 p-1 relative group ${
-              editor.isActive("highlight") ? "bg-neutral-200 dark:bg-neutral-700" : ""
-            }`}
+            className={`btn btn-square btn-xs btn-ghost p-1 relative group ${editor.isActive("highlight") ? "bg-base-300" : ""}`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -177,12 +159,12 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
               <path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4" />
             </svg>
 
-            <span className="group-hover:flex hidden dark:bg-neutral-700 dark:text-neutral-200 dark:border-neutral-500 bg-white shadow-md px-2 py-1 text-sm text-neutral-500 border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
+            <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
               Text Highlight
             </span>
           </button>
         </div>
-        <div className="border-r dark:border-neutral-600"></div>
+        <div className="divider divider-horizontal mx-0 "></div>
 
         {/* text aligns */}
 
@@ -190,15 +172,13 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
           <button
             type="button"
             onClick={() => editor.chain().focus().setTextAlign("left").run()}
-            className={` hover:bg-neutral-200 rounded-md dark:hover:bg-neutral-700 p-1 relative group ${
-              editor.isActive({ textAlign: "left" }) ? "bg-neutral-200 dark:bg-neutral-700" : ""
-            }`}
+            className={` btn btn-square btn-xs btn-ghost p-1 relative group ${editor.isActive({ textAlign: "left" }) ? "bg-base-300" : ""}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
             </svg>
 
-            <span className="group-hover:flex hidden dark:bg-neutral-700 dark:text-neutral-200 dark:border-neutral-500 bg-white shadow-md px-2 py-1 text-sm text-neutral-500 border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
+            <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
               Left Align
             </span>
           </button>
@@ -206,9 +186,7 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
           <button
             type="button"
             onClick={() => editor.chain().focus().setTextAlign("center").run()}
-            className={`hover:bg-neutral-200 rounded-md dark:hover:bg-neutral-700 p-1 relative group ${
-              editor.isActive({ textAlign: "center" }) ? "bg-neutral-200 dark:bg-neutral-700" : ""
-            }`}
+            className={`btn btn-square btn-xs btn-ghost p-1 relative group ${editor.isActive({ textAlign: "center" }) ? "bg-base-300" : ""}`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -225,7 +203,7 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
               <path d="M21 6H3" />
             </svg>
 
-            <span className="group-hover:flex hidden dark:bg-neutral-700 dark:text-neutral-200 dark:border-neutral-500 bg-white shadow-md px-2 py-1 text-sm text-neutral-500 border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
+            <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
               Center Align
             </span>
           </button>
@@ -233,30 +211,26 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
           <button
             type="button"
             onClick={() => editor.chain().focus().setTextAlign("right").run()}
-            className={`hover:bg-neutral-200 rounded-md dark:hover:bg-neutral-700 p-1 relative group ${
-              editor.isActive({ textAlign: "right" }) ? "bg-neutral-200 dark:bg-neutral-700" : ""
-            }`}
+            className={`btn btn-square btn-xs btn-ghost p-1 relative group ${editor.isActive({ textAlign: "right" }) ? "bg-base-300" : ""}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25" />
             </svg>
 
-            <span className="group-hover:flex hidden dark:bg-neutral-700 dark:text-neutral-200 dark:border-neutral-500 bg-white shadow-md px-2 py-1 text-sm text-neutral-500 border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
+            <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
               Right Align
             </span>
           </button>
         </div>
 
-        <div className="border-r dark:border-neutral-600"></div>
+        <div className="divider divider-horizontal mx-0 "></div>
 
         {/* headingsss */}
         <div className="flex  items-center gap-1">
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-            className={`hover:bg-neutral-200 rounded-md  dark:hover:bg-neutral-700 p-1  relative group ${
-              editor.isActive("heading", { level: 1 }) ? "bg-neutral-200 dark:bg-neutral-700" : ""
-            }`}
+            className={`btn btn-square btn-xs btn-ghost p-1 relative grou ${editor.isActive("heading", { level: 1 }) ? "bg-base-300" : ""}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-4">
               <path
@@ -266,7 +240,7 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
               />
             </svg>
 
-            <span className="group-hover:flex hidden dark:bg-neutral-700 dark:text-neutral-200 dark:border-neutral-500 bg-white shadow-md px-2 py-1 text-sm text-neutral-500 border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
+            <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
               Heading 1
             </span>
           </button>
@@ -274,9 +248,7 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-            className={`hover:bg-neutral-200 rounded-md dark:hover:bg-neutral-700 p-1 relative group ${
-              editor.isActive("heading", { level: 2 }) ? "bg-neutral-200 dark:bg-neutral-700" : ""
-            }`}
+            className={`btn btn-square btn-xs btn-ghost p-1 relative group ${editor.isActive("heading", { level: 2 }) ? "bg-base-300" : ""}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-4">
               <path
@@ -286,7 +258,7 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
               />
             </svg>
 
-            <span className="group-hover:flex hidden dark:bg-neutral-700 dark:text-neutral-200 dark:border-neutral-500 bg-white shadow-md px-2 py-1 text-sm text-neutral-500 border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
+            <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
               Heading 2
             </span>
           </button>
@@ -294,9 +266,7 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-            className={`hover:bg-neutral-200 rounded-md dark:hover:bg-neutral-700 p-1 relative group ${
-              editor.isActive("heading", { level: 3 }) ? "bg-neutral-200 dark:bg-neutral-700" : ""
-            }`}
+            className={`btn btn-square btn-xs btn-ghost p-1 relative group ${editor.isActive("heading", { level: 3 }) ? "bg-base-300" : ""}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="size-4">
               <path
@@ -306,22 +276,18 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
               />
             </svg>
 
-            <span className="group-hover:flex hidden dark:bg-neutral-700 dark:text-neutral-200 dark:border-neutral-500 bg-white shadow-md px-2 py-1 text-sm text-neutral-500 border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
+            <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
               Heading 3
             </span>
           </button>
         </div>
-        <div className="border-r dark:border-neutral-600"></div>
-
-        {/* bullet ordered andddd takslsit */}
+        <div className="divider divider-horizontal mx-0 "></div>
 
         <div className="flex  items-center gap-1">
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleBulletList().run()}
-            className={`hover:bg-neutral-200  rounded-md p-1 dark:hover:bg-neutral-700 relative group ${
-              editor.isActive("bulletList") ? "bg-neutral-200 dark:bg-neutral-700" : ""
-            }`}
+            className={`btn btn-square btn-xs btn-ghost p-1 relative group ${editor.isActive("bulletList") ? "bg-base-300" : ""}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
               <path
@@ -331,7 +297,7 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
               />
             </svg>
 
-            <span className="group-hover:flex hidden dark:bg-neutral-700 dark:text-neutral-200 dark:border-neutral-500 bg-white shadow-md px-2 py-1 text-sm text-neutral-500 border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
+            <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
               Unordered List
             </span>
           </button>
@@ -339,9 +305,7 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleOrderedList().run()}
-            className={`hover:bg-neutral-200 rounded-md p-1 dark:hover:bg-neutral-700 relative group ${
-              editor.isActive("orderedList") ? "bg-neutral-200 dark:bg-neutral-700" : ""
-            }`}
+            className={`btn btn-square btn-xs btn-ghost p-1 relative group ${editor.isActive("orderedList") ? "bg-base-300" : ""}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
               <path
@@ -351,16 +315,14 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
               />
             </svg>
 
-            <span className="group-hover:flex hidden dark:bg-neutral-700 dark:text-neutral-200 dark:border-neutral-500 bg-white shadow-md px-2 py-1 text-sm text-neutral-500 border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
+            <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
               Ordered List
             </span>
           </button>
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleTaskList().run()}
-            className={`hover:bg-neutral-200 rounded-md dark:hover:bg-neutral-700 p-1 relative group ${
-              editor.isActive("taskList") ? "bg-neutral-200 dark:bg-neutral-700" : ""
-            }`}
+            className={`btn btn-square btn-xs btn-ghost p-1 relative group ${editor.isActive("taskList") ? "bg-base-300" : ""}`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -376,26 +338,24 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
               <path d="m9 11 3 3L22 4" />
             </svg>
 
-            <span className="group-hover:flex hidden dark:bg-neutral-700 dark:text-neutral-200 dark:border-neutral-500 bg-white shadow-md px-2 py-1 text-sm text-neutral-500 border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
+            <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
               Task List
             </span>
           </button>
         </div>
 
-        <div className="border-r dark:border-neutral-600"></div>
+        <div className="divider divider-horizontal mx-0 "></div>
 
         <div className="flex  items-center gap-1">
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-            className={`hover:bg-neutral-200 rounded-md dark:hover:bg-neutral-700 p-1 relative group ${
-              editor.isActive("codeBlock") ? "bg-neutral-200 dark:bg-neutral-700" : ""
-            }`}
+            className={`btn btn-square btn-xs btn-ghost p-1 relative group ${editor.isActive("codeBlock") ? "bg-base-300" : ""}`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
             </svg>
-            <span className="group-hover:flex hidden dark:bg-neutral-700 dark:text-neutral-200 dark:border-neutral-500 bg-white shadow-md px-2 py-1 text-sm text-neutral-500 border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
+            <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
               Toggle CodeBlock
             </span>
           </button>

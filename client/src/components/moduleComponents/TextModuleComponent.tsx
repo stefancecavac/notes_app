@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
 import { useUpdateTextModule } from "../../api/modulesApi/TextModuleApi";
 import { moduleData } from "../../dataTypes";
-import FloatingMenuBar from "../textEditor/FloatingMenuBar";
 import BubbleMenuBar from "../textEditor/BubbleMenuBar";
+import { FloatingMenuBar } from "../textEditor/FloatingMenuBar";
 
 const TextModuleComponent = ({ module }: { module: moduleData }) => {
   const { updateTextModule } = useUpdateTextModule({ noteId: module.noteId });
@@ -52,10 +52,9 @@ const TextModuleComponent = ({ module }: { module: moduleData }) => {
   }, [debouncedContent]);
   return (
     <div className={`h-fit relative  rounded-lg p-2   flex flex-col hover:cursor-text`}>
-      <FloatingMenuBar editor={editor!}></FloatingMenuBar>
-      <BubbleMenuBar editor={editor!}></BubbleMenuBar>
-
-      <EditorComponent editor={editor!}></EditorComponent>
+      <FloatingMenuBar editor={editor!} />
+      <BubbleMenuBar editor={editor!} />
+      <EditorComponent editor={editor!} />
     </div>
   );
 };
