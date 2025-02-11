@@ -1,3 +1,4 @@
+import { MouseEvent, useState } from "react";
 import { noteData, notesData } from "../../dataTypes";
 import { NoteMoveModal } from "../noteViewPage/NoteMoveModal";
 
@@ -6,20 +7,15 @@ type moveNoteButtonProps = {
 };
 
 export const MoveNoteButton = ({ note }: moveNoteButtonProps) => {
-  const handleOpenMoveModal = () => {
-    const modal = document.getElementById("move-modal") as HTMLDialogElement;
-    if (modal) {
-      modal.showModal();
-    }
+  const [modal, setModal] = useState(false);
+
+  const handleOpenModal = (e: MouseEvent<HTMLButtonElement, MouseEvent<Element, MouseEvent<Element, MouseEvent>>>) => {
+    e.stopPropagation();
+    setModal(true);
   };
 
   return (
-    <button
-      onClick={() => {
-        handleOpenMoveModal();
-      }}
-      className="flex items-center gap-4  text-sm btn btn-sm justify-start btn-ghost p-1 rounded-sm"
-    >
+    <button onClick={(e) => handleOpenModal(e)} className="flex items-center gap-4  text-sm btn btn-sm justify-start btn-ghost p-1 rounded-sm">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -36,7 +32,7 @@ export const MoveNoteButton = ({ note }: moveNoteButtonProps) => {
 
       <p>Move Note</p>
 
-      <NoteMoveModal singleNote={note}></NoteMoveModal>
+      {modal && <NoteMoveModal closeModal={() => setModal(false)} singleNote={note} />}
     </button>
   );
 };

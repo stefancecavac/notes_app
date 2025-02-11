@@ -66,12 +66,9 @@ const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }
         <div onClick={() => setOpenMenu(false)} className="absolute inset-0 z-50">
           <div ref={menuRef} style={{ position: "absolute", top: `${menuPosition.top}px`, left: `${menuPosition.left}px`, zIndex: 50 }}>
             <div className={`  flex flex-col  bg-base-200 rounded-md p-1 w-60  shadow-md border-neutral border-2`}>
-              <FavouriteButton note={note}></FavouriteButton>
-
-              <AddSubPageButton note={note}></AddSubPageButton>
-
+              <FavouriteButton note={note} />
+              <AddSubPageButton note={note} />
               <div className="divider my-0 "></div>
-
               <button
                 onClick={(e) => {
                   setRenameMenu(true);
@@ -89,11 +86,8 @@ const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }
 
                 <p>Rename</p>
               </button>
-
-              <DuplicateNoteButton note={note}></DuplicateNoteButton>
-
-              <MoveNoteButton note={note}></MoveNoteButton>
-
+              <DuplicateNoteButton note={note} />
+              <MoveNoteButton note={note} />
               {noteId !== note.id && location.pathname.includes("/notes/") && (
                 <Link
                   to={`/notes-split/${noteId}/${note.id}`}
@@ -122,7 +116,7 @@ const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }
 
               <div className="divider  my-0"></div>
 
-              <DeleteButton note={note}></DeleteButton>
+              <DeleteButton note={note} />
             </div>
           </div>
         </div>,

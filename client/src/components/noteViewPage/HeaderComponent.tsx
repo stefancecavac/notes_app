@@ -25,7 +25,7 @@ const HeaderComponent = ({ singleNote, singleNoteLoading }: { singleNote: noteDa
                   className={`${
                     index === array.length - 1 && "font-bold text-base-content"
                   } text-info-content hover:underline gap-2 text-xs flex items-center`}
-                  to={`/notes/${crumb.noteId}/${crumb.noteTitle}`}
+                  to={`/notes/${crumb.noteId}`}
                 >
                   {crumb.icon ? (
                     <div className="size-4 " dangerouslySetInnerHTML={{ __html: crumb.icon }}></div>

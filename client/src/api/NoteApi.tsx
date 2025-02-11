@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../config/ApiClient";
 import { useToastStore } from "../Stores/useToastNotificationToast";
 
-export const useSearchNotes = (q: string) => {
+export const useSearchNotes = (q: string | null) => {
   const fetchAllNotes = async () => {
     const response = await axiosInstance.get(`/api/notes/search`, {
       params: { q },
@@ -61,7 +61,6 @@ export const useGetSingleNote = ({ noteId }: { noteId: string }) => {
   const { data: singleNote, isFetching: singleNoteLoading } = useQuery({
     queryKey: ["note", noteId],
     queryFn: fetchSingleNote,
-    enabled: !!noteId,
   });
 
   return { singleNote, singleNoteLoading };

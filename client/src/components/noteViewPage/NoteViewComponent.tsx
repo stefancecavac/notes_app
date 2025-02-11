@@ -85,43 +85,47 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
     }
   }, [debouncedNoteState]);
 
+  if (singleNoteLoading)
+    return (
+      <div className="flex flex-col flex-1 gap-2 w-full h-full">
+        <div className="p-2">
+          <SkeletonLoader height={20} width={150}></SkeletonLoader>
+        </div>
+        <div className="flex items-center  ml-50 mt-30 mb-30">
+          <SkeletonLoader height={70} width={300}></SkeletonLoader>
+        </div>
+        <div className="flex  justify-center h-full">
+          <SkeletonLoader height={300} width={800}></SkeletonLoader>
+        </div>
+      </div>
+    );
+
   return (
     <div ref={setDroppableRef} className="flex flex-col flex-1 h-full w-full group/global overflow-auto ">
       <HeaderComponent singleNoteLoading={singleNoteLoading} singleNote={singleNote}></HeaderComponent>
 
       <div className="group/titleItems ">
-        {singleNoteLoading ? (
-          <SkeletonLoader height={200} width={"100%"}></SkeletonLoader>
-        ) : (
-          <div
-            style={{ background: noteState.color }}
-            className={`${noteState.color === "" ? "py-7 " : "py-24 "}  relative  transition-all flex items-center justify-center   `}
-          >
-            <ColorPicker setNoteState={setNoteState}></ColorPicker>
-          </div>
-        )}
+        <div
+          style={{ background: noteState.color }}
+          className={`${noteState.color === "" ? "py-7 " : "py-24 "}  relative  transition-all flex items-center justify-center   `}
+        >
+          <ColorPicker setNoteState={setNoteState}></ColorPicker>
+        </div>
 
         <div
           className={`${!wideMode ? "lg:mx-60 " : "lg:mx-20 "} mx-20 relative sm:mx-5 ${
             noteState.color === "" ? "mt-10" : "mt-14"
           }    transition-all`}
         >
-          {singleNoteLoading ? (
-            <div className="flex flex-col gap-2">
-              <SkeletonLoader height={40} width={300}></SkeletonLoader>
-              <SkeletonLoader height={20} width={100}></SkeletonLoader>
-            </div>
-          ) : (
-            <div className="flex flex-col  ">
-              <IconPicker noteState={noteState} setNoteState={setNoteState}></IconPicker>
-              <input
-                onChange={(e) => setNoteState((prev) => ({ ...prev, title: e.target.value }))}
-                value={noteState.title || singleNote?.title || ""}
-                className="focus:outline-hidden text-4xl h-full font-bold bg-transparent input-lg input-ghost  w-full   "
-              ></input>
-              <TagHandleComponent singleNote={singleNote}></TagHandleComponent>
-            </div>
-          )}
+          <div className="flex flex-col  ">
+            <IconPicker noteState={noteState} setNoteState={setNoteState}></IconPicker>
+            <input
+              onChange={(e) => setNoteState((prev) => ({ ...prev, title: e.target.value }))}
+              value={noteState.title || singleNote?.title || ""}
+              className="focus:outline-hidden text-4xl h-full font-bold bg-transparent input-lg input-ghost  w-full   "
+            ></input>
+            <TagHandleComponent singleNote={singleNote}></TagHandleComponent>
+          </div>
         </div>
       </div>
 

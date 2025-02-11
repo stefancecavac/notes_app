@@ -1,17 +1,29 @@
-import { createPortal } from "react-dom";
 import { useGraphNotes, useMoveNote } from "../../api/NoteApi";
 import { noteData, notesData } from "../../dataTypes";
+import { useEffect, useRef } from "react";
 
 type noteMoveModalProps = {
   singleNote: notesData | noteData;
+  closeModal: () => void;
 };
 
-export const NoteMoveModal = ({ singleNote }: noteMoveModalProps) => {
+export const NoteMoveModal = ({ singleNote, closeModal }: noteMoveModalProps) => {
   const { graphNotes } = useGraphNotes();
   const { moveNote } = useMoveNote();
+  const modalRef = useRef<HTMLDialogElement>(null);
 
-  return createPortal(
-    <dialog id="move-modal" className="modal  rounded-md border p-2 ">
+  useEffect(() => {
+    if (modalRef.current) {
+      modalRef.current.showModal();
+    }
+  }, []);
+
+  const handleClose = (e: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
+    e.stopPropagation();
+    closeModal();
+  };
+  return (
+    <dialog ref={modalRef} id="move-modal" className="modal  rounded-md border p-2 " onCancel={closeModal}>
       <div className="modal-box bg-base-100x">
         <h3 className="font-bold text-lg">Move to:</h3>
 
@@ -61,10 +73,9 @@ export const NoteMoveModal = ({ singleNote }: noteMoveModalProps) => {
         </div>
       </div>
 
-      <form method="dialog" className="modal-backdrop">
+      <form method="dialog" onClick={(e) => handleClose(e)} className="modal-backdrop">
         <button>close</button>
       </form>
-    </dialog>,
-    document.body
+    </dialog>
   );
 };
