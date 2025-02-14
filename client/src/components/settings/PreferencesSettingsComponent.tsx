@@ -1,7 +1,7 @@
-import { useDarkModeStore } from "../../Stores/useDarkModeStore";
+import { useThemeChangerStore } from "../../Stores/useThemeChangerStore";
 
 const PreferencesSettingsComponent = () => {
-  const { darkMode, toggleTheme } = useDarkModeStore();
+  const { darkMode, toggleTheme } = useThemeChangerStore();
 
   return (
     <div className="flex-1 px-20">

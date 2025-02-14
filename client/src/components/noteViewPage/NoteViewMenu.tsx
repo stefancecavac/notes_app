@@ -16,7 +16,7 @@ const NoteViewMenu = ({ singleNote }: { singleNote: noteData }) => {
 
   return (
     <>
-      <button onClick={() => setMenuOpen((prev) => !prev)} className="rounded-md btn btn-square btn-xs btn-ghost  hover:bg-base-200">
+      <button onClick={() => setMenuOpen((prev) => !prev)} className="rounded-md btn  btn-square btn-xs btn-ghost  hover:bg-base-200">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-7">
           <path
             strokeLinecap="round"

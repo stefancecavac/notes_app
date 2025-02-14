@@ -2,7 +2,7 @@
 
 @import "tailwindcss";
 
-/* @plugin '@tailwindcss/typography'; */
+@plugin '@tailwindcss/typography';
 
 
 @plugin "daisyui" {
@@ -43,14 +43,38 @@
   --color-error-content: oklch(98% 0.01 30); /* Light text for error elements */
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: true;
+  --color-base-100: #1a1a1a; /* Dark background */
+  --color-base-200: oklch(0.15 0.01 106.424); /* Slightly lighter dark background */
+  --color-base-300: oklch(20.54% 0.003 48.717); /* Even lighter for elements */
+  --color-base-content: #e0e0e0; /* Light text for readability */
+
+  --color-primary: oklch(50% 0.2 0); /* Dark red */
+  --color-primary-content: oklch(90% 0.01 240); /* Light text for primary elements */
+
+  --color-secondary: oklch(50% 0.15 210); /* Muted purple-blue */
+  --color-secondary-content: oklch(90% 0.01 210); /* Light text for secondary elements */
+
+  --color-accent: oklch(55% 0.2 140); /* Dark green for accents */
+  --color-accent-content: oklch(90% 0.01 140); /* Light text for accent elements */
+
+  --color-neutral: #2a2a2a; /* Dark neutral background */
+  --color-neutral-content: oklch(90% 0.05 240); /* Light text for neutral elements */
+
+
+  --color-info: oklch(80% 0.1 220); /* Soft blue for info */
+  --color-info-content: #8f8d89; /* Light text for info elements */
+  --color-success: oklch(75.07% 0.2155 144.88); /* Soft green for success */
+  --color-success-content: oklch(98% 0.01 130); /* Light text for success elements */
+  --color-warning: oklch(90% 0.1 50); /* Subtle yellow for warning */
+  --color-warning-content: oklch(20% 0.05 50); /* Darker text for warning */
+  --color-error: oklch(70% 0.2 30); /* Light red for error */
+  --color-error-content: oklch(98% 0.01 30); /* Light text for error elements */
+}
+
 
 .tiptap ul p,
 .tiptap ol p {

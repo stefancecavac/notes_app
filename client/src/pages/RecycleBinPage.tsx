@@ -5,19 +5,17 @@ import NoteCard from "../components/NoteCard";
 const RecycleBinPage = () => {
   const { recycleBinNotes, recycleBinNotesLoading, recycleBinError } = useGetRecycleBinNotes();
 
-  <div></div>;
-
   return (
-    <div className="p-5 flex flex-col h-full px-20 overflow-auto">
-      <h2 className="text-3xl font-bold">Recycle Bin</h2>
-      <p className="text-gray-500 mt-2">All your deleted notes are here. You can restore or permanently delete them.</p>
-      <p className="text-gray-500">Notes will be automatically deleted after 7 days in the recycle bin.</p>
+    <div className="p-5 flex flex-col h-full w-full px-20 overflow-auto">
+      <h2 className="text-3xl font-bold text-base-content">Recycle Bin</h2>
+      <p className="text-info-content mt-2 text-sm">All your deleted notes are here. You can restore or permanently delete them.</p>
+      <p className="text-info-content text-sm">Notes will be automatically deleted after 7 days in the recycle bin.</p>
 
       <div className="mt-5 flex flex-col  ">
         {recycleBinError && (
-          <div className="text-gray-400 flex items-center justify-center  mt-20 gap-5">
+          <div className=" flex items-center justify-center  mt-20 gap-5">
             <svg
-              className="size-20"
+              className="size-20 text-info-content"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="none"
@@ -31,7 +29,7 @@ const RecycleBinPage = () => {
               <path d="M20 13v3.87a2.06 2.06 0 0 1-1.11 1.83l-6 3.08a1.93 1.93 0 0 1-1.78 0l-6-3.08A2.06 2.06 0 0 1 4 16.87V13" />
               <path d="M21 12.43a1.93 1.93 0 0 0 0-3.36L8.83 2.2a1.64 1.64 0 0 0-1.63 0L3 4.57a1.93 1.93 0 0 0 0 3.36l12.18 6.86a1.636 1.636 0 0 0 1.63 0z" />
             </svg>
-            <p className="text-xl">No notes in Recycle Bin</p>
+            <p className="text-xl text-info-content">No notes in Recycle Bin</p>
           </div>
         )}
         {recycleBinNotesLoading && <LoaderComponent></LoaderComponent>}

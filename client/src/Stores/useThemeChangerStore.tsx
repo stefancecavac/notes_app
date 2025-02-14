@@ -1,17 +1,17 @@
 import { create } from "zustand";
 
-type DarkModeState = {
+type ThemeState = {
   darkMode: boolean;
   toggleTheme: () => void;
 };
 
-export const useDarkModeStore = create<DarkModeState>((set) => {
+export const useThemeChangerStore = create<ThemeState>((set) => {
   const initialTheme = localStorage.getItem("theme") === "dark";
 
   if (initialTheme) {
-    document.documentElement.classList.add("dark");
+    document.documentElement.setAttribute("data-theme", "dark");
   } else {
-    document.documentElement.classList.remove("dark");
+    document.documentElement.setAttribute("data-theme", "light");
   }
 
   return {
@@ -21,9 +21,9 @@ export const useDarkModeStore = create<DarkModeState>((set) => {
         const newTheme = !state.darkMode;
         localStorage.setItem("theme", newTheme ? "dark" : "light");
         if (newTheme) {
-          document.documentElement.classList.add("dark");
+          document.documentElement.setAttribute("data-theme", "dark");
         } else {
-          document.documentElement.classList.remove("dark");
+          document.documentElement.setAttribute("data-theme", "light");
         }
         return { darkMode: newTheme };
       }),

@@ -17,7 +17,7 @@ type moduleComponentProps = {
 const ModuleComponent = ({ module, nextModule, singleNote, singleNoteLoading }: moduleComponentProps) => {
   const { deleteModule } = useDeleteModule();
 
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
     id: module?.id,
     data: {
       noteId: module?.noteId,
@@ -27,8 +27,6 @@ const ModuleComponent = ({ module, nextModule, singleNote, singleNoteLoading }: 
   const style = {
     transform: CSS.Translate.toString(transform),
     transition,
-    backgroundColor: isDragging ? " #f5f5f5" : "white",
-    textColor: isDragging ? " #f5f5f5" : "",
   };
 
   if (singleNoteLoading) return <SkeletonLoader height={100} width={"100%"}></SkeletonLoader>;

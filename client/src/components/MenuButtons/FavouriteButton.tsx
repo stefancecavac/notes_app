@@ -19,7 +19,7 @@ export const FavouriteButton = ({ note }: favouriteButtonProps) => {
       onClick={() => {
         handleFavourite({ noteId: note.id });
       }}
-      className="flex items-center gap-4  text-sm btn btn-sm justify-start btn-ghost p-1 rounded-sm"
+      className="flex  hover:bg-base-300 items-center gap-4  text-sm btn btn-sm justify-start btn-ghost p-1 rounded-sm"
     >
       {note.favourite ? (
         <>

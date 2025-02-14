@@ -4,7 +4,9 @@ const DashboardLink = () => {
   return (
     <NavLink
       to={"/dashboard"}
-      className={({ isActive }) => ` btn btn-ghost btn-sm justify-start p-1    rounded-lg flex items-center gap-4  ${isActive ? "bg-base-300 " : ""}`}
+      className={({ isActive }) =>
+        ` btn btn-ghost btn-sm justify-start p-1 hover:bg-base-300   rounded-lg flex items-center gap-4  ${isActive ? "bg-base-300 " : ""}`
+      }
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

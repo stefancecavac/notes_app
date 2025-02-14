@@ -15,7 +15,10 @@ export const MoveNoteButton = ({ note }: moveNoteButtonProps) => {
   };
 
   return (
-    <button onClick={(e) => handleOpenModal(e)} className="flex items-center gap-4  text-sm btn btn-sm justify-start btn-ghost p-1 rounded-sm">
+    <button
+      onClick={(e) => handleOpenModal(e)}
+      className="flex hover:bg-base-300 items-center gap-4  text-sm btn btn-sm justify-start btn-ghost p-1 rounded-sm"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

@@ -51,7 +51,7 @@ export const NoteListCard = ({ note }: noteListCardProps) => {
           if (openMenu) e.preventDefault();
         }}
         className={({ isActive }) =>
-          `relative transition-all p-0.5  items-center border border-base-200 flex group  gap-2 rounded-md group hover:cursor-pointer hover:bg-base-300 ${
+          `relative transition-all p-0.5    items-center border border-base-200 flex group  gap-2 rounded-md group hover:cursor-pointer hover:bg-base-300 ${
             isActive ? "bg-base-300 font-bold border-neutral" : ""
           }`
         }

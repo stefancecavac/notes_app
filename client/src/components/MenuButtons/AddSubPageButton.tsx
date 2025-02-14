@@ -11,7 +11,7 @@ export const AddSubPageButton = ({ note }: addSubPageButtonProps) => {
   return (
     <button
       onClick={() => createNote({ parentNoteId: note.id, title: "New page", content: "" })}
-      className="flex items-center gap-4  text-sm btn btn-sm justify-start btn-ghost p-1 rounded-sm"
+      className="flex hover:bg-base-300 items-center gap-4  text-sm btn btn-sm justify-start btn-ghost p-1 rounded-sm"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

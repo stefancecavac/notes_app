@@ -51,7 +51,7 @@ const TextModuleComponent = ({ module }: { module: moduleData }) => {
     }
   }, [debouncedContent]);
   return (
-    <div className={`h-fit relative  rounded-lg p-2   flex flex-col hover:cursor-text`}>
+    <div className={`h-fit relative  rounded-lg p-2 bg-base-100    flex flex-col hover:cursor-text`}>
       <FloatingMenuBar editor={editor!} />
       <BubbleMenuBar editor={editor!} />
       <EditorComponent editor={editor!} />
