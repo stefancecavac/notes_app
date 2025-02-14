@@ -7,6 +7,7 @@ import { FavouriteButton } from "../MenuButtons/FavouriteButton";
 import { AddSubPageButton } from "../MenuButtons/AddSubPageButton";
 import { DuplicateNoteButton } from "../MenuButtons/DuplicateNoteButton";
 import { MoveNoteButton } from "../MenuButtons/MoveNoteButton";
+import { DeleteButton } from "../MenuButtons/DeleteButton";
 
 const NoteViewMenu = ({ singleNote }: { singleNote: noteData }) => {
   const { toggleWideMode, wideMode } = useWideModeStore();
@@ -35,18 +36,18 @@ const NoteViewMenu = ({ singleNote }: { singleNote: noteData }) => {
               </label>
             )}
 
-            <FavouriteButton note={singleNote}></FavouriteButton>
+            <FavouriteButton note={singleNote} />
 
-            <AddSubPageButton note={singleNote}></AddSubPageButton>
+            <AddSubPageButton note={singleNote} />
+            <div className="divider my-0"></div>
+
+            <DuplicateNoteButton note={singleNote} />
+
+            <MoveNoteButton note={singleNote} />
 
             <div className="divider my-0"></div>
 
-            <DuplicateNoteButton note={singleNote}></DuplicateNoteButton>
-
-            <MoveNoteButton note={singleNote}></MoveNoteButton>
-
-            <div className="divider my-0"></div>
-
+            <DeleteButton note={singleNote} />
             <div className="flex flex-col gap-2  mt-3">
               <p className=" py-2  font-medium  pl-2 text-info-content">Note Details</p>
 

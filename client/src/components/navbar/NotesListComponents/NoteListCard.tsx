@@ -52,7 +52,7 @@ export const NoteListCard = ({ note }: noteListCardProps) => {
         }}
         className={({ isActive }) =>
           `relative transition-all p-0.5  items-center border border-base-200 flex group  gap-2 rounded-md group hover:cursor-pointer hover:bg-base-300 ${
-            isActive ? "bg-base-300 font-black  border-neutral" : ""
+            isActive ? "bg-base-300 font-bold border-neutral" : ""
           }`
         }
       >
@@ -103,7 +103,7 @@ export const NoteListCard = ({ note }: noteListCardProps) => {
           </button>
         </div>
 
-        <p className=" truncate flex-1 text-xs py-1 font-medium ">{note?.title}</p>
+        <p className=" truncate flex-1 text-xs py-1  ">{note?.title}</p>
 
         <div className="relative shrink-0 flex items-center">
           <button

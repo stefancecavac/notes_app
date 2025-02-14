@@ -4,21 +4,22 @@ import { noteData } from "../../dataTypes";
 import { axiosInstance } from "../../config/ApiClient";
 import { useToastStore } from "../../Stores/useToastNotificationToast";
 
-export const useCreateTextModule = () => {
+export const useCreateImageModule = () => {
   const { noteId } = useParams();
   const queryClient = useQueryClient();
   const { showToast } = useToastStore();
 
-  const postTextModuleApi = async ({ content, order, noteId }: { content: string; order?: number; noteId?: string }) => {
-    const response = await axiosInstance.post(`/api/notes/modules/text-module`, { content, order, noteId }, { withCredentials: true });
+  const postImageModuleApi = async ({ imagePath, order, noteId }: { imagePath: string; order?: number; noteId?: string }) => {
+    const response = await axiosInstance.post(`/api/notes/modules/image-module`, { imagePath, order, noteId }, { withCredentials: true });
     return response.data as noteData;
   };
 
-  const { mutate: createTextModule } = useMutation({
+  const { mutate: createImageModule } = useMutation({
     mutationKey: ["text-module"],
-    mutationFn: postTextModuleApi,
+    mutationFn: postImageModuleApi,
     onSuccess: (data) => {
-      showToast({ type: "SUCCESS", message: "Text module created" });
+      showToast({ type: "SUCCESS", message: "Image module created" });
+
       queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
         return {
           ...oldData,
@@ -29,34 +30,36 @@ export const useCreateTextModule = () => {
     },
   });
 
-  return { createTextModule };
+  return { createImageModule };
 };
 
-export const useUpdateTextModule = ({ noteId }: { noteId: string }) => {
+export const useUpdateImageModule = ({ noteId }: { noteId: string }) => {
   const queryClient = useQueryClient();
 
-  const updateTextModuleApi = async ({
-    content,
+  const updateImageModuleApi = async ({
+    width,
+    height,
     order,
     moduleId,
     noteId,
   }: {
-    content?: string;
+    width: number;
+    height: number;
     order?: number;
     moduleId: string;
     noteId: string;
   }) => {
     const response = await axiosInstance.put(
-      `/api/notes/modules/text-module/update`,
-      { content, order, moduleId, noteId },
+      `/api/notes/modules/image-module/update`,
+      { width, height, order, moduleId, noteId },
       { withCredentials: true }
     );
     return response.data;
   };
 
-  const { mutate: updateTextModule } = useMutation({
+  const { mutate: updateImageModule } = useMutation({
     mutationKey: ["note", noteId],
-    mutationFn: updateTextModuleApi,
+    mutationFn: updateImageModuleApi,
     onSuccess(data) {
       queryClient.setQueryData(["note", noteId], (oldData: noteData | undefined) => {
         if (!oldData) return undefined;
@@ -66,5 +69,5 @@ export const useUpdateTextModule = ({ noteId }: { noteId: string }) => {
     },
   });
 
-  return { updateTextModule };
+  return { updateImageModule };
 };

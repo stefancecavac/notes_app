@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { moduleData, noteData } from "../../dataTypes";
 import { useParams } from "react-router-dom";
 import { axiosInstance } from "../../config/ApiClient";
+import { useToastStore } from "../../Stores/useToastNotificationToast";
 export const useUpdateModuleOrder = () => {
   const queryClient = useQueryClient();
   const { noteId } = useParams();
@@ -28,6 +29,7 @@ export const useUpdateModuleOrder = () => {
 export const useDeleteModule = () => {
   const queryClient = useQueryClient();
   const { noteId } = useParams();
+  const { showToast } = useToastStore();
 
   const deleteModuleApi = async ({ moduleId, noteId }: { moduleId: string; noteId: string }) => {
     const response = await axiosInstance.delete(`/api/notes/modules/delete-module`, {
@@ -41,6 +43,7 @@ export const useDeleteModule = () => {
     mutationKey: ["module"],
     mutationFn: deleteModuleApi,
     onSuccess: (data) => {
+      showToast({ type: "WARNING", message: `Module deleted` });
       queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
         return {
           ...oldData,

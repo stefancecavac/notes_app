@@ -6,12 +6,14 @@ type ToastType = {
 const ToastComponent = ({ message, type }: ToastType) => {
   return (
     <div
-      className={`p-2 z-50 slide-top border  text-sm flex items-center gap-1 py-3 bg-white text-neutral-700 fixed bottom-5 left-1/2 transform -translate-x-1/2   shadow-md  rounded-lg `}
+      className={`${
+        type === "SUCCESS" ? "bg-success" : "bg-error"
+      } p-2 z-50 slide-in-bottom border border-neutral  text-sm flex items-center gap-1 py-2  fixed bottom-5 left-1/2 transform -translate-x-1/2   shadow-md  rounded-lg `}
     >
       {type === "WARNING" && (
-        <div className="text-red-500 flex items-center gap-2">
-          <div className="rounded-lg p-1 bg-red-100">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+        <div className="text-white flex items-center gap-2">
+          <div className="rounded-lg p-1 bg-white/20">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -24,9 +26,9 @@ const ToastComponent = ({ message, type }: ToastType) => {
         </div>
       )}
       {type === "SUCCESS" && (
-        <div className="text-green-500 flex items-center gap-2">
-          <div className="rounded-lg p-1 bg-green-100">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+        <div className="text-white flex items-center gap-2">
+          <div className="rounded-lg p-1 bg-white/20">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

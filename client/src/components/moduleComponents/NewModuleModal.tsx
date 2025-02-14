@@ -2,6 +2,7 @@ import { useCreateTextModule } from "../../api/modulesApi/TextModuleApi";
 import { moduleData, noteData } from "../../dataTypes";
 import { useCreateNote } from "../../api/NoteApi";
 import { useParams } from "react-router-dom";
+import { useCreateImageModule } from "../../api/modulesApi/ImageModuleApi";
 
 type newModuleModalProps = {
   module?: moduleData;
@@ -12,6 +13,7 @@ type newModuleModalProps = {
 export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModalProps) => {
   const { createTextModule } = useCreateTextModule();
   const { createNote } = useCreateNote();
+  const { createImageModule } = useCreateImageModule();
 
   const { noteId } = useParams();
 
@@ -28,6 +30,17 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
     if (modal) {
       modal.showModal();
     }
+  };
+
+  const handleUploadPic = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const base64Image = reader.result as string;
+      createImageModule({ imagePath: base64Image, order: calculateOrder(module!.order, nextModule?.order), noteId: singleNote?.id });
+    };
   };
 
   return (
@@ -99,7 +112,8 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
                 <p className="text-xs text-info-content font-thin">Add text block </p>
               </div>
             </button>
-            <button className=" items-center btn btn-ghost  h-full justify-start  flex p-1  gap-5">
+            <label className=" items-center btn btn-ghost  h-full justify-start  flex p-1  gap-5">
+              <input onChange={handleUploadPic} type="file" className="appearance-none hidden input"></input>
               <div className="rounded-lg  p-1 bg-neutral/50">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +136,7 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
                 <p className="text-sm">Image </p>
                 <p className="text-xs text-info-content font-thin">Insert an image </p>
               </div>
-            </button>
+            </label>
             <button className=" items-center btn btn-ghost  h-full justify-start  flex p-1  gap-5">
               <div className="rounded-lg  p-1 bg-neutral/50">
                 <svg

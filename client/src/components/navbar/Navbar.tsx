@@ -24,7 +24,7 @@ const Navbar = () => {
       </div>
       {expanded && (
         <div className={`px-2  flex  flex-col justify-between  h-full`}>
-          <div className={` flex flex-col  gap-1 mt-3 `}>
+          <div className={` flex flex-col gap-1  mt-3 `}>
             <DashboardLink></DashboardLink>
             <SearchComponent></SearchComponent>
             <NewItemButton></NewItemButton>

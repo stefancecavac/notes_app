@@ -9,7 +9,7 @@ import { PrismaClient } from "@prisma/client";
 dotenv.config();
 
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: "10mb" }));
 
 const corsOptions = {
   origin: "http://localhost:5173",

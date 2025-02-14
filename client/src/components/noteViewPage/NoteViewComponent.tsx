@@ -87,7 +87,7 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
   if (singleNoteLoading)
     return (
       <div className="flex items-center justify-center w-full">
-        <span className="loading loading-dots loading-xl    "></span>
+        <span className="loading loading-dots loading-xl"></span>
       </div>
     );
 
@@ -101,15 +101,13 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
           className={`${noteState.color === "" ? "py-7 " : "py-24 "}  relative  transition-all flex items-center justify-center   `}
         ></div>
 
-        <div
-          className={`${!wideMode ? "lg:mx-60 " : "lg:mx-20 "} mx-20 relative sm:mx-5 ${noteState.color === "" ? "mt-5" : "mt-12"}    transition-all`}
-        >
-          <div className="group-hover/titleItems:flex absolute hidden items-center -top-8 gap-2 ">
+        <div className={`${!wideMode ? "lg:mx-60 " : "lg:mx-25 "} mx-25 relative  ${noteState.color === "" ? "mt-5" : "mt-12"}    transition-all`}>
+          <div className="group-hover/titleItems:flex absolute hidden items-center -top-8 gap-2 scale-up-center z-50 ">
             <IconPicker noteState={noteState} setNoteState={setNoteState}></IconPicker>
             <ColorPicker setNoteState={setNoteState}></ColorPicker>
           </div>
           <div className="flex items-center gap-3">
-            {singleNote.icon !== "" && <div className=" size-12 " dangerouslySetInnerHTML={{ __html: singleNote.icon! }}></div>}
+            {singleNote.icon !== "" && <div className=" size-12 " dangerouslySetInnerHTML={{ __html: noteState.icon! }}></div>}
 
             <div className="flex flex-col">
               <input
@@ -123,7 +121,7 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
         </div>
       </div>
 
-      <div className={`flex flex-col flex-1 mb-5   ${!wideMode ? "lg:mx-60" : "lg:mx-20 "} mx-20 relative sm:mx-5  mt-10  transition-all  `}>
+      <div className={`flex flex-col flex-1 mb-5   ${!wideMode ? "lg:mx-60" : "lg:mx-25 "} mx-25 relative   mt-10  transition-all  `}>
         {singleNote?.modules?.length === 0 && (
           <div className="   w-full flex   opacity-0  group-hover/global:opacity-100    transition-all   ">
             <button

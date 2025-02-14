@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { client } from "../..";
+import { imagekit } from "../../config/ImageKit";
 
 const updateModuleOrder = async (req: Request, res: Response) => {
   const { modules, noteId } = req.body;
@@ -13,6 +14,7 @@ const updateModuleOrder = async (req: Request, res: Response) => {
         data: { order: module.order, noteId: noteId },
         include: {
           textModule: true,
+          imageModule: true,
         },
       });
 
@@ -32,10 +34,21 @@ const updateModuleOrder = async (req: Request, res: Response) => {
 const deleteModule = async (req: Request, res: Response) => {
   const { moduleId, noteId } = req.body;
   try {
-    const module = await client.module.delete({
+    const module = await client.module.findUnique({
       where: {
         id: moduleId,
       },
+      include: {
+        imageModule: true,
+      },
+    });
+
+    if (module?.type === "IMAGE" && module?.imageModule?.imageId) {
+      await imagekit.deleteFile(module?.imageModule?.imageId);
+    }
+
+    await client.module.delete({
+      where: { id: moduleId },
     });
 
     await client.note.update({
@@ -46,8 +59,7 @@ const deleteModule = async (req: Request, res: Response) => {
         updatedAt: new Date(),
       },
     }),
-      console.log(module);
-    res.status(200).json(module);
+      res.status(200).json(module);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "something went wrong" });

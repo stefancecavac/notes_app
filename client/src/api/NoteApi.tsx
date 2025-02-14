@@ -38,7 +38,7 @@ export const useGetAllNotes = () => {
 
 export const useGraphNotes = () => {
   const fetchGraphNotes = async () => {
-    const response = await axiosInstance.get(`/api/notes/graph`, {});
+    const response = await axiosInstance.get(`/api/notes/graph`);
 
     return response.data as noteData[];
   };
@@ -160,6 +160,9 @@ export const useUpdateNote = ({ noteId }: { noteId: string }) => {
     mutationKey: ["notes"],
     mutationFn: updateNoteFunction,
     onSuccess: (data) => {
+      queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
+        return { ...oldData, ...data, icon: data.icon };
+      });
       queryClient.setQueryData(["notes"], (oldData: noteData[]) => {
         const updateNoteRecursively = (notes: noteData[]): noteData[] => {
           return notes.map((note) => {
@@ -187,12 +190,8 @@ export const useUpdateNote = ({ noteId }: { noteId: string }) => {
       queryClient.setQueryData(["favouriteNotes"], (oldData: noteData[]) => {
         return oldData.map((oData) => (oData.id === data.id ? { ...oData, ...data } : oData));
       });
-      queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
-        return { ...oldData, ...data };
-      });
     },
   });
-
   return { updateNote, updatePending };
 };
 

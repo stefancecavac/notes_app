@@ -162,6 +162,7 @@ const getSingleNote = async (req: Request, res: Response) => {
           orderBy: { order: "asc" },
           include: {
             textModule: true,
+            imageModule: true,
           },
         },
       },
@@ -250,6 +251,7 @@ const updateNote = async (req: Request, res: Response) => {
         modules: {
           include: {
             textModule: true,
+            imageModule: true,
           },
         },
       },
@@ -274,6 +276,7 @@ const duplicateNote = async (req: Request, res: Response) => {
         modules: {
           include: {
             textModule: true,
+            imageModule: true,
           },
         },
         tags: true,

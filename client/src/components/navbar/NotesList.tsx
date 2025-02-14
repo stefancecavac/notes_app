@@ -21,7 +21,7 @@ export const NotesList = ({ notes, notesLoading, text }: notesListProps) => {
         className=" btn btn-ghost btn-xs justify-start text-info-content font-light  flex items-center  w-full text-start rounded-md p-1 "
       >
         {allNotesExpanded ? (
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="size-5 fill-neutral-100 stroke-neutral-400">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="size-5 fill-info-content ">
             <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
             <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
             <g id="SVGRepo_iconCarrier">
@@ -32,7 +32,7 @@ export const NotesList = ({ notes, notesLoading, text }: notesListProps) => {
             </g>
           </svg>
         ) : (
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="size-5 fill-neutral-500">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="size-5 text-info-content fill-info-content">
             <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
             <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
             <g id="SVGRepo_iconCarrier">

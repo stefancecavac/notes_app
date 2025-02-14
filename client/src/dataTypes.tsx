@@ -24,12 +24,22 @@ export const textModuleSchema = z.object({
   type: z.literal("TEXT"),
 });
 
+export const imageModuleSchema = z.object({
+  id: z.string(),
+  imageUrl: z.string(),
+  width: z.number(),
+  height: z.number(),
+  moduleId: z.string(),
+  type: z.literal("TEXT"),
+});
+
 export const moduleSchema = z.object({
   id: z.string(),
-  type: z.union([z.literal("TEXT"), z.literal("PAGE_LINK"), z.literal("TODO")]),
+  type: z.union([z.literal("TEXT"), z.literal("IMAGE"), z.literal("TODO")]),
   order: z.number(),
   createdAt: z.date(),
   textModule: textModuleSchema.optional(),
+  imageModule: imageModuleSchema.optional(),
 
   noteId: z.string(),
   updatedAt: z.date(),

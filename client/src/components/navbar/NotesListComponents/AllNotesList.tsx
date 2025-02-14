@@ -8,16 +8,16 @@ const AllNotesList = () => {
   const [allNotesExpanded, setAllNotesExpanded] = useState(true);
 
   return (
-    <div className={`flex flex-col    text-sm max-h-[30rem] overflow-auto   hover:cursor-pointer  dark:border-neutral-700 my-1   gap-1`}>
+    <div className={`flex flex-col    text-sm max-h-[30rem] overflow-auto   hover:cursor-pointer  my-1   gap-1`}>
       <div>
         <button
           onClick={() => {
             setAllNotesExpanded((prev) => !prev);
           }}
-          className=" text-neutral-400 flex items-center  w-full text-start rounded-md p-1  "
+          className="  flex items-center  w-full text-start rounded-md p-1  "
         >
           {allNotesExpanded ? (
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="size-5 fill-neutral-100 stroke-neutral-400">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="size-5 ">
               <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
               <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
               <g id="SVGRepo_iconCarrier">
@@ -28,7 +28,7 @@ const AllNotesList = () => {
               </g>
             </svg>
           ) : (
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="size-5 fill-neutral-500">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="size-5 ">
               <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
               <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
               <g id="SVGRepo_iconCarrier">

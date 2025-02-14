@@ -25,10 +25,17 @@ export const SearchModal = ({ closeModal }: searchModalProps) => {
     }
   }, []);
 
+  const handleCloseModal = () => {
+    if (modalRef.current) {
+      modalRef.current.close();
+    }
+    closeModal();
+  };
+
   return (
     <dialog ref={modalRef} id="search-modal" className="modal " onCancel={closeModal}>
       <div className="modal-box w-9/12 max-w-3xl">
-        <div className="flex items-center border-b-2 border-neutral p-2">
+        <div className="flex items-center p-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -46,11 +53,12 @@ export const SearchModal = ({ closeModal }: searchModalProps) => {
           <p>Name:</p>
           <p className="text-center">Tag:</p>
           <p className="text-end">Last updated at:</p>
+          <div className="divider col-span-3 my-0"></div>
 
-          <div className="col-span-3 my-5">
+          <div className="col-span-3">
             {searchedNotes?.map((note) => (
               <div key={note.id} className="flex justify-between items-center p-2 hover:bg-base-200 rounded-md">
-                <Link to={`/notes/${note.id}`} className="flex items-center gap-2 text-base-content hover:underline">
+                <Link to={`/notes/${note.id}`} onClick={handleCloseModal} className="flex items-center gap-2 text-base-content hover:underline">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"

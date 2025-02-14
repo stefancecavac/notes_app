@@ -5,6 +5,7 @@ import { CSS } from "@dnd-kit/utilities";
 import TextModuleComponent from "./TextModuleComponent";
 import SkeletonLoader from "../loaders/SkeletonLoader";
 import { NewModuleModal } from "./NewModuleModal";
+import { ImageModuleComponent } from "./ImageModuleComponent";
 
 type moduleComponentProps = {
   module: moduleData;
@@ -38,6 +39,9 @@ const ModuleComponent = ({ module, nextModule, singleNote, singleNoteLoading }: 
         switch (module?.type) {
           case "TEXT":
             return <TextModuleComponent module={module} />;
+          case "IMAGE":
+            return <ImageModuleComponent module={module} />;
+          case "TODO":
         }
       })()}
       <div className="absolute flex  flex-row-reverse gap-1  items-center -left-28 top-3 px-5 opacity-0 group-hover/handle:opacity-100 ">

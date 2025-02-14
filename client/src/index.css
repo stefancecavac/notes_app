@@ -35,7 +35,7 @@
 
   --color-info: oklch(80% 0.1 220); /* Soft blue for info */
   --color-info-content: #8f8d89; /* Light text for info elements */
-  --color-success: oklch(70% 0.2 130); /* Soft green for success */
+  --color-success: oklch(75.07% 0.2155 144.88); /* Soft green for success */
   --color-success-content: oklch(98% 0.01 130); /* Light text for success elements */
   --color-warning: oklch(90% 0.1 50); /* Subtle yellow for warning */
   --color-warning-content: oklch(20% 0.05 50); /* Darker text for warning */
@@ -75,4 +75,69 @@
 
 ::-webkit-scrollbar-thumb {
   @apply bg-neutral-400 rounded-lg;
+}
+
+
+
+
+/* animations */
+
+.scale-up-center {
+	-webkit-animation: scale-up-center 0.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: scale-up-center 0.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+
+
+@-webkit-keyframes scale-up-center {
+  0% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes scale-up-center {
+  0% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+.slide-in-bottom {
+	-webkit-animation: slide-in-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+
+
+@-webkit-keyframes slide-in-bottom {
+  0% {
+    -webkit-transform: translateY(1000px);
+            transform: translateY(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-bottom {
+  0% {
+    -webkit-transform: translateY(1000px);
+            transform: translateY(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
 }

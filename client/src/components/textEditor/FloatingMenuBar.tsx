@@ -1,4 +1,4 @@
-import { BubbleMenu, Editor } from "@tiptap/react";
+import { Editor, FloatingMenu } from "@tiptap/react";
 import { useEffect, useState } from "react";
 
 export const FloatingMenuBar = ({ editor }: { editor: Editor }) => {
@@ -31,7 +31,7 @@ export const FloatingMenuBar = ({ editor }: { editor: Editor }) => {
   }
 
   return (
-    <BubbleMenu editor={editor}>
+    <FloatingMenu editor={editor}>
       <div className=" flex  z-50 bg-base-100 rounded-md shadow-md p-1 border border-neutral w-fit  ">
         <div className="flex  items-center gap-1">
           <button
@@ -361,6 +361,6 @@ export const FloatingMenuBar = ({ editor }: { editor: Editor }) => {
           </button>
         </div>
       </div>
-    </BubbleMenu>
+    </FloatingMenu>
   );
 };
