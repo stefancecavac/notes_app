@@ -4,20 +4,17 @@ const PreferencesSettingsComponent = () => {
   const { darkMode, toggleTheme } = useThemeChangerStore();
 
   return (
-    <div className="flex-1 px-20">
-      <h2 className="text-xl font-bold">Preferences Information</h2>
-      <p className="text-gray-500 mt-2">Update your appearance details here</p>
-      <div className="my-5 py-5 border-t-2">
-        <div className="flex items-center justify-between ">
-          <div className="flex flex-col  justify-between">
-            <p className="text-gray-700">Toggle Dark mode</p>
-            <p className="text-neutral-400 text-sm  ">Toggle dark mode on and off here</p>
-          </div>
-          <label className="inline-flex items-center mb-5 cursor-pointer">
-            <input onChange={toggleTheme} type="checkbox" checked={darkMode} className="sr-only peer" />
-            <div className="relative w-11 h-6 bg-neutral-300 peer-focus:outline-hidden   rounded-full peer  peer-checked:after:translate-x-full peer-checked:rtl:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:w-5 after:h-5 after:transition-all peer-checked:bg-neutral-600"></div>
-          </label>
+    <div className="flex-1 ">
+      <h2 className=" font-bold text-base-content">Preferences Information</h2>
+      <p className="text-info-content text-sm mt-2">Update your appearance details here</p>
+
+      <div className="divider my-2"></div>
+      <div className="flex items-center justify-between ">
+        <div className="flex flex-col gap-2  justify-between">
+          <p className="text-base-content text-sm">Toggle Dark mode</p>
+          <p className="text-info-content text-sm  ">Toggle dark mode on and off here</p>
         </div>
+        <input type="checkbox" onChange={toggleTheme} checked={darkMode} className="toggle" />
       </div>
     </div>
   );

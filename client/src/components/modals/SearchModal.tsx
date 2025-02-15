@@ -34,16 +34,9 @@ export const SearchModal = ({ closeModal }: searchModalProps) => {
 
   return (
     <dialog ref={modalRef} id="search-modal" className="modal " onCancel={closeModal}>
-      <div className="modal-box w-9/12 max-w-3xl">
-        <div className="flex items-center p-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="size-6 text-neutral-400"
-          >
+      <div className="modal-box w-9/12 max-w-3xl bg-base-100">
+        <div className="flex items-center p-2 gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 ">
             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
           <input onChange={handleSearch} placeholder="Search your notes by name or tag" className="input w-full input-ghost" />
@@ -51,14 +44,18 @@ export const SearchModal = ({ closeModal }: searchModalProps) => {
 
         <div className="grid grid-cols-3 gap-1 p-1 mt-2">
           <p>Name:</p>
-          <p className="text-center">Tag:</p>
+          <p className="text-end">Tag:</p>
           <p className="text-end">Last updated at:</p>
           <div className="divider col-span-3 my-0"></div>
 
           <div className="col-span-3">
             {searchedNotes?.map((note) => (
-              <div key={note.id} className="flex justify-between items-center p-2 hover:bg-base-200 rounded-md">
-                <Link to={`/notes/${note.id}`} onClick={handleCloseModal} className="flex items-center gap-2 text-base-content hover:underline">
+              <div key={note.id} className="grid grid-cols-3 items-center p-2 hover:bg-base-200 rounded-md">
+                <Link
+                  to={`/notes/${note.id}`}
+                  onClick={handleCloseModal}
+                  className="flex items-center gap-2 w-full text-base-content hover:underline"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -75,9 +72,9 @@ export const SearchModal = ({ closeModal }: searchModalProps) => {
                     <path d="M16 13H8" />
                     <path d="M16 17H8" />
                   </svg>
-                  <span>{note.title}</span>
+                  <p className="truncate w-50">{note.title}</p>
                 </Link>
-                <div className="flex gap-1">
+                <div className="flex gap-2 justify-end ">
                   {note?.tags?.map((tag, tagIndex) => (
                     <span
                       key={tagIndex}
@@ -91,7 +88,7 @@ export const SearchModal = ({ closeModal }: searchModalProps) => {
                     </span>
                   ))}
                 </div>
-                <p className="text-info-content text-sm font-thin">
+                <p className="text-info-content text-sm font-thin text-end">
                   {formatDistanceToNow(new Date(note.updatedAt), {
                     addSuffix: true,
                   })}

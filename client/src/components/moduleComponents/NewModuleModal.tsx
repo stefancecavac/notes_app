@@ -3,6 +3,7 @@ import { moduleData, noteData } from "../../dataTypes";
 import { useCreateNote } from "../../api/NoteApi";
 import { useParams } from "react-router-dom";
 import { useCreateImageModule } from "../../api/modulesApi/ImageModuleApi";
+import { useCreateTodoModule } from "../../api/modulesApi/TodoModuleApi";
 
 type newModuleModalProps = {
   module?: moduleData;
@@ -14,6 +15,7 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
   const { createTextModule } = useCreateTextModule();
   const { createNote } = useCreateNote();
   const { createImageModule } = useCreateImageModule();
+  const { createTodoModule } = useCreateTodoModule();
 
   const { noteId } = useParams();
 
@@ -137,7 +139,10 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
                 <p className="text-xs text-info-content font-thin">Insert an image </p>
               </div>
             </label>
-            <button className=" items-center btn btn-ghost  h-full justify-start  flex p-1  gap-5">
+            <button
+              onClick={() => createTodoModule({ order: calculateOrder(module!.order, nextModule?.order), noteId: singleNote?.id })}
+              className=" items-center btn btn-ghost  h-full justify-start  flex p-1  gap-5"
+            >
               <div className="rounded-lg  p-1 bg-neutral/50">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -156,8 +161,8 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
                 </svg>
               </div>
               <div className="flex flex-col items-start">
-                <p className="text-sm">Video </p>
-                <p className="text-xs text-info-content font-thin">Embed a video</p>
+                <p className="text-sm">To Do </p>
+                <p className="text-xs text-info-content font-thin">Add todo list</p>
               </div>
             </button>
           </div>

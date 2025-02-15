@@ -109,7 +109,7 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
           <div className="flex items-center gap-3">
             {singleNote.icon !== "" && <div className=" size-12 " dangerouslySetInnerHTML={{ __html: noteState.icon! }}></div>}
 
-            <div className="flex flex-col">
+            <div className="flex flex-col w-full">
               <input
                 onChange={(e) => setNoteState((prev) => ({ ...prev, title: e.target.value }))}
                 value={noteState.title}

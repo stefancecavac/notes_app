@@ -33,6 +33,15 @@ export const imageModuleSchema = z.object({
   type: z.literal("TEXT"),
 });
 
+export const toDoModuleSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  completed: z.boolean().default(false),
+  priority: z.string().default("normal"),
+  moduleId: z.string(),
+  type: z.literal("TODO"),
+});
+
 export const moduleSchema = z.object({
   id: z.string(),
   type: z.union([z.literal("TEXT"), z.literal("IMAGE"), z.literal("TODO")]),
@@ -40,6 +49,7 @@ export const moduleSchema = z.object({
   createdAt: z.date(),
   textModule: textModuleSchema.optional(),
   imageModule: imageModuleSchema.optional(),
+  TodoModule: z.array(toDoModuleSchema.optional()),
 
   noteId: z.string(),
   updatedAt: z.date(),
@@ -87,5 +97,7 @@ export const notesSchema: z.ZodType<notesData> = z.lazy(() =>
 );
 
 export type textModuleData = z.infer<typeof textModuleSchema>;
+export type todoModuleData = z.infer<typeof toDoModuleSchema>;
+
 export type moduleData = z.infer<typeof moduleSchema>;
 export type noteData = z.infer<typeof noteSchema>;

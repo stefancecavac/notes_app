@@ -61,6 +61,7 @@ model Module {
 
   textModule  TextModule?
   imageModule ImageModule?
+  TodoModule  TodoModule[]
 }
 
 model TextModule {
@@ -78,6 +79,16 @@ model ImageModule {
   height   Int
   width    Int
   moduleId String @unique
+  module   Module @relation(fields: [moduleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model TodoModule {
+  id        String  @id @default(uuid())
+  title     String  @default("New Task")
+  completed Boolean @default(false)
+  priority  String  @default("normal")
+
+  moduleId String
   module   Module @relation(fields: [moduleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 

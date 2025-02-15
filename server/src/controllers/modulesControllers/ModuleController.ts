@@ -15,6 +15,7 @@ const updateModuleOrder = async (req: Request, res: Response) => {
         include: {
           textModule: true,
           imageModule: true,
+          TodoModule: true,
         },
       });
 

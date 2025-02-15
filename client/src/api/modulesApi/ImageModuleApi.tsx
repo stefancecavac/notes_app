@@ -15,7 +15,7 @@ export const useCreateImageModule = () => {
   };
 
   const { mutate: createImageModule } = useMutation({
-    mutationKey: ["text-module"],
+    mutationKey: ["image-module"],
     mutationFn: postImageModuleApi,
     onSuccess: (data) => {
       showToast({ type: "SUCCESS", message: "Image module created" });

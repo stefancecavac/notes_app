@@ -45,7 +45,7 @@ const HeaderComponent = ({ singleNote }: { singleNote: noteData }) => {
                     <path d="M16 17H8" />
                   </svg>
                 )}
-                {crumb.noteTitle}
+                <p className="truncate w-20"> {crumb.noteTitle}</p>
               </Link>
 
               {array.length > index + 1 ? <p className="text-xl text-neutral">/</p> : null}
