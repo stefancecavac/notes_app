@@ -26,7 +26,7 @@
 
 .custom-paragraph.is-empty::before {
   content: attr(data-placeholder);
-  color: hsl(var(--base-3));
+  color: hsl(var(--b3));
   font-style: italic;
 }
 
@@ -64,11 +64,28 @@
 
 .custom-link {
   text-decoration: underline;
-  color: #895ec5;
   border-radius: 10px;
   cursor: pointer;
   padding: 2px;
   display: inline-flex;
   width: fit-content;
   align-items: center;
+}
+
+.custom-ordered-list {
+  list-style-type: decimal;
+  padding-left: 30px;
+}
+
+.custom-ordered-list li::marker {
+  color: #9a9a9a;
+}
+
+/* bullet list */
+.custom-unordered-list {
+  list-style-type: disc;
+  padding-left: 30px;
+}
+.custom-unordered-list li::marker {
+  color: #9a9a9a;
 }

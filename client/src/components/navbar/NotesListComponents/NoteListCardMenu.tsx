@@ -74,7 +74,7 @@ const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }
                   setRenameMenu(true);
                   e.stopPropagation();
                 }}
-                className="flex items-center gap-4  text-sm btn btn-sm justify-start btn-ghost p-1 rounded-sm"
+                className="flex items-center gap-4 hover:bg-base-300  text-sm btn btn-sm justify-start btn-ghost p-1 rounded-sm"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
                   <path

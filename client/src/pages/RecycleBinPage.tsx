@@ -33,7 +33,7 @@ const RecycleBinPage = () => {
           </div>
         )}
         {recycleBinNotesLoading && <LoaderComponent></LoaderComponent>}
-        <div className="grid grid-cols-3 gap-5 mt-5">
+        <div className="grid grid-cols-6 gap-5 mt-5">
           {recycleBinNotes?.map((note) => (
             <NoteCard key={note.id} note={note}></NoteCard>
           ))}

@@ -76,10 +76,10 @@
 }
 
 
-.tiptap ul p,
+/* .tiptap ul p,
 .tiptap ol p {
   @apply flex inline;
-}
+} */
 
 .tiptap label {
   @apply text-black;

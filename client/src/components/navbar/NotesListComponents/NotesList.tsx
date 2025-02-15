@@ -1,7 +1,7 @@
 import { useState } from "react";
-import SkeletonLoader from "../loaders/SkeletonLoader";
-import { notesData } from "../../dataTypes";
-import { NoteListCard } from "./NotesListComponents/NoteListCard";
+import SkeletonLoader from "../../loaders/SkeletonLoader";
+import { notesData } from "../../../dataTypes";
+import { NoteListCard } from "./NoteListCard";
 
 type notesListProps = {
   notes: notesData[] | undefined;
@@ -13,12 +13,12 @@ export const NotesList = ({ notes, notesLoading, text }: notesListProps) => {
   const [allNotesExpanded, setAllNotesExpanded] = useState(true);
 
   return (
-    <div className={`flex flex-col text-sm max-h-[30rem] overflow-auto   hover:cursor-pointer   my-1  gap-1`}>
+    <div className={`flex flex-col text-sm max-h-[30rem] overflow-auto   hover:cursor-pointer  overflow-hidden   my-1  gap-1`}>
       <button
         onClick={() => {
           setAllNotesExpanded((prev) => !prev);
         }}
-        className=" btn btn-ghost btn-xs justify-start text-info-content font-light  flex items-center  w-full text-start rounded-md p-1 "
+        className=" btn btn-ghost btn-xs hover:bg-base-300 justify-start text-info-content font-light flex items-center  w-full text-start rounded-md p-1 "
       >
         {allNotesExpanded ? (
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="size-5 fill-info-content ">

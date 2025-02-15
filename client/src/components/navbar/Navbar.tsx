@@ -6,7 +6,7 @@ import SettingsLink from "./SettingsLink";
 import NewItemButton from "./NewItemButton";
 import { useNavbarExpandedStore } from "../../Stores/useNavbarExpandedStore";
 import DashboardLink from "./DashboardLink";
-import { NotesList } from "./NotesList";
+import { NotesList } from "./NotesListComponents/NotesList";
 import { useGetAllNotes } from "../../api/NoteApi";
 import { useGetAllFavouriteNotes } from "../../api/FavouriteNoteApi";
 

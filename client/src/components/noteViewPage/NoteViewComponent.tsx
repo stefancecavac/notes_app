@@ -112,7 +112,8 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
             <div className="flex flex-col">
               <input
                 onChange={(e) => setNoteState((prev) => ({ ...prev, title: e.target.value }))}
-                value={noteState.title || singleNote?.title || ""}
+                value={noteState.title}
+                placeholder="Empty note"
                 className="focus:outline-hidden text-4xl h-full font-bold bg-transparent input-lg input-ghost  w-full   "
               ></input>
               <TagHandleComponent singleNote={singleNote}></TagHandleComponent>

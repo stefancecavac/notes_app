@@ -76,6 +76,8 @@ export const useRestoreFromRecycleBin = () => {
     onSuccess: () => {
       showToast({ message: "Note successfully restored", type: "SUCCESS" });
       queryClient.resetQueries({ queryKey: ["recycleBinNotes"] });
+      queryClient.resetQueries({ queryKey: ["notes"] });
+      queryClient.resetQueries({ queryKey: ["favouriteNotes"] });
     },
   });
 

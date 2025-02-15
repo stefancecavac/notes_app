@@ -30,7 +30,7 @@ const TagHandleComponent = ({ singleNote }: { singleNote: noteData | undefined }
   };
 
   return (
-    <div className=" pt-2 flex items-center gap-3 text-xs text-info-content h-5 ">
+    <div className=" pt-2 flex items-center gap-3 text-xs text-info-content h-5  z-50">
       {singleNote?.tags?.map((tag, index) => (
         <span
           onClick={() => deleteTag(tag.id)}
