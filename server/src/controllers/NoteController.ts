@@ -54,13 +54,6 @@ const getAllNotes = async (req: Request, res: Response) => {
         userId: userId,
         inTrash: false,
       },
-      select: {
-        id: true,
-        title: true,
-        parentNoteId: true,
-        icon: true,
-        favourite: true,
-      },
     });
 
     const noteMap: Record<string, any[]> = {};

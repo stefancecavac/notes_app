@@ -36,7 +36,7 @@ export const ColorPicker = ({ setNoteState }: colorPickerProps) => {
         <div className="flex items-center gap-2 ">
           {colors.map((color, index) => (
             <label key={index} style={{ backgroundColor: color }} className=" rounded-lg hover:cursor-pointer size-8 shadow-md">
-              <input onChange={(e) => handleColorPick(e)} value={color} name="color" type="radio" className="appearance-none "></input>
+              <input onChange={(e) => handleColorPick(e)} value={color} name="color" type="radio" className="appearance-none input hidden "></input>
             </label>
           ))}
           <button

@@ -8,7 +8,7 @@ const HeaderComponent = ({ singleNote }: { singleNote: noteData }) => {
   const { expanded } = useNavbarExpandedStore();
 
   return (
-    <div className={`${expanded ? "" : "pl-10"} sticky top-0  min-w-full flex z-20 items-center justify-between text-sm bg-base-100 px-3 py-2`}>
+    <div className={`${expanded ? "" : "pl-10"} sticky top-0  min-w-full flex z-60 items-center justify-between text-sm bg-base-100 px-3 py-2`}>
       <div className="flex items-center gap-2">
         {singleNote?.breadCrumbs?.map((crumb, index, array) => {
           const shouldRender = index === 0 || index === array.length - 1 || index === array.length - 2 || array.length <= 4;

@@ -11,13 +11,13 @@ const TagHandleComponent = ({ singleNote }: { singleNote: noteData | undefined }
   const { deleteTag } = useDeleteTag();
 
   const handleAddTag = () => {
-    const backgroundR = Math.floor(Math.random() * 56) + 200;
-    const backgroundG = Math.floor(Math.random() * 56) + 200;
-    const backgroundB = Math.floor(Math.random() * 56) + 200;
+    const backgroundR = Math.floor(Math.random() * 156) + 100;
+    const backgroundG = Math.floor(Math.random() * 156) + 100;
+    const backgroundB = Math.floor(Math.random() * 156) + 100;
 
-    const textR = Math.max(0, backgroundR - 60);
-    const textG = Math.max(0, backgroundG - 60);
-    const textB = Math.max(0, backgroundB - 60);
+    const textR = Math.max(0, backgroundR - 80);
+    const textG = Math.max(0, backgroundG - 80);
+    const textB = Math.max(0, backgroundB - 80);
 
     const backgroundColor = `rgb(${backgroundR} ${backgroundG} ${backgroundB} )`;
     const textColor = `rgb(${textR} ${textG} ${textB})`;

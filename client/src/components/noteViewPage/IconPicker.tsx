@@ -58,7 +58,7 @@ export const IconPicker = ({ setNoteState, noteState }: iconPickerProps) => {
         <div className="grid grid-cols-5 gap-1 p-2">
           {colors.map((color, index) => (
             <label key={index} style={{ backgroundColor: color }} className="  shadow-md rounded-lg hover:cursor-pointer size-6">
-              <input onChange={handleColorPick} value={color} name="color" type="radio" className="appearance-none "></input>
+              <input onChange={handleColorPick} value={color} name="color" type="radio" className="appearance-none input hidden "></input>
             </label>
           ))}
         </div>

@@ -68,6 +68,7 @@ export type notesData = {
   id: string;
   title: string;
   icon: string;
+  color: string;
   favourite: boolean;
   parentNoteId: string;
   childNotes: notesData[];
@@ -78,6 +79,7 @@ export const notesSchema: z.ZodType<notesData> = z.lazy(() =>
     id: z.string(),
     title: z.string(),
     icon: z.string(),
+    color: z.string(),
     favourite: z.boolean(),
     parentNoteId: z.string(),
     childNotes: z.array(notesSchema),

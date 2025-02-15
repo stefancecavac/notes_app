@@ -2,8 +2,8 @@ const ExpandNavbarButton = ({ expanded, setExpanded }: { expanded: boolean; setE
   return (
     <button
       className={`${
-        expanded ?? "absolute top-0 left-0   z-50"
-      } btn btn-square btn-ghost p-0 size-8 bg-transparent border-0 hover:bg-base-300  btn-soft `}
+        expanded ?? "absolute top-0 left-0  "
+      } btn btn-square btn-ghost p-0 size-8  z-50 bg-transparent border-0 hover:bg-base-300  btn-soft `}
       onClick={() => setExpanded((prev) => !prev)}
     >
       {expanded ? (

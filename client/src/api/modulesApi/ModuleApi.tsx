@@ -39,7 +39,7 @@ export const useDeleteModule = () => {
     return response.data;
   };
 
-  const { mutate: deleteModule } = useMutation({
+  const { mutate: deleteModule, isPending: deleteModulePending } = useMutation({
     mutationKey: ["module"],
     mutationFn: deleteModuleApi,
     onSuccess: (data) => {
@@ -53,5 +53,5 @@ export const useDeleteModule = () => {
     },
   });
 
-  return { deleteModule };
+  return { deleteModule, deleteModulePending };
 };

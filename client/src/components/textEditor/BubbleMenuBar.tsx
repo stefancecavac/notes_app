@@ -32,7 +32,7 @@ const BubbleMenuBar = ({ editor }: { editor: Editor }) => {
 
   return (
     <BubbleMenu editor={editor}>
-      <div className=" flex  z-50 bg-base-100 rounded-md shadow-md p-1 border border-neutral w-fit  ">
+      <div className=" flex  z-50 bg-base-200 rounded-md shadow-md p-1 border border-neutral w-fit  ">
         <div className="flex  items-center gap-1">
           <button
             type="button"

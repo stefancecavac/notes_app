@@ -102,7 +102,7 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
         ></div>
 
         <div className={`${!wideMode ? "lg:mx-60 " : "lg:mx-25 "} mx-25 relative  ${noteState.color === "" ? "mt-5" : "mt-12"}    transition-all`}>
-          <div className="group-hover/titleItems:flex absolute hidden items-center -top-8 gap-2 scale-up-center z-50 ">
+          <div className="group-hover/titleItems:flex absolute hidden items-center -top-8 gap-2 scale-up-center z-100 ">
             <IconPicker noteState={noteState} setNoteState={setNoteState}></IconPicker>
             <ColorPicker setNoteState={setNoteState}></ColorPicker>
           </div>

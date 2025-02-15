@@ -50,9 +50,10 @@ export const NoteListCard = ({ note }: noteListCardProps) => {
         onClick={(e) => {
           if (openMenu) e.preventDefault();
         }}
+        style={{ backgroundColor: note.color !== "" ? `${note.color}20` : "", borderColor: note.color !== "" ? `${note.color}60` : "" }}
         className={({ isActive }) =>
-          `relative transition-all p-0.5    items-center border border-base-200 flex group  gap-2 rounded-md group hover:cursor-pointer hover:bg-base-300 ${
-            isActive ? "bg-base-300 font-bold border-neutral" : ""
+          ` relative transition-all     items-center  p-0.5 border border-transparent flex group  gap-2 rounded-md group hover:cursor-pointer hover:bg-base-300 ${
+            isActive ? `bg-base-300 font-bold bg-${note.color}  ` : ""
           }`
         }
       >

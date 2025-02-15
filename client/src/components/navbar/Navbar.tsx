@@ -17,7 +17,7 @@ const Navbar = () => {
 
   return (
     <div className={`${expanded ? "w-60      " : "w-0 p-0  "} transition-all relative h-full    flex flex-col `}>
-      <div className={`flex items-center justify-between  z-50  p-2 ${expanded ? "" : "px-1"}`}>
+      <div className={`flex items-center justify-between  z-70  p-2 ${expanded ? "" : "px-1"}`}>
         {expanded && <UserComponent></UserComponent>}
 
         <ExpandNavbarButton expanded={expanded} setExpanded={toggleExpanded}></ExpandNavbarButton>

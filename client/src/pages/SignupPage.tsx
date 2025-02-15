@@ -14,17 +14,11 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-linear-to-br from-gray-100 to-gray-200 p-2">
-      <div className="backdrop-blur-xs bg-white/80 shadow-xl border border-gray-200 rounded-lg p-10 w-4/12 h-3/4">
+    <div className="flex items-center justify-center min-h-screen bg-linear-to-br from-base-200 to-base-300 p-2">
+      <div className="backdrop-blur-xs shadow-xl border border-neutral bg-base-100 rounded-lg p-10 w-4/12 h-3/4">
         <div className="space-y-1 pb-8">
-          <div className="size-16 bg-neutral-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-10 fill-white stroke-white"
-            >
+          <div className="size-16  rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-10 text-neutral">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -34,41 +28,26 @@ const SignupPage = () => {
           </div>
 
           <div className="flex flex-col gap-3 items-center ">
-            <p className="text-3xl font-bold text-center text-gray-800">Join Us</p>
-            <p className="text-center text-neutral-500 font-medium text-sm">
+            <p className="text-3xl font-bold text-center text-base-content">Join Us</p>
+            <p className="text-center text-info-content font-medium text-sm">
               Enter your email to get started. We'll send you a magic link for a password-free sign up.
             </p>
           </div>
         </div>
         <form onSubmit={handleSubmit(handleLogin)}>
           <div className="flex flex-col gap-5">
-            <label className=" flex flex-col gap-1">
+            <label className=" flex flex-col gap-1 text-base-content">
               Email
-              <input
-                {...register("email")}
-                id="email"
-                type="email"
-                placeholder="john@example.com"
-                className="transition-all duration-200 focus:ring-2 focus:ring-gray-400 bg-gray-100 p-2 rounded-lg"
-              />
+              <input {...register("email")} id="email" type="email" placeholder="john@example.com" className="input w-full " />
             </label>
-            <label className=" flex flex-col gap-1">
+            <label className=" flex flex-col gap-1 text-base-content">
               Password
-              <input
-                {...register("password")}
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                className="transition-all duration-200 focus:ring-2 focus:ring-gray-400 bg-gray-100 p-2 rounded-lg"
-              />
+              <input {...register("password")} id="password" type="password" placeholder="••••••••" className="input w-full " />
             </label>
           </div>
           <div className="flex flex-col mt-10 gap-2">
-            <button
-              type="submit"
-              className=" flex items-center gap-6 justify-center bg-neutral-800 hover:bg-neutral-700 text-white font-semibold py-2 px-4 rounded-md transition-all duration-200 transform hover:scale-105"
-            >
-              Send Magic Link
+            <button type="submit" className=" btn btn-soft">
+              Register
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
               </svg>
