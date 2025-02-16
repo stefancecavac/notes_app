@@ -53,7 +53,7 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
         </svg>
       </button>
 
-      <dialog id="module-modal" className="modal">
+      <dialog id="module-modal" className="modal " onMouseLeave={() => (document.getElementById("module-modal") as HTMLDialogElement).close()}>
         <div className="modal-box p-3  max-w-sm">
           <div className="flex flex-col p-1 text-start">
             <h2 className="text-sm text-base-content font-bold">Modules</h2>
@@ -146,8 +146,6 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
               <div className="rounded-lg  p-1 bg-neutral/50">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -156,13 +154,29 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
                   strokeLinejoin="round"
                   className="size-5"
                 >
-                  <path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5" />
-                  <rect x="2" y="6" width="14" height="12" rx="2" />
+                  <path d="M21 10.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.5" />
+                  <path d="m9 11 3 3L22 4" />
                 </svg>
               </div>
               <div className="flex flex-col items-start">
                 <p className="text-sm">To Do </p>
                 <p className="text-xs text-info-content font-thin">Add todo list</p>
+              </div>
+            </button>
+
+            <button className=" items-center btn btn-ghost  h-full justify-start  flex p-1  gap-5">
+              <div className="rounded-lg  p-1 bg-neutral/50">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42"
+                  />
+                </svg>
+              </div>
+              <div className="flex flex-col items-start">
+                <p className="text-sm">Drawing </p>
+                <p className="text-xs text-info-content font-thin">Add Drawing</p>
               </div>
             </button>
           </div>

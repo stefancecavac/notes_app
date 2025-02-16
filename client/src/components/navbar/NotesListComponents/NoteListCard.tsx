@@ -30,13 +30,24 @@ export const NoteListCard = ({ note }: noteListCardProps) => {
   const handleMenuClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
+
     if (buttonRef.current) {
       const buttonRect = buttonRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - buttonRect.bottom;
+      const menuHeight = 235;
+
+      let menuTop = buttonRect.bottom + window.scrollY;
+
+      if (spaceBelow < menuHeight) {
+        menuTop = buttonRect.top + window.scrollY - menuHeight - 35;
+      }
+
       setMenuPosition({
-        top: buttonRect.bottom + window.scrollY,
+        top: menuTop,
         left: buttonRect.left + window.scrollX,
       });
     }
+
     setOpenMenu((prev) => !prev);
   };
   if (!note) {

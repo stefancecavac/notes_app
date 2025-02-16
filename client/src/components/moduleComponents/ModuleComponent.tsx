@@ -67,8 +67,8 @@ const ModuleComponent = ({ module, nextModule, singleNote, singleNoteLoading }: 
             <circle cx="5" cy="19" r="1" />
           </svg>
         </div>
-
         <NewModuleModal singleNote={singleNote} module={module} nextModule={nextModule}></NewModuleModal>
+
         <button
           className="btn btn-xs btn-square btn-error btn-soft  transition-all "
           onClick={() => deleteModule({ moduleId: module?.id, noteId: module?.noteId })}

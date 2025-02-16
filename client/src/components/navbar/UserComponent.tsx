@@ -11,10 +11,10 @@ const UserComponent = () => {
   return (
     <div className="dropdown hover:bg-base-300 rounded-lg hover:cursor-pointer w-full">
       <div tabIndex={0} role="button" className="flex items-center gap-2 m-1">
-        <div className=" rounded-md shadow-md p-2 bg-neutral-500">
-          <p className="font-bold text-neutral-200">{user?.email.slice(0, 2).toUpperCase()}</p>
+        <div className=" rounded-md shadow-md p-2 bg-primary">
+          <p className="font-bold text-neutral">{user?.email.slice(0, 2).toUpperCase()}</p>
         </div>
-        <p className=" text-xs">{user?.email}</p>
+        <p className=" text-xs text-base-content font-medium">{user?.email}</p>
       </div>
 
       <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 gap-1 shadow-md border border-neutral">

@@ -4,7 +4,6 @@
 
 @plugin '@tailwindcss/typography';
 
-
 @plugin "daisyui" {
   themes: light --default, dark;
 }
@@ -19,9 +18,9 @@
   --color-base-100: #ffffff;
   --color-base-200: oklch(0.97 0.001 106.424);
   --color-base-300: oklch(0.923 0.003 48.717); /* Slightly darker for elements */
-  --color-base-content: #5f5e5b; 
+  --color-base-content: #5f5e5b;
 
-  --color-primary: red
+  --color-primary: #4a90e2; /* Dark red */
   --color-primary-content: oklch(98% 0.01 240); /* Light text for primary elements */
 
   --color-secondary: oklch(70% 0.15 210); /* Soft purple-blue for secondary */
@@ -30,7 +29,7 @@
   --color-accent: oklch(60% 0.2 140); /* Greenish for accents */
   --color-accent-content: oklch(98% 0.01 140); /* Light text for accent elements */
 
-  --color-neutral: #d0d0cf; /* Light neutral background */
+  --color-neutral: #f0f0ed; /* Light neutral background */
   --color-neutral-content: oklch(10% 0.05 240); /* Dark text for neutral elements */
 
   --color-info: oklch(80% 0.1 220); /* Soft blue for info */
@@ -43,7 +42,6 @@
   --color-error-content: oklch(98% 0.01 30); /* Light text for error elements */
 }
 
-
 @plugin "daisyui/theme" {
   name: "dark";
   default: true;
@@ -52,7 +50,7 @@
   --color-base-300: oklch(20.54% 0.003 48.717); /* Even lighter for elements */
   --color-base-content: #e0e0e0; /* Light text for readability */
 
-  --color-primary: oklch(50% 0.2 0); /* Dark red */
+  --color-primary: #4a90e2; /* Dark red */
   --color-primary-content: oklch(90% 0.01 240); /* Light text for primary elements */
 
   --color-secondary: oklch(50% 0.15 210); /* Muted purple-blue */
@@ -64,7 +62,6 @@
   --color-neutral: #2a2a2a; /* Dark neutral background */
   --color-neutral-content: oklch(90% 0.05 240); /* Light text for neutral elements */
 
-
   --color-info: oklch(80% 0.1 220); /* Soft blue for info */
   --color-info-content: #8f8d89; /* Light text for info elements */
   --color-success: oklch(75.07% 0.2155 144.88); /* Soft green for success */
@@ -74,7 +71,6 @@
   --color-error: oklch(70% 0.2 30); /* Light red for error */
   --color-error-content: oklch(98% 0.01 30); /* Light text for error elements */
 }
-
 
 /* .tiptap ul p,
 .tiptap ol p {
@@ -101,67 +97,60 @@
   @apply bg-neutral-400 rounded-lg;
 }
 
-
-
-
 /* animations */
 
 .scale-up-center {
-	-webkit-animation: scale-up-center 0.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	        animation: scale-up-center 0.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  -webkit-animation: scale-up-center 0.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: scale-up-center 0.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
-
-
 
 @-webkit-keyframes scale-up-center {
   0% {
     -webkit-transform: scale(0.5);
-            transform: scale(0.5);
+    transform: scale(0.5);
   }
   100% {
     -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
   }
 }
 @keyframes scale-up-center {
   0% {
     -webkit-transform: scale(0.5);
-            transform: scale(0.5);
+    transform: scale(0.5);
   }
   100% {
     -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
   }
 }
 
 .slide-in-bottom {
-	-webkit-animation: slide-in-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-	        animation: slide-in-bottom 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  -webkit-animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-in-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
-
-
 
 @-webkit-keyframes slide-in-bottom {
   0% {
     -webkit-transform: translateY(1000px);
-            transform: translateY(1000px);
+    transform: translateY(1000px);
     opacity: 0;
   }
   100% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
     opacity: 1;
   }
 }
 @keyframes slide-in-bottom {
   0% {
     -webkit-transform: translateY(1000px);
-            transform: translateY(1000px);
+    transform: translateY(1000px);
     opacity: 0;
   }
   100% {
     -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
     opacity: 1;
   }
 }

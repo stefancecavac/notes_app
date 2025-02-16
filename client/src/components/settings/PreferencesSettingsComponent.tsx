@@ -14,7 +14,7 @@ const PreferencesSettingsComponent = () => {
           <p className="text-base-content text-sm">Toggle Dark mode</p>
           <p className="text-info-content text-sm  ">Toggle dark mode on and off here</p>
         </div>
-        <input type="checkbox" onChange={toggleTheme} checked={darkMode} className="toggle" />
+        <input type="checkbox" onChange={toggleTheme} checked={darkMode} className="toggle toggle-primary" />
       </div>
     </div>
   );

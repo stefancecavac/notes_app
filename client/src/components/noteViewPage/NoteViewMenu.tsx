@@ -31,7 +31,7 @@ const NoteViewMenu = ({ singleNote }: { singleNote: noteData }) => {
             <p className="px-3 py-2  font-medium text-info-content">Note Actions</p>
             {!location.pathname.includes("/notes-split") && (
               <label className="text-xs flex items-center gap-3  hover:cursor-pointer hover:bg-base-300 rounded p-1 border border-transparent hover:border-neutral">
-                <input type="checkbox" onChange={toggleWideMode} checked={wideMode} className="toggle toggle-xs" />
+                <input type="checkbox" onChange={toggleWideMode} checked={wideMode} className="toggle toggle-primary toggle-xs" />
                 <p>Wide mode</p>
               </label>
             )}
