@@ -1,27 +1,26 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { client } from "..";
+import AppError from "../middleware/ErrorHandlerMiddleware";
 
-const getAllTags = async (req: Request, res: Response) => {
+const getAllTags = async (req: Request, res: Response, next: NextFunction) => {
   const { userId } = req.user;
 
   try {
-    const AllTags = await client.tag.findMany({
+    const allTags = await client.tag.findMany({
       where: {
         userId: userId,
       },
     });
 
-    res.status(200).json(AllTags);
+    res.status(200).json(allTags);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
 
-const createTag = async (req: Request, res: Response) => {
+const createTag = async (req: Request, res: Response, next: NextFunction) => {
   const { noteId } = req.params;
   const { userId } = req.user;
-
   const { name, textColor, backgroundColor } = req.body;
 
   try {
@@ -54,7 +53,7 @@ const createTag = async (req: Request, res: Response) => {
           },
         },
       });
-      console.log(updatedNote);
+
       res.status(201).json(updatedNote);
     } else {
       const updatedNote = await client.note.update({
@@ -81,17 +80,15 @@ const createTag = async (req: Request, res: Response) => {
           },
         },
       });
-      console.log(updatedNote);
 
       res.status(201).json(updatedNote);
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
 
-const deleteTag = async (req: Request, res: Response) => {
+const deleteTag = async (req: Request, res: Response, next: NextFunction) => {
   const { noteId } = req.params;
   const { userId } = req.user;
   const { tagId } = req.body;
@@ -121,8 +118,7 @@ const deleteTag = async (req: Request, res: Response) => {
 
     res.status(200).json(updatedNote);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
 

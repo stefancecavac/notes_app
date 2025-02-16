@@ -22,10 +22,13 @@ app.use(cookieParser());
 import authRouter from "./routes/AuthRoute";
 import noteRouter from "./routes/NoteRoute";
 import tagRouter from "./routes/TagRoute";
+import { ErrorHandler } from "./middleware/ErrorHandlerMiddleware";
 
 app.use("/api/auth", authRouter);
 app.use("/api/notes", noteRouter);
 app.use("/api/tags", tagRouter);
+
+app.use(ErrorHandler);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server has started on port ${process.env.PORT}`);

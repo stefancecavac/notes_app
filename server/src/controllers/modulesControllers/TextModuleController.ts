@@ -1,7 +1,8 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { client } from "../..";
+import AppError from "../../middleware/ErrorHandlerMiddleware";
 
-const createTextModule = async (req: Request, res: Response) => {
+const createTextModule = async (req: Request, res: Response, next: NextFunction) => {
   const { content, order, noteId } = req.body;
   try {
     const module = await client.module.create({
@@ -25,15 +26,15 @@ const createTextModule = async (req: Request, res: Response) => {
     await client.note.update({
       where: { id: noteId },
       data: { updatedAt: new Date() },
-    }),
-      res.status(201).json(module);
+    });
+
+    res.status(201).json(module);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "something went wrong" });
+    return next(error);
   }
 };
 
-const updateTextModule = async (req: Request, res: Response) => {
+const updateTextModule = async (req: Request, res: Response, next: NextFunction) => {
   const { content, moduleId, noteId } = req.body;
   try {
     const textModule = await client.module.update({
@@ -59,11 +60,11 @@ const updateTextModule = async (req: Request, res: Response) => {
       data: {
         updatedAt: new Date(),
       },
-    }),
-      res.status(200).json(textModule);
+    });
+
+    res.status(200).json(textModule);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "something went wrong" });
+    return next(error);
   }
 };
 

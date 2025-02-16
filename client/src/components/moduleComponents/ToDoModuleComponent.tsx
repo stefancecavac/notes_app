@@ -14,7 +14,7 @@ export const ToDoModuleComponent = ({ module }: { module: moduleData }) => {
   };
 
   return (
-    <div className=" rounded p-1">
+    <div className=" rounded p-1 bg-base-100">
       <h2 className="font-bold text-lg">Your To Do</h2>
       <div className="divider my-3"></div>
 
@@ -50,17 +50,17 @@ const TodoModuleCard = ({ todo }: { todo?: todoModuleData }) => {
   const [completed, setCompleted] = useState(todo?.completed);
   const { noteId } = useParams();
 
-  const handleCheck = () => {
+  function handleCheck() {
     setCompleted((prev) => !prev);
     checkTodo({ completed: !completed, noteId: noteId, todoId: todo?.id });
-  };
+  }
 
   return (
     <label className={`flex items-center p-1  rounded-lg hover:cursor-pointer hover:bg-neutral  gap-5 ${completed ? "bg-neutral" : ""} `}>
       <input checked={completed} onChange={handleCheck} type="checkbox" className="checkbox checkbox-secondary peer" />
       <p className=" text-base-content peer-checked:line-through peer-checked:text-info-content w-full  ">{todo?.title}</p>
       <span
-        className={`rounded-full p-0.5 text-sm text-neutral font-medium ${
+        className={`rounded-full p-0.5 px-2  text-xs text-neutral font-semibold ${
           todo?.priority === "low" ? "bg-green-500" : todo?.priority === "normal" ? "bg-yellow-500" : "bg-red-500"
         }`}
       >

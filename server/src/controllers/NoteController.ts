@@ -1,7 +1,8 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { client } from "..";
+import AppError from "../middleware/ErrorHandlerMiddleware";
 
-const SearchNotes = async (req: Request, res: Response) => {
+export const SearchNotes = async (req: Request, res: Response, next: NextFunction) => {
   const q = req.query.q as string;
   const { userId } = req.user;
 
@@ -21,7 +22,7 @@ const SearchNotes = async (req: Request, res: Response) => {
             tags: {
               some: {
                 name: {
-                  equals: q,
+                  contains: q,
                   mode: "insensitive",
                 },
               },
@@ -35,17 +36,16 @@ const SearchNotes = async (req: Request, res: Response) => {
     });
 
     if (notes.length === 0) {
-      return res.status(404).json({ message: "No notes found" });
+      return next(new AppError("No notes Found", 404));
     }
 
     res.status(200).json(notes);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
 
-const getAllNotes = async (req: Request, res: Response) => {
+export const getAllNotes = async (req: Request, res: Response, next: NextFunction) => {
   const { userId } = req.user;
 
   try {
@@ -75,17 +75,16 @@ const getAllNotes = async (req: Request, res: Response) => {
     const notesTree = buildTree("root");
 
     if (notesTree.length === 0) {
-      return res.status(404).json({ message: "No notes found" });
+      return next(new AppError("No notes Found", 404));
     }
 
     res.status(200).json(notesTree);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
 
-const getGraphNotes = async (req: Request, res: Response) => {
+export const getGraphNotes = async (req: Request, res: Response, next: NextFunction) => {
   const { userId } = req.user;
 
   try {
@@ -97,16 +96,14 @@ const getGraphNotes = async (req: Request, res: Response) => {
     });
 
     if (notes.length === 0) {
-      return res.status(404).json({ message: "No notes found" });
+      return next(new AppError("No notes Found", 404));
     }
 
     res.status(200).json(notes);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
-
 interface Breadcrumb {
   noteId: string;
   noteTitle: string;
@@ -133,7 +130,7 @@ const getBreadcrumbs = async (noteId: string, userId: number): Promise<Breadcrum
   return [...parentBreadcrumbs, { noteId: note.id, noteTitle: note.title, icon: note.icon }];
 };
 
-const getSingleNote = async (req: Request, res: Response) => {
+export const getSingleNote = async (req: Request, res: Response, next: NextFunction) => {
   const { noteId } = req.params;
   const { userId } = req.user;
 
@@ -162,19 +159,18 @@ const getSingleNote = async (req: Request, res: Response) => {
       },
     });
     if (!note) {
-      return res.status(404).json({ message: "No note with that id found" });
+      return next(new AppError("No note with that Id found", 404));
     }
 
     const breadCrumbs = await getBreadcrumbs(noteId, userId);
 
     res.status(200).json({ ...note, breadCrumbs });
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
 
-const createTextNote = async (req: Request, res: Response) => {
+export const createTextNote = async (req: Request, res: Response, next: NextFunction) => {
   const { title, color, parentNoteId } = req.body;
   const { userId } = req.user;
 
@@ -209,12 +205,11 @@ const createTextNote = async (req: Request, res: Response) => {
 
     res.status(201).json(createdNote);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
 
-const updateNote = async (req: Request, res: Response) => {
+export const updateNote = async (req: Request, res: Response, next: NextFunction) => {
   const { noteId } = req.params;
   const { title, color, icon } = req.body;
   const { userId } = req.user;
@@ -246,6 +241,7 @@ const updateNote = async (req: Request, res: Response) => {
           include: {
             textModule: true,
             imageModule: true,
+            TodoModule: true,
           },
         },
       },
@@ -254,12 +250,11 @@ const updateNote = async (req: Request, res: Response) => {
 
     res.status(201).json({ ...updatedNote, breadCrumbs });
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
 
-const duplicateNote = async (req: Request, res: Response) => {
+export const duplicateNote = async (req: Request, res: Response, next: NextFunction) => {
   const { noteId } = req.body;
   const { userId } = req.user;
 
@@ -278,7 +273,7 @@ const duplicateNote = async (req: Request, res: Response) => {
     });
 
     if (!noteToBeDuplicated) {
-      return res.status(404).json({ message: "Note not found" });
+      return next(new AppError("Note not found", 404));
     }
 
     const duplicatedNote = await client.note.create({
@@ -310,12 +305,11 @@ const duplicateNote = async (req: Request, res: Response) => {
 
     res.status(200).json(duplicatedNote);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
 
-const moveNote = async (req: Request, res: Response) => {
+export const moveNote = async (req: Request, res: Response, next: NextFunction) => {
   const { noteId, parentNoteId } = req.body;
   const { userId } = req.user;
 
@@ -327,36 +321,6 @@ const moveNote = async (req: Request, res: Response) => {
 
     res.status(200).json(movedNote);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
-
-// const deleteNote = async (req: Request, res: Response) => {
-//   const { noteId } = req.params;
-//   const { userId } = req.user;
-
-//   try {
-//     const noteExists = await client.note.findUnique({
-//       where: {
-//         id: noteId,
-//       },
-//     });
-//     if (!noteExists) {
-//       return res.status(404).json({ message: "Note with that id not found" });
-//     }
-//     await client.note.delete({
-//       where: {
-//         id: noteId,
-//         userId: userId,
-//       },
-//     });
-
-//     res.status(200).json({ message: "Note successfuly deleted" });
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(500).json({ message: "Something went wrong" });
-//   }
-// };
-
-export { getAllNotes, getSingleNote, createTextNote, updateNote, SearchNotes, duplicateNote, getGraphNotes, moveNote };

@@ -1,7 +1,8 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { client } from "..";
+import AppError from "../middleware/ErrorHandlerMiddleware";
 
-const getAllNotesFromRecycleBin = async (req: Request, res: Response) => {
+const getAllNotesFromRecycleBin = async (req: Request, res: Response, next: NextFunction) => {
   const { userId } = req.user;
 
   try {
@@ -11,17 +12,18 @@ const getAllNotesFromRecycleBin = async (req: Request, res: Response) => {
         inTrash: true,
       },
     });
+
     if (notes.length === 0) {
-      return res.status(404).json({ message: "No notes in Recycle Bin" });
+      return next(new AppError("No notes in Recycle Bin", 404));
     }
+
     res.status(200).json(notes);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
 
-const moveToRecycleBin = async (req: Request, res: Response) => {
+const moveToRecycleBin = async (req: Request, res: Response, next: NextFunction) => {
   const { noteId } = req.body;
   const { userId } = req.user;
 
@@ -31,9 +33,11 @@ const moveToRecycleBin = async (req: Request, res: Response) => {
         id: noteId,
       },
     });
+
     if (!noteExists) {
-      return res.status(404).json({ message: "Note with that id not found" });
+      return next(new AppError("Note with that ID not found", 404));
     }
+
     const moveChildrenToTrash = async (noteId: string) => {
       const children = await client.note.findMany({
         where: {
@@ -74,12 +78,11 @@ const moveToRecycleBin = async (req: Request, res: Response) => {
 
     res.status(200).json(note);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
 
-const restoreFromRecycleBin = async (req: Request, res: Response) => {
+const restoreFromRecycleBin = async (req: Request, res: Response, next: NextFunction) => {
   const { noteId } = req.body;
   const { userId } = req.user;
 
@@ -89,9 +92,11 @@ const restoreFromRecycleBin = async (req: Request, res: Response) => {
         id: noteId,
       },
     });
+
     if (!noteExists) {
-      return res.status(404).json({ message: "Note with that id not found" });
+      return next(new AppError("Note with that ID not found", 404));
     }
+
     await client.note.update({
       where: {
         id: noteId,
@@ -102,10 +107,9 @@ const restoreFromRecycleBin = async (req: Request, res: Response) => {
       },
     });
 
-    res.status(200).json({ message: "Note successfuly restored" });
+    res.status(200).json({ message: "Note successfully restored" });
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
 

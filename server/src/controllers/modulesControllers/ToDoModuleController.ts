@@ -1,7 +1,8 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { client } from "../..";
+import AppError from "../../middleware/ErrorHandlerMiddleware";
 
-export const createToDoModule = async (req: Request, res: Response) => {
+export const createToDoModule = async (req: Request, res: Response, next: NextFunction) => {
   const { order, noteId } = req.body;
   try {
     const module = await client.module.create({
@@ -20,15 +21,15 @@ export const createToDoModule = async (req: Request, res: Response) => {
     await client.note.update({
       where: { id: noteId },
       data: { updatedAt: new Date() },
-    }),
-      res.status(201).json(module);
+    });
+
+    res.status(201).json(module);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "something went wrong" });
+    return next(error);
   }
 };
 
-export const addTodoInModule = async (req: Request, res: Response) => {
+export const addTodoInModule = async (req: Request, res: Response, next: NextFunction) => {
   const { title, priority, moduleId, noteId } = req.body;
   try {
     const TodoModule = await client.module.update({
@@ -55,15 +56,15 @@ export const addTodoInModule = async (req: Request, res: Response) => {
       data: {
         updatedAt: new Date(),
       },
-    }),
-      res.status(200).json(TodoModule);
+    });
+
+    res.status(200).json(TodoModule);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "something went wrong" });
+    return next(error);
   }
 };
 
-export const checkTodoModule = async (req: Request, res: Response) => {
+export const checkTodoModule = async (req: Request, res: Response, next: NextFunction) => {
   const { completed, todoId, noteId } = req.body;
 
   try {
@@ -87,7 +88,6 @@ export const checkTodoModule = async (req: Request, res: Response) => {
 
     res.status(200).json(updatedTodo);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };

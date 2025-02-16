@@ -1,8 +1,9 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { client } from "../..";
 import { imagekit } from "../../config/ImageKit";
+import AppError from "../../middleware/ErrorHandlerMiddleware";
 
-const updateModuleOrder = async (req: Request, res: Response) => {
+const updateModuleOrder = async (req: Request, res: Response, next: NextFunction) => {
   const { modules, noteId } = req.body;
 
   try {
@@ -21,19 +22,21 @@ const updateModuleOrder = async (req: Request, res: Response) => {
 
       updatedModules.push(moduleOrderUpdated);
     }
+
     await client.note.update({
       where: { id: noteId },
       data: { updatedAt: new Date() },
-    }),
-      res.status(200).json(updatedModules);
+    });
+
+    res.status(200).json(updatedModules);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "something went wrong" });
+    return next(error);
   }
 };
 
-const deleteModule = async (req: Request, res: Response) => {
+const deleteModule = async (req: Request, res: Response, next: NextFunction) => {
   const { moduleId, noteId } = req.body;
+
   try {
     const module = await client.module.findUnique({
       where: {
@@ -59,11 +62,11 @@ const deleteModule = async (req: Request, res: Response) => {
       data: {
         updatedAt: new Date(),
       },
-    }),
-      res.status(200).json(module);
+    });
+
+    res.status(200).json(module);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "something went wrong" });
+    return next(error);
   }
 };
 

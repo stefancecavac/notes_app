@@ -1,7 +1,8 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { client } from "..";
+import AppError from "../middleware/ErrorHandlerMiddleware";
 
-const getAllFavouriteNotes = async (req: Request, res: Response) => {
+const getAllFavouriteNotes = async (req: Request, res: Response, next: NextFunction) => {
   const { userId } = req.user;
 
   try {
@@ -15,17 +16,18 @@ const getAllFavouriteNotes = async (req: Request, res: Response) => {
         tags: true,
       },
     });
+
     if (notes.length === 0) {
-      return res.status(404).json({ message: "No notes found" });
+      return next(new AppError("No notes found", 404));
     }
+
     res.status(200).json(notes);
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
 
-const FavouriteNote = async (req: Request, res: Response) => {
+const FavouriteNote = async (req: Request, res: Response, next: NextFunction) => {
   const { noteId } = req.body;
 
   try {
@@ -54,12 +56,11 @@ const FavouriteNote = async (req: Request, res: Response) => {
 
     res.status(200).json(favouriteNote);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
 
-const UnFavouriteNote = async (req: Request, res: Response) => {
+const UnFavouriteNote = async (req: Request, res: Response, next: NextFunction) => {
   const { noteId } = req.body;
 
   try {
@@ -89,8 +90,7 @@ const UnFavouriteNote = async (req: Request, res: Response) => {
 
     res.status(200).json(unfavouriteNote);
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Something went wrong" });
+    return next(error);
   }
 };
 

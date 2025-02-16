@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import AppError from "./ErrorHandlerMiddleware";
 
 declare module "express" {
   export interface Request {
@@ -9,24 +10,22 @@ declare module "express" {
 
 const authenticate = async (req: Request, res: Response, next: NextFunction) => {
   const token = req.headers.authorization?.split(" ")[1];
-  console.log(token);
 
   if (!token) {
-    return res.status(401).json({ message: "No auth token provided" });
+    return next(new AppError("No auth token provided", 401));
   }
   try {
     const verifiedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string);
 
     if (!verifiedToken) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return next(new AppError("Invalid credentials", 401));
     }
 
     req.user = verifiedToken;
 
     next();
   } catch (error) {
-    console.log("error ", error);
-    return res.status(401).json({ message: "Invalid credentials" });
+    next(error);
   }
 };
 

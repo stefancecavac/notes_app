@@ -17,7 +17,6 @@ export const useGetAllTags = () => {
   return { tags };
 };
 
-// Create tag API
 export const useCreateTags = () => {
   const { noteId } = useParams();
   const queryClient = useQueryClient();
@@ -45,7 +44,6 @@ export const useCreateTags = () => {
   return { addTag };
 };
 
-// Delete tag API
 export const useDeleteTag = () => {
   const { noteId } = useParams();
   const queryClient = useQueryClient();
