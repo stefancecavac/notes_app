@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { client } from "../..";
-import AppError from "../../middleware/ErrorHandlerMiddleware";
 
 export const createToDoModule = async (req: Request, res: Response, next: NextFunction) => {
   const { order, noteId } = req.body;
