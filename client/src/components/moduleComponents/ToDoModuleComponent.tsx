@@ -8,20 +8,53 @@ export const ToDoModuleComponent = ({ module }: { module: moduleData }) => {
 
   const [title, setTitle] = useState<string>("");
   const [priority, setPriority] = useState("medium");
+  const [sortedTodos, setSortedTodos] = useState(module?.TodoModule || []);
+  const [sortOrder, setSortOrder] = useState<"hardestFirst" | "easiestFirst">("hardestFirst");
+  const [sortCompleted, setSortCompleted] = useState<"completedFirst" | "completedLast">("completedFirst");
+
+  useEffect(() => {
+    setSortedTodos(module?.TodoModule || []);
+  }, [module?.TodoModule]);
 
   const handleAddTodo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addTodo({ title: title, priority: priority, moduleId: module.id, noteId: module.noteId });
+    addTodo({ title, priority, moduleId: module.id, noteId: module.noteId });
+  };
+
+  const sortByPriority = () => {
+    const priorityOrder = { low: 1, medium: 2, high: 3 };
+
+    setSortedTodos((prevTodos) =>
+      [...prevTodos].sort((a, b) => {
+        return sortOrder === "hardestFirst"
+          ? priorityOrder[b?.priority as keyof typeof priorityOrder] - priorityOrder[a?.priority as keyof typeof priorityOrder]
+          : priorityOrder[a?.priority as keyof typeof priorityOrder] - priorityOrder[b?.priority as keyof typeof priorityOrder];
+      })
+    );
+
+    setSortOrder((prev) => (prev === "hardestFirst" ? "easiestFirst" : "hardestFirst"));
+  };
+  const sortByCompleted = () => {
+    setSortedTodos((prevTodos) =>
+      [...prevTodos].sort((a, b) => {
+        if (sortCompleted === "completedFirst") {
+          return (b?.completed ? 1 : 0) - (a?.completed ? 1 : 0);
+        } else {
+          return (a?.completed ? 1 : 0) - (b?.completed ? 1 : 0);
+        }
+      })
+    );
+    setSortCompleted((prev) => (prev === "completedFirst" ? "completedLast" : "completedFirst"));
   };
 
   return (
-    <div className=" rounded p-1 bg-base-100">
+    <div className="rounded p-1 bg-base-100">
       <h2 className="font-bold text-lg">Your To Do</h2>
       <div className="divider my-3"></div>
 
-      <div className="flex items-center gap-5">
+      <div className="flex items-center justify-between gap-5">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-primary  btn-sm ">
+          <div tabIndex={0} role="button" className="btn btn-primary btn-sm">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
@@ -41,10 +74,25 @@ export const ToDoModuleComponent = ({ module }: { module: moduleData }) => {
           </div>
         </div>
 
-        <div className="btn btn-primary  btn-sm">Filters</div>
+        <div className="flex gap-2 items-center">
+          <button className="btn btn-primary btn-soft btn-sm text-xs" onClick={sortByCompleted}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+            </svg>
+            <p className="">Sort by Completed</p>
+          </button>
+
+          <button className="btn btn-primary btn-soft btn-sm" onClick={sortByPriority}>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+            </svg>
+            <p>Sort by Priority</p>
+          </button>
+        </div>
       </div>
+
       <div className="flex flex-col gap-1 mt-10">
-        {module?.TodoModule?.map((todo) => (
+        {sortedTodos.map((todo) => (
           <TodoModuleCard key={todo?.id} todo={todo} />
         ))}
       </div>

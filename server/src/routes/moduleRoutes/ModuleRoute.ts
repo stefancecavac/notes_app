@@ -3,6 +3,7 @@ import { deleteModule, updateModuleOrder } from "../../controllers/modulesContro
 import textModuleRouter from "../moduleRoutes/TextModuleRoute";
 import imageModuleRouter from "../moduleRoutes/ImageModuleRoute";
 import todoModuleRouter from "../moduleRoutes/ToDoModuleRoute";
+import drawingModuleRouter from "../moduleRoutes/DrawingModuleRoute";
 
 const router = express.Router();
 
@@ -12,5 +13,6 @@ router.delete("/delete-module", deleteModule);
 router.use("/text-module", textModuleRouter);
 router.use("/image-module", imageModuleRouter);
 router.use("/todo-module", todoModuleRouter);
+router.use("/drawing-module", drawingModuleRouter);
 
 export default router;

@@ -7,6 +7,7 @@ import SkeletonLoader from "../loaders/SkeletonLoader";
 import { NewModuleModal } from "./NewModuleModal";
 import { ImageModuleComponent } from "./ImageModuleComponent";
 import { ToDoModuleComponent } from "./ToDoModuleComponent";
+import { DrawingModuleComponent } from "./DrawingModuleComponent";
 
 type moduleComponentProps = {
   module: moduleData;
@@ -42,6 +43,8 @@ const ModuleComponent = ({ module, nextModule, singleNote, singleNoteLoading }: 
             return <ImageModuleComponent module={module} />;
           case "TODO":
             return <ToDoModuleComponent module={module} />;
+          case "DRAWING":
+            return <DrawingModuleComponent module={module} />;
         }
       })()}
       <div className="absolute   flex-row-reverse gap-1  items-center -left-28 top-3 px-5 hidden group-hover/handle:flex scale-up-center ">

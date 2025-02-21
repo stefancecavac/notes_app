@@ -4,6 +4,7 @@ import { useCreateNote } from "../../api/NoteApi";
 import { useParams } from "react-router-dom";
 import { useCreateImageModule } from "../../api/modulesApi/ImageModuleApi";
 import { useCreateTodoModule } from "../../api/modulesApi/TodoModuleApi";
+import { useCreateDrawingModule } from "../../api/modulesApi/DrawingModuleApi";
 
 type newModuleModalProps = {
   module?: moduleData;
@@ -16,6 +17,7 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
   const { createNote } = useCreateNote();
   const { createImageModule } = useCreateImageModule();
   const { createTodoModule } = useCreateTodoModule();
+  const { createDrawingModule } = useCreateDrawingModule();
 
   const { noteId } = useParams();
 
@@ -164,7 +166,10 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
               </div>
             </button>
 
-            <button className=" items-center btn btn-ghost  h-full justify-start  flex p-1  gap-5">
+            <button
+              onClick={() => createDrawingModule({ order: calculateOrder(module!.order, nextModule?.order), noteId: singleNote?.id })}
+              className=" items-center btn btn-ghost  h-full justify-start  flex p-1  gap-5"
+            >
               <div className="rounded-lg  p-1 bg-neutral/50">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
                   <path

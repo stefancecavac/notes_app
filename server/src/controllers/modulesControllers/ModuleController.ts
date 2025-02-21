@@ -17,6 +17,7 @@ const updateModuleOrder = async (req: Request, res: Response, next: NextFunction
           textModule: true,
           imageModule: true,
           TodoModule: true,
+          DrawingModule: true,
         },
       });
 

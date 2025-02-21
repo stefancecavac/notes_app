@@ -42,14 +42,23 @@ export const toDoModuleSchema = z.object({
   type: z.literal("TODO"),
 });
 
+export const drawingModuleSchema = z.object({
+  id: z.string(),
+  data: z.string(),
+
+  moduleId: z.string(),
+  type: z.literal("DRAWING"),
+});
+
 export const moduleSchema = z.object({
   id: z.string(),
-  type: z.union([z.literal("TEXT"), z.literal("IMAGE"), z.literal("TODO")]),
+  type: z.union([z.literal("TEXT"), z.literal("IMAGE"), z.literal("TODO"), z.literal("DRAWING")]),
   order: z.number(),
   createdAt: z.date(),
   textModule: textModuleSchema.optional(),
   imageModule: imageModuleSchema.optional(),
   TodoModule: z.array(toDoModuleSchema.optional()),
+  DrawingModule: drawingModuleSchema.optional(),
 
   noteId: z.string(),
   updatedAt: z.date(),

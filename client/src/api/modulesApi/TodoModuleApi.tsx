@@ -85,10 +85,19 @@ export const useCheckTodo = () => {
       queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
         return {
           ...oldData,
-          modules: [...oldData.modules, data],
+          modules: oldData.modules.map((module) => {
+            if (module.type === "TODO" && module.TodoModule) {
+              return {
+                ...module,
+                TodoModule: module.TodoModule.map((todo) => (todo?.id === data.id ? data : todo)),
+              };
+            }
+            return module;
+          }),
           updatedAt: new Date(),
         };
       });
+      console.log(queryClient.getQueryData(["note", noteId]));
     },
   });
 

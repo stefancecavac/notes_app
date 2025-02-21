@@ -47,6 +47,7 @@ enum ModuleType {
   TEXT
   IMAGE
   TODO
+  DRAWING
 }
 
 model Module {
@@ -59,9 +60,10 @@ model Module {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  textModule  TextModule?
-  imageModule ImageModule?
-  TodoModule  TodoModule[]
+  textModule    TextModule?
+  imageModule   ImageModule?
+  TodoModule    TodoModule[]
+  DrawingModule DrawingModule?
 }
 
 model TextModule {
@@ -89,6 +91,14 @@ model TodoModule {
   priority  String  @default("medium")
 
   moduleId String
+  module   Module @relation(fields: [moduleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model DrawingModule {
+  id   String @id @default(uuid())
+  data String
+
+  moduleId String @unique
   module   Module @relation(fields: [moduleId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
