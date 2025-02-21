@@ -56,7 +56,9 @@ export const useEditorHook = () => {
       }),
       TextStyle,
       Highlight.configure({
-        multicolor: true,
+        HTMLAttributes: {
+          class: "custom-mark",
+        },
       }),
       Underline,
       Color,

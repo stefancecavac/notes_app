@@ -1,7 +1,6 @@
 import { moduleData, noteData } from "../../dataTypes";
 import { useDeleteModule } from "../../api/modulesApi/ModuleApi";
 import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 import TextModuleComponent from "./TextModuleComponent";
 import SkeletonLoader from "../loaders/SkeletonLoader";
 import { NewModuleModal } from "./NewModuleModal";
@@ -19,22 +18,20 @@ type moduleComponentProps = {
 const ModuleComponent = ({ module, nextModule, singleNote, singleNoteLoading }: moduleComponentProps) => {
   const { deleteModule, deleteModulePending } = useDeleteModule();
 
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
+  const { attributes, listeners, setNodeRef, isOver, activeIndex, overIndex } = useSortable({
     id: module?.id,
     data: {
       noteId: module?.noteId,
     },
   });
 
-  const style = {
-    transform: CSS.Translate.toString(transform),
-    transition,
-  };
-
   if (singleNoteLoading) return <SkeletonLoader height={100} width={"100%"}></SkeletonLoader>;
 
   return (
-    <div style={style} ref={setNodeRef} className={`rounded-lg   relative group/handle`}>
+    <div ref={setNodeRef} className={`rounded-lg   relative group/handle`}>
+      {isOver && (
+        <div className={`absolute ${activeIndex > overIndex ? "-top-1" : "-bottom-1"} left-0 w-full h-[3px] rounded-full bg-primary/50`}></div>
+      )}
       {(() => {
         switch (module?.type) {
           case "TEXT":

@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useGetSingleNote } from "../api/NoteApi";
 import NoteViewComponent from "../components/noteViewPage/NoteViewComponent";
-import { closestCenter, DndContext, DragEndEvent, DragOverlay, UniqueIdentifier } from "@dnd-kit/core";
+import { DndContext, DragEndEvent, DragOverlay, pointerWithin, UniqueIdentifier } from "@dnd-kit/core";
 import { useEffect, useState } from "react";
 import { arrayMove } from "@dnd-kit/sortable";
 import { moduleData } from "../dataTypes";
@@ -64,12 +64,12 @@ const NoteViewPage = () => {
   };
 
   return (
-    <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+    <DndContext collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <NoteViewComponent moduleList={moduleList} singleNote={singleNote} singleNoteLoading={singleNoteLoading}></NoteViewComponent>
       {createPortal(
         <DragOverlay>
           {activeId ? (
-            <div className="shadow-md rounded-sm border-dashed border-neutral  border-2">
+            <div className="shadow-md rounded-sm border-dashed border-neutral opacity-40  border-2">
               <ModuleComponent singleNoteLoading={singleNoteLoading} key={activeId} module={moduleList.find((module) => module.id === activeId)!} />
             </div>
           ) : null}

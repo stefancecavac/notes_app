@@ -21,7 +21,13 @@
 .custom-paragraph {
   padding: 10px 0;
   color: hsl(var(--bc));
-  font-size: 0.9em;
+  font-size: 0.7em;
+}
+.tiptap mark {
+  background-color: yellow;
+  color: black;
+  padding: 2px 4px;
+  border-radius: 4px;
 }
 
 .custom-paragraph.is-empty::before {
@@ -78,7 +84,7 @@
 }
 
 .custom-ordered-list li::marker {
-  color: #9a9a9a;
+  color: #393939;
 }
 
 /* bullet list */
