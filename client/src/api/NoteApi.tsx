@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { noteData, notesData } from "../dataTypes";
+import { noteData } from "../dataTypes";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../config/ApiClient";
 import { useToastStore } from "../Stores/useToastNotificationToast";
@@ -25,7 +25,7 @@ export const useGetAllNotes = () => {
   const fetchAllNotes = async () => {
     const response = await axiosInstance.get(`/api/notes`, {});
 
-    return response.data as notesData[];
+    return response.data as noteData[];
   };
 
   const { data: notes, isLoading: notesLoading } = useQuery({

@@ -1,7 +1,7 @@
 import SearchComponent from "./SearchComponent";
 import UserComponent from "./UserComponent";
 import ExpandNavbarButton from "./ExpandNavbarButton";
-import RecycleBinLink from "./RecycleBinLink";
+import RecycleBinLink from "./RecycleBinComponent";
 import SettingsLink from "./SettingsLink";
 import NewItemButton from "./NewItemButton";
 import { useNavbarExpandedStore } from "../../Stores/useNavbarExpandedStore";
@@ -9,6 +9,7 @@ import DashboardLink from "./DashboardLink";
 import { NotesList } from "./NotesListComponents/NotesList";
 import { useGetAllNotes } from "../../api/NoteApi";
 import { useGetAllFavouriteNotes } from "../../api/FavouriteNoteApi";
+import RecycleBinComponent from "./RecycleBinComponent";
 
 const Navbar = () => {
   const { expanded, toggleExpanded } = useNavbarExpandedStore();
@@ -25,17 +26,17 @@ const Navbar = () => {
       {expanded && (
         <div className={`pl-2  flex  flex-col justify-between  h-full`}>
           <div className={` flex flex-col gap-1  mt-3 `}>
-            <NewItemButton></NewItemButton>
-            <DashboardLink></DashboardLink>
-            <SearchComponent></SearchComponent>
+            <NewItemButton />
+            <DashboardLink />
+            <SearchComponent />
             <div className="overflow-auto  h-130">
               <NotesList notes={favouriteNotes} notesLoading={favouriteNotesLoading} text="Favourites"></NotesList>
               <NotesList notes={notes} notesLoading={notesLoading} text="All notes"></NotesList>
             </div>
           </div>
           <div className={`flex flex-col gap-1 mb-2 `}>
-            <RecycleBinLink></RecycleBinLink>
-            <SettingsLink></SettingsLink>
+            <RecycleBinComponent />
+            <SettingsLink />
           </div>
         </div>
       )}

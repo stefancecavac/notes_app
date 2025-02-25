@@ -8,7 +8,7 @@ type searchModalProps = {
   closeModal: () => void;
 };
 
-export const SearchModal = ({ closeModal }: searchModalProps) => {
+const SearchModal = ({ closeModal }: searchModalProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [debouncedSearch] = useDebounce(searchParams.get("q") || "", 500);
   const { searchedNotes } = useSearchNotes(debouncedSearch);
@@ -104,3 +104,5 @@ export const SearchModal = ({ closeModal }: searchModalProps) => {
     </dialog>
   );
 };
+
+export default SearchModal;
