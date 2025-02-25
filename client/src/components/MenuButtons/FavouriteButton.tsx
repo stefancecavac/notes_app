@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useFavouritesHook } from "../../hooks/useFavouritesHook";
-import { noteData, notesData } from "../../dataTypes";
+import { NotesData } from "../../dataTypes";
 
 type favouriteButtonProps = {
-  note: noteData | notesData;
+  note: NotesData;
 };
 
 export const FavouriteButton = ({ note }: favouriteButtonProps) => {

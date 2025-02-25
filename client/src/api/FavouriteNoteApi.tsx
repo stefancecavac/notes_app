@@ -9,12 +9,16 @@ export const useGetAllFavouriteNotes = () => {
     return response.data as noteData[];
   };
 
-  const { data: favouriteNotes, isLoading: favouriteNotesLoading } = useQuery({
+  const {
+    data: favouriteNotes,
+    isLoading: favouriteNotesLoading,
+    isError: favouriteNotesError,
+  } = useQuery({
     queryKey: ["favouriteNotes"],
     queryFn: fetchAllNotes,
   });
 
-  return { favouriteNotes, favouriteNotesLoading };
+  return { favouriteNotes, favouriteNotesLoading, favouriteNotesError };
 };
 
 export const useFavouriteNote = () => {

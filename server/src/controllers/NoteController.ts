@@ -139,6 +139,7 @@ export const getSingleNote = async (req: Request, res: Response, next: NextFunct
       where: {
         id: noteId,
         userId: userId,
+        inTrash: false,
       },
       include: {
         tags: true,

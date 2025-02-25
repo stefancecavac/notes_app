@@ -1,10 +1,11 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { icons } from "../../util/Icons";
 import { colors } from "../../util/Colors";
+import { UpdateData } from "../../dataTypes";
 
 type iconPickerProps = {
-  setNoteState: Dispatch<SetStateAction<{ title: string; color: string; icon: string }>>;
-  noteState: { title: string; color: string; icon: string };
+  setNoteState: Dispatch<SetStateAction<UpdateData>>;
+  noteState: UpdateData;
 };
 
 export const IconPicker = ({ setNoteState, noteState }: iconPickerProps) => {

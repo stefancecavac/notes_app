@@ -1,13 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { noteData } from "../dataTypes";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../config/ApiClient";
 import { useToastStore } from "../Stores/useToastNotificationToast";
+import { NotesData } from "../dataTypes";
 
 export const useGetRecycleBinNotes = () => {
   const fetchAllNotes = async () => {
     const response = await axiosInstance.get("/api/notes/recycle-bin");
-    return response.data as noteData[];
+    return response.data as NotesData[];
   };
 
   const {
@@ -43,13 +43,11 @@ export const useMoveTorecycleBin = () => {
     onSuccess: (data) => {
       navigate("/dashboard");
       showToast({ message: "Note moved to recycle bin", type: "WARNING" });
-      queryClient.setQueryData(["notes"], (oldData: noteData[] | undefined) => {
-        if (!oldData) return [data];
-        return oldData.filter((dData) => dData.id !== data.id);
-      });
-      queryClient.setQueryData(["favouriteNotes"], (oldData: noteData[] | undefined) => {
-        if (!oldData) return [data];
-        return oldData.filter((dData) => dData.id !== data.id);
+      queryClient.setQueryData(["favouriteNotes"], (oldData: NotesData[] | undefined) =>
+        oldData ? oldData.filter((note) => note.id !== data.id) : []
+      );
+      queryClient.setQueryData(["favouriteNotes"], (oldData: NotesData[]) => {
+        return oldData.filter((dData) => dData.id === data.id);
       });
     },
   });

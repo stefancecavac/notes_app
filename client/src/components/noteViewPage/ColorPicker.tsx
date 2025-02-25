@@ -1,8 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
 import { colors } from "../../util/Colors";
+import { UpdateData } from "../../dataTypes";
 
 type colorPickerProps = {
-  setNoteState: Dispatch<SetStateAction<{ title: string; color: string; icon: string }>>;
+  setNoteState: Dispatch<SetStateAction<UpdateData>>;
 };
 
 export const ColorPicker = ({ setNoteState }: colorPickerProps) => {

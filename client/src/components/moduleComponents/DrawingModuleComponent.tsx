@@ -45,7 +45,7 @@ export const DrawingModuleComponent = ({ module }: { module: moduleData }) => {
       moduleId: module.id,
       noteId: module.noteId,
     });
-  }, [debouncedSave, module.id, module.noteId, updateDrawingModule]);
+  }, [debouncedSave, module.DrawingModule?.data, module.id, module.noteId, updateDrawingModule]);
 
   const handleSave = () => {
     if (canvasRef.current) {

@@ -4,8 +4,6 @@ import RecycleBinModal from "../modals/RecycleBinModal";
 const RecycleBinComponent = () => {
   const [modal, setModal] = useState(false);
 
-  console.log(modal);
-
   return (
     <>
       <button

@@ -13,7 +13,7 @@ import RecycleBinComponent from "./RecycleBinComponent";
 const Navbar = () => {
   const { expanded, toggleExpanded } = useNavbarExpandedStore();
   const { notes, notesLoading } = useGetAllNotes();
-  const { favouriteNotes, favouriteNotesLoading } = useGetAllFavouriteNotes();
+  const { favouriteNotes, favouriteNotesLoading, favouriteNotesError } = useGetAllFavouriteNotes();
 
   return (
     <div className={`${expanded ? "w-60      " : "w-0 p-0  "} transition-all relative     flex flex-col `}>
@@ -29,8 +29,11 @@ const Navbar = () => {
             <DashboardLink />
             <SearchComponent />
             <div className="overflow-auto  h-130">
-              <NotesList notes={favouriteNotes} notesLoading={favouriteNotesLoading} text="Favourites"></NotesList>
-              <NotesList notes={notes} notesLoading={notesLoading} text="All notes"></NotesList>
+              <NotesList notes={notes} notesLoading={notesLoading} text="Private"></NotesList>
+
+              {!favouriteNotesError && favouriteNotes?.length !== 0 && (
+                <NotesList notes={favouriteNotes} notesLoading={favouriteNotesLoading} text="Favourites"></NotesList>
+              )}
             </div>
           </div>
           <div className={`flex flex-col gap-1 mb-2 `}>

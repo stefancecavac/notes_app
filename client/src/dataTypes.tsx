@@ -108,6 +108,13 @@ export const notesSchema: z.ZodType<NotesData> = z.lazy(() =>
   })
 );
 
+export const updateDataSchema = z.object({
+  title: z.string().optional(),
+  color: z.string().default("").optional(),
+  icon: z.string().default("").optional(),
+});
+export type UpdateData = z.infer<typeof updateDataSchema>;
+
 export type textModuleData = z.infer<typeof textModuleSchema>;
 export type todoModuleData = z.infer<typeof toDoModuleSchema>;
 export type moduleData = z.infer<typeof moduleSchema>;

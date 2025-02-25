@@ -17,7 +17,7 @@ const UserComponent = () => {
         <p className=" text-xs text-base-content font-medium">{user?.email}</p>
       </div>
 
-      <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 gap-1 shadow-md border border-neutral">
+      <ul tabIndex={0} className="dropdown-content menu bg-base-200 mt-2 rounded-box z-1 w-52 p-2 gap-1 shadow-md border border-neutral">
         <SettingsLink></SettingsLink>
         <button className=" btn btn-error btn-soft btn-sm justify-start p-1    rounded-lg flex items-center gap-4" onClick={() => logout()}>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 ">

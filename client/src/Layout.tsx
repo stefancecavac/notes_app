@@ -1,8 +1,10 @@
 import Navbar from "./components/navbar/Navbar";
 import React from "react";
 import { Toast } from "./Stores/useToastNotificationToast";
+import { useDynamicTitleAndFaviconHook } from "./hooks/useDynamicTitleAndFavicontHook";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
+  useDynamicTitleAndFaviconHook("", "");
   return (
     <div id="main-div" className="flex h-screen bg-base-200 ">
       <Navbar></Navbar>

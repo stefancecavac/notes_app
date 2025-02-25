@@ -3,7 +3,7 @@ import React, { useContext, useLayoutEffect, useState } from "react";
 import { getCurrentUser, loginUser, logoutUser, registerUser } from "../api/AuthApi";
 import { userData } from "../dataTypes";
 import { axiosInstance } from "../config/ApiClient";
-import { InternalAxiosRequestConfig } from "axios";
+import { AxiosError, InternalAxiosRequestConfig } from "axios";
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
@@ -85,7 +85,9 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
             originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
             return axiosInstance(originalRequest);
           } catch (err) {
-            if (err.response?.status === 403) {
+            const axiosError = err as AxiosError;
+
+            if (axiosError.response?.status === 403) {
               setAccessToken(null);
               logout();
             }
