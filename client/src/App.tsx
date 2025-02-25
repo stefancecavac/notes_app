@@ -4,7 +4,6 @@ import NoteViewPage from "./pages/NoteViewPage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import Layout from "./Layout";
-import RecycleBinPage from "./pages/RecycleBinPage";
 import SettingsPage from "./pages/SettingsPage";
 import ProfileSettingsComponent from "./components/settings/ProfileSettingsComponent";
 import PreferencesSettingsComponent from "./components/settings/PreferencesSettingsComponent";
@@ -78,19 +77,6 @@ const App = () => {
           <Route path="preferences" element={user ? <PreferencesSettingsComponent></PreferencesSettingsComponent> : <Navigate to="/" />}></Route>
           <Route path="notifications" element={user ? <ProfileSettingsComponent></ProfileSettingsComponent> : <Navigate to="/" />}></Route>
         </Route>
-
-        <Route
-          path="/recycle-bin"
-          element={
-            user ? (
-              <Layout>
-                <RecycleBinPage></RecycleBinPage>
-              </Layout>
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
 
         <Route path="/" element={!user ? <LandingPage></LandingPage> : <Navigate to="/notes-explorer" />} />
 
