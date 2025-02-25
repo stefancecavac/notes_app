@@ -50,7 +50,7 @@ export const useAddTodoInModule = () => {
     mutationFn: postTodoModuleApi,
     onSuccess: (data) => {
       queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
-        const updatedModules = oldData.modules.map((module) => {
+        const updatedModules = oldData.modules?.map((module: moduleData) => {
           if (module.id === data.id) {
             return { ...module, TodoModule: data.TodoModule };
           }
@@ -85,7 +85,7 @@ export const useCheckTodo = () => {
       queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
         return {
           ...oldData,
-          modules: oldData.modules.map((module) => {
+          modules: oldData.modules?.map((module) => {
             if (module.type === "TODO" && module.TodoModule) {
               return {
                 ...module,

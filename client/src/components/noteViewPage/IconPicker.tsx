@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { icons } from "../../util/Icons";
+import { colors } from "../../util/Colors";
 
 type iconPickerProps = {
   setNoteState: Dispatch<SetStateAction<{ title: string; color: string; icon: string }>>;
@@ -12,7 +13,6 @@ export const IconPicker = ({ setNoteState, noteState }: iconPickerProps) => {
   const handleIconPick = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNoteState((prev) => ({ ...prev, icon: e.target.value }));
   };
-  const colors = ["#ef4444", "#3b82f6", "#eab308", "#22c55e", "#a855f7", "#14b8a6"];
 
   const handleColorPick = (e: React.ChangeEvent<HTMLInputElement>) => {
     const colorChangedArray = iconsArray.map((icon) => ({

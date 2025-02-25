@@ -21,7 +21,7 @@
 .custom-paragraph {
   padding: 10px 0;
   color: hsl(var(--bc));
-  font-size: 0.7em;
+  font-size: 0.8em;
 }
 .tiptap mark {
   background-color: yellow;

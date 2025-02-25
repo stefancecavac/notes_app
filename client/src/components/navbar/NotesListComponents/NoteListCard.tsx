@@ -1,10 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { useState, useRef, lazy, Suspense } from "react";
-import { notesData } from "../../../dataTypes";
+import { NotesData } from "../../../dataTypes";
+
 const NoteListCardMenu = lazy(() => import("./NoteListCardMenu"));
 
 type noteListCardProps = {
-  note: notesData;
+  note: NotesData;
 };
 
 export const NoteListCard = ({ note }: noteListCardProps) => {
@@ -143,7 +144,7 @@ export const NoteListCard = ({ note }: noteListCardProps) => {
       </NavLink>
 
       {isTreeViewOpen &&
-        note?.childNotes?.map((childNote, index) => (
+        note?.childNotes?.map((childNote: NotesData, index: number) => (
           <div key={index} className="ml-3 pl-2 space-y-1 border-l-2 border-neutral">
             <NoteListCard note={childNote} />
           </div>

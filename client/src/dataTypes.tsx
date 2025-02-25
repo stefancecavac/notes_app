@@ -5,16 +5,14 @@ export const userSchema = z.object({
   email: z.string(),
   password: z.string(),
 });
-
 export type userData = z.infer<typeof userSchema>;
 
 export const tagSchema = z.object({
-  id: z.string().optional(),
+  id: z.string(),
   name: z.string().min(1),
-  textColor: z.string().default("").optional(),
-  backgroundColor: z.string().default("").optional(),
+  textColor: z.string(),
+  backgroundColor: z.string(),
 });
-
 export type tagData = z.infer<typeof tagSchema>;
 
 export const textModuleSchema = z.object({
@@ -30,14 +28,14 @@ export const imageModuleSchema = z.object({
   width: z.number(),
   height: z.number(),
   moduleId: z.string(),
-  type: z.literal("TEXT"),
+  type: z.literal("IMAGE"),
 });
 
 export const toDoModuleSchema = z.object({
   id: z.string(),
   title: z.string(),
-  completed: z.boolean().default(false),
-  priority: z.string().default("normal"),
+  completed: z.boolean(),
+  priority: z.string(),
   moduleId: z.string(),
   type: z.literal("TODO"),
 });
@@ -45,7 +43,6 @@ export const toDoModuleSchema = z.object({
 export const drawingModuleSchema = z.object({
   id: z.string(),
   data: z.string(),
-
   moduleId: z.string(),
   type: z.literal("DRAWING"),
 });
@@ -55,58 +52,63 @@ export const moduleSchema = z.object({
   type: z.union([z.literal("TEXT"), z.literal("IMAGE"), z.literal("TODO"), z.literal("DRAWING")]),
   order: z.number(),
   createdAt: z.date(),
+  updatedAt: z.date(),
+  noteId: z.string(),
   textModule: textModuleSchema.optional(),
   imageModule: imageModuleSchema.optional(),
-  TodoModule: z.array(toDoModuleSchema.optional()),
+  TodoModule: z.array(toDoModuleSchema).optional(),
   DrawingModule: drawingModuleSchema.optional(),
-
-  noteId: z.string(),
-  updatedAt: z.date(),
 });
 
-export const noteSchema = z.object({
-  id: z.string(),
-  title: z.string().default("New note"),
-  content: z.string().default(""),
-  color: z.string().default(""),
-  icon: z.string().default(""),
-  favourite: z.boolean().default(false),
-  inTrash: z.boolean().default(false),
-  modules: z.array(moduleSchema),
-  tags: z.array(tagSchema),
-  createdAt: z.string(),
-  updatedAt: z.string(),
-  userId: z.string(),
-  trashedAt: z.date().nullable(),
-  parentNoteId: z.string(),
-  childNotes: z.array(z.object({ id: z.string(), title: z.string(), icon: z.string() })),
-  breadCrumbs: z.array(z.object({ noteId: z.string(), noteTitle: z.string(), icon: z.string() })),
-});
-
-export type notesData = {
+export type NotesData = {
   id: string;
-  title: string;
-  icon: string;
-  color: string;
+  title?: string;
+  content?: string;
+  icon?: string;
+  color?: string;
   favourite: boolean;
+  inTrash: boolean;
+  modules: z.infer<typeof moduleSchema>[];
+  tags?: z.infer<typeof tagSchema>[];
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+  trashedAt: Date | null;
   parentNoteId: string;
-  childNotes: notesData[];
+  childNotes?: NotesData[];
+  breadCrumbs?: { noteId: string; noteTitle: string; icon: string }[];
 };
 
-export const notesSchema: z.ZodType<notesData> = z.lazy(() =>
+export const notesSchema: z.ZodType<NotesData> = z.lazy(() =>
   z.object({
     id: z.string(),
-    title: z.string(),
-    icon: z.string(),
-    color: z.string(),
+    title: z.string().default("New note"),
+    content: z.string().default(""),
+    color: z.string().default(""),
+    icon: z.string().default(""),
     favourite: z.boolean(),
+    inTrash: z.boolean(),
+    modules: z.array(moduleSchema),
+    tags: z.array(tagSchema).default([]),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+    userId: z.string(),
+    trashedAt: z.date().nullable(),
     parentNoteId: z.string(),
-    childNotes: z.array(notesSchema),
+    childNotes: z.array(notesSchema).default([]),
+    breadCrumbs: z
+      .array(
+        z.object({
+          noteId: z.string(),
+          noteTitle: z.string(),
+          icon: z.string(),
+        })
+      )
+      .default([]),
   })
 );
 
 export type textModuleData = z.infer<typeof textModuleSchema>;
 export type todoModuleData = z.infer<typeof toDoModuleSchema>;
-
 export type moduleData = z.infer<typeof moduleSchema>;
-export type noteData = z.infer<typeof noteSchema>;
+export type noteData = z.infer<typeof notesSchema>;

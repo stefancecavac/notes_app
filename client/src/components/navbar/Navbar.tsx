@@ -1,7 +1,6 @@
 import SearchComponent from "./SearchComponent";
 import UserComponent from "./UserComponent";
 import ExpandNavbarButton from "./ExpandNavbarButton";
-import RecycleBinLink from "./RecycleBinComponent";
 import SettingsLink from "./SettingsLink";
 import NewItemButton from "./NewItemButton";
 import { useNavbarExpandedStore } from "../../Stores/useNavbarExpandedStore";

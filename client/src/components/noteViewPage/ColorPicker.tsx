@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { colors } from "../../util/Colors";
 
 type colorPickerProps = {
   setNoteState: Dispatch<SetStateAction<{ title: string; color: string; icon: string }>>;
@@ -8,8 +9,6 @@ export const ColorPicker = ({ setNoteState }: colorPickerProps) => {
   const handleColorPick = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNoteState((prev) => ({ ...prev, color: e.target.value }));
   };
-
-  const colors = ["#ef4444", "#3b82f6", "#eab308", "#22c55e", "#a855f7", "#14b8a6"];
 
   return (
     <div className="dropdown  dropdown-center">

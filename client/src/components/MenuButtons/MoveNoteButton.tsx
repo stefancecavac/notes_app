@@ -1,15 +1,15 @@
 import { MouseEvent, useState } from "react";
-import { noteData, notesData } from "../../dataTypes";
-import { NoteMoveModal } from "../noteViewPage/NoteMoveModal";
+import { noteData } from "../../dataTypes";
+import { NoteMoveModal } from "../modals/NoteMoveModal";
 
 type moveNoteButtonProps = {
-  note: noteData | notesData;
+  note: noteData;
 };
 
 export const MoveNoteButton = ({ note }: moveNoteButtonProps) => {
   const [modal, setModal] = useState(false);
 
-  const handleOpenModal = (e: MouseEvent<HTMLButtonElement, MouseEvent<Element, MouseEvent<Element, MouseEvent>>>) => {
+  const handleOpenModal = (e: MouseEvent) => {
     e.stopPropagation();
     setModal(true);
   };

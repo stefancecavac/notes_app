@@ -47,7 +47,7 @@ export const useDeleteModule = () => {
       queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
         return {
           ...oldData,
-          modules: oldData.modules.filter((module: moduleData) => module.id !== data.id),
+          modules: oldData.modules?.filter((module: moduleData) => module.id !== data.id),
         };
       });
     },

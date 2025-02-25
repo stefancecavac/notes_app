@@ -1,9 +1,9 @@
 import { useGraphNotes, useMoveNote } from "../../api/NoteApi";
-import { noteData, notesData } from "../../dataTypes";
-import { useEffect, useRef } from "react";
+import { NotesData } from "../../dataTypes";
+import { MouseEvent, useEffect, useRef } from "react";
 
 type noteMoveModalProps = {
-  singleNote: notesData | noteData;
+  singleNote: NotesData;
   closeModal: () => void;
 };
 
@@ -18,30 +18,33 @@ export const NoteMoveModal = ({ singleNote, closeModal }: noteMoveModalProps) =>
     }
   }, []);
 
-  const handleClose = (e: React.MouseEvent<HTMLFormElement, MouseEvent>) => {
+  const handleClose = (e: MouseEvent) => {
     e.stopPropagation();
     closeModal();
   };
   return (
-    <dialog ref={modalRef} id="move-modal" className="modal  rounded-md border p-2 " onCancel={closeModal}>
-      <div className="modal-box bg-base-100x">
-        <h3 className="font-bold text-lg">Move to:</h3>
+    <dialog ref={modalRef} className="modal  " onCancel={closeModal}>
+      <div className="modal-box bg-base-100 flex flex-col rounded-md border p-3 border-neutral">
+        <h3 className="font-bold text-start text-lg pb-5 ">Move to:</h3>
 
-        <button onClick={() => moveNote({ noteId: singleNote.id, parentNoteId: null })} className="btn btn-sm w-full my-5">
+        <button
+          onClick={() => moveNote({ noteId: singleNote.id, parentNoteId: null })}
+          className="flex p-2 items-center gap-2 text-sm text-base-content hover:cursor-pointer hover:bg-base-300 bg-neutral  rounded-md"
+        >
           Move Note to top
         </button>
 
-        <div className="flex flex-col gap-1 border-y-2 border-neutral py-2  ">
+        <div className="flex flex-col gap-1  py-2  ">
           {graphNotes
             ?.filter((gNote) => gNote.id !== singleNote.id)
             .map((gNote) => (
               <span
                 onClick={() => moveNote({ noteId: singleNote.id, parentNoteId: gNote.id })}
-                className="flex p-2 items-center gap-2 text-sm text-base-content hover:cursor-pointer hover:bg-base-200  rounded-md"
+                className="flex p-2 items-center gap-2 text-sm text-base-content hover:cursor-pointer hover:bg-base-300  rounded-md"
                 key={gNote.id}
               >
                 {gNote.icon ? (
-                  <div className="size-5" dangerouslySetInnerHTML={{ __html: gNote.icon }}></div>
+                  <div className="size-5 stroke-" dangerouslySetInnerHTML={{ __html: gNote.icon }}></div>
                 ) : (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -66,9 +69,11 @@ export const NoteMoveModal = ({ singleNote, closeModal }: noteMoveModalProps) =>
               </span>
             ))}
         </div>
-        <div className="modal-action">
+        <div className="modal-action mt-0">
           <form method="dialog">
-            <button className="btn">Close</button>
+            <button onClick={(e) => handleClose(e)} className="btn btn-primary">
+              Close
+            </button>
           </form>
         </div>
       </div>

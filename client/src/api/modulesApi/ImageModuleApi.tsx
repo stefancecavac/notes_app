@@ -63,7 +63,7 @@ export const useUpdateImageModule = ({ noteId }: { noteId: string }) => {
     onSuccess(data) {
       queryClient.setQueryData(["note", noteId], (oldData: noteData | undefined) => {
         if (!oldData) return undefined;
-        const updatedModules = oldData.modules.map((module) => (module.id === data.id ? { ...module, ...data, updatedAt: new Date() } : module));
+        const updatedModules = oldData.modules?.map((module) => (module.id === data.id ? { ...module, ...data, updatedAt: new Date() } : module));
         return { ...oldData, modules: updatedModules, updatedAt: new Date() };
       });
     },

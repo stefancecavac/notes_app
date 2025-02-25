@@ -1,5 +1,4 @@
 import { createPortal } from "react-dom";
-import { notesData } from "../../../dataTypes";
 import { LegacyRef, useEffect, useRef, useState } from "react";
 import { useUpdateNote } from "../../../api/NoteApi";
 import { useDebounce } from "use-debounce";
@@ -9,11 +8,12 @@ import { AddSubPageButton } from "../../MenuButtons/AddSubPageButton";
 import { DuplicateNoteButton } from "../../MenuButtons/DuplicateNoteButton";
 import { MoveNoteButton } from "../../MenuButtons/MoveNoteButton";
 import { DeleteButton } from "../../MenuButtons/DeleteButton";
+import { NotesData } from "../../../dataTypes";
 
 type noteListCardMenuProps = {
   openMenu: boolean;
   setOpenMenu: (value: boolean) => void;
-  note: notesData;
+  note: NotesData;
   menuRef: LegacyRef<HTMLDivElement> | undefined;
   menuPosition: { top: number; left: number };
 };

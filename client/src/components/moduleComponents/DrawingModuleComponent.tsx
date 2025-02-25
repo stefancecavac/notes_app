@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { moduleData } from "../../dataTypes";
 import CanvasDraw from "react-canvas-draw";
 import { useUpdateDrawingModule } from "../../api/modulesApi/DrawingModuleApi";
+import { colors } from "../../util/Colors";
+import { useDebounce } from "use-debounce";
 
 export const DrawingModuleComponent = ({ module }: { module: moduleData }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -14,6 +16,10 @@ export const DrawingModuleComponent = ({ module }: { module: moduleData }) => {
   const [selectedBrushWidth, setSelectedBrushWidth] = useState(2);
 
   const [canvasWidth, setCanvasWidth] = useState<number>(800);
+
+  const [savedData, setSavedData] = useState<string | undefined>(module.DrawingModule?.data);
+
+  const [debouncedSave] = useDebounce(savedData, 1000);
 
   useEffect(() => {
     const updateWidth = () => {
@@ -32,18 +38,20 @@ export const DrawingModuleComponent = ({ module }: { module: moduleData }) => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (debouncedSave === module.DrawingModule?.data) return;
+    updateDrawingModule({
+      data: debouncedSave,
+      moduleId: module.id,
+      noteId: module.noteId,
+    });
+  }, [debouncedSave, module.id, module.noteId, updateDrawingModule]);
+
   const handleSave = () => {
     if (canvasRef.current) {
-      const saveData = canvasRef.current.getSaveData();
-      updateDrawingModule({
-        data: saveData,
-        moduleId: module.id,
-        noteId: module.noteId,
-      });
+      setSavedData(canvasRef.current.getSaveData());
     }
   };
-
-  const colors = ["#ef4444", "#3b82f6", "#eab308", "#22c55e", "#a855f7", "#14b8a6"];
 
   return (
     <div ref={containerRef} className="rounded flex flex-col justify-center border border-neutral items-center w-full">
@@ -85,14 +93,10 @@ export const DrawingModuleComponent = ({ module }: { module: moduleData }) => {
             <span>|</span>
           </div>
         </div>
-
-        <button onClick={handleSave} className="btn">
-          Save Drawing
-        </button>
       </div>
 
       <CanvasDraw
-        onChange={() => console.log("chanhed")}
+        onChange={handleSave}
         ref={canvasRef}
         brushColor={selectedColor}
         hideGrid
