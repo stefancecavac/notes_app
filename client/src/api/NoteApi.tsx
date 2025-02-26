@@ -61,7 +61,7 @@ export const useGetSingleNote = ({ noteId }: { noteId: string }) => {
   const {
     data: singleNote,
     isFetching: singleNoteLoading,
-    error: singleNoteError,
+    isError: singleNoteError,
   } = useQuery({
     queryKey: ["note", noteId],
     queryFn: fetchSingleNote,

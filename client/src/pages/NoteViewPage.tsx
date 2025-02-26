@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetSingleNote } from "../api/NoteApi";
 import NoteViewComponent from "../components/noteViewPage/NoteViewComponent";
 import { DndContext, DragEndEvent, DragOverlay, pointerWithin, UniqueIdentifier } from "@dnd-kit/core";
@@ -14,12 +14,14 @@ import { DragStartEvent } from "@dnd-kit/core";
 const NoteViewPage = () => {
   const { noteId } = useParams();
   const { updateModuleOrder } = useUpdateModuleOrder();
-  const { singleNote, singleNoteLoading } = useGetSingleNote({ noteId: noteId! });
+  const { singleNote, singleNoteLoading, singleNoteError } = useGetSingleNote({ noteId: noteId! });
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [moduleList, setModuleList] = useState(singleNote?.modules || []);
 
   const [debouncedModuleList] = useDebounce(moduleList, 1000);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (singleNote) {
@@ -36,6 +38,11 @@ const NoteViewPage = () => {
       }
     }
   }, [debouncedModuleList]);
+
+  useEffect(() => {
+    if (!singleNoteError) return;
+    navigate("/dashboard");
+  }, [navigate, singleNoteError]);
 
   if (!singleNote) {
     return null;
