@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 
-export const useDebounceHook = (value: string, timeout: number) => {
+export const useDebounceHook = <T,>(value: T, delay: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
-  const [debouncing, setDebouncing] = useState(false);
+  const [isDebouncing, setIsDebouncing] = useState(false);
 
   useEffect(() => {
-    setDebouncing(true);
+    setIsDebouncing(true);
     const timer = setTimeout(() => {
       setDebouncedValue(value);
-      setDebouncing(false);
-    }, timeout);
+      setIsDebouncing(false);
+    }, delay);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [timeout, value]);
+  }, [value, delay]);
 
-  return { debouncedValue, debouncing };
+  return { debouncedValue, isDebouncing };
 };

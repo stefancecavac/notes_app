@@ -1,10 +1,10 @@
 import { useState } from "react";
 import SkeletonLoader from "../../loaders/SkeletonLoader";
-import { notesData } from "../../../dataTypes";
 import { NoteListCard } from "./NoteListCard";
+import { NotesData } from "../../../dataTypes";
 
 type notesListProps = {
-  notes: notesData[] | undefined;
+  notes: NotesData[] | undefined;
   notesLoading: boolean;
   text: string;
 };
@@ -49,7 +49,7 @@ export const NotesList = ({ notes, notesLoading, text }: notesListProps) => {
 
       {allNotesExpanded &&
         (notesLoading ? (
-          <SkeletonLoader height={20} width={200}></SkeletonLoader>
+          <SkeletonLoader height={20} width={"100%"}></SkeletonLoader>
         ) : (
           <div className="flex flex-col gap-1">
             {notes?.map((note) => (

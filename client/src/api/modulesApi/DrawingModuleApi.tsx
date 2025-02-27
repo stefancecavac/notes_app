@@ -17,16 +17,17 @@ export const useCreateDrawingModule = () => {
   const { mutate: createDrawingModule } = useMutation({
     mutationKey: ["drawing-module"],
     mutationFn: postDrawingModuleApi,
-    onSuccess: (data) => {
+    onSuccess: () => {
       showToast({ type: "SUCCESS", message: "Drawing module created" });
 
-      queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
-        return {
-          ...oldData,
-          modules: [...oldData.modules, data],
-          updatedAt: new Date(),
-        };
-      });
+      // queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
+      //   return {
+      //     ...oldData,
+      //     modules: [...oldData.modules, data],
+      //     updatedAt: new Date(),
+      //   };
+      // });
+      queryClient.invalidateQueries({ queryKey: ["note", noteId] });
     },
   });
 

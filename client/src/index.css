@@ -63,9 +63,9 @@
 @plugin "daisyui/theme" {
   name: "dark";
   default: true;
-  --color-base-100: #1a1a1a; /* Dark background */
-  --color-base-200: oklch(0.15 0.01 106.424); /* Slightly lighter dark background */
-  --color-base-300: oklch(20.54% 0.003 48.717); /* Even lighter for elements */
+  --color-base-100: oklch(17.22% 0.01 106.424); /* Dark background oklch(0.15 0.01 106.424) */
+  --color-base-200: #1a1a1a; /* Slightly lighter dark background */
+  --color-base-300: #121110; /* Even lighter for elements */
   --color-base-content: #e0e0e0; /* Light text for readability */
 
   --color-primary: #4a90e2; /* Dark red */

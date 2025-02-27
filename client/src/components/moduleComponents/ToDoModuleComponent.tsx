@@ -115,7 +115,7 @@ const TodoModuleCard = ({ todo }: { todo?: todoModuleData }) => {
   }
 
   return (
-    <label className={`flex items-center p-1  rounded-lg hover:cursor-pointer hover:bg-neutral  gap-5 ${completed ? "bg-neutral" : ""} `}>
+    <label className={`flex items-center p-1  rounded-lg hover:cursor-pointer hover:bg-base-200  gap-5 ${completed ? "bg-base-200l" : ""} `}>
       <input checked={completed} onChange={handleCheck} type="checkbox" className="checkbox checkbox-sm checkbox-primary peer" />
       <p className=" text-base-content text-sm font-medium peer-checked:line-through peer-checked:text-info-content w-full  ">{todo?.title}</p>
       <div

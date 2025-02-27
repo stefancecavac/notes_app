@@ -108,7 +108,7 @@ export const useCreateNote = () => {
       showToast({ message: "Note successfuly created", type: "SUCCESS" });
       queryClient.setQueryData(["notes"], (oldData: noteData[] | undefined) => {
         if (!oldData) return [data];
-        if (!data.parentNoteId) return [...oldData, data];
+        if (!data.parentNoteId) return [data, ...oldData];
         if (data.parentNoteId) return addNoteToParent(oldData, data);
       });
     },

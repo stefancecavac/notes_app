@@ -17,15 +17,16 @@ export const useCreateTodoModule = () => {
   const { mutate: createTodoModule } = useMutation({
     mutationKey: ["todo-module"],
     mutationFn: postTodoModuleApi,
-    onSuccess: (data) => {
+    onSuccess: () => {
       showToast({ type: "SUCCESS", message: "Todo module created" });
-      queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
-        return {
-          ...oldData,
-          modules: [...oldData.modules, data],
-          updatedAt: new Date(),
-        };
-      });
+      // queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
+      //   return {
+      //     ...oldData,
+      //     modules: [...oldData.modules, data],
+      //     updatedAt: new Date(),
+      //   };
+      // });
+      queryClient.invalidateQueries({ queryKey: ["note", noteId] });
     },
   });
 

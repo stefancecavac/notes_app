@@ -44,7 +44,7 @@ export const IconPicker = ({ setNoteState, noteState }: iconPickerProps) => {
         </svg>
         Pick icon
       </div>
-      <ul tabIndex={0} className="dropdown-content w-45  menu bg-base-100 rounded-box z-1 p-2 shadow-md border border-neutral ">
+      <ul tabIndex={0} className="dropdown-content w-45  menu bg-base-200 rounded-box z-1 p-2 shadow-md border border-neutral ">
         <div className="flex items-center w-full justify-between border-b-2 border-neutral p-1">
           <p className=" text-xs text-info-content font-bold">Select Icon</p>
           <button

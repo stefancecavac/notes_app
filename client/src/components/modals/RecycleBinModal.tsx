@@ -17,7 +17,7 @@ const RecycleBinModal = ({ closeModal }: recycleBinModalProps) => {
 
   return (
     <dialog ref={modalRef} className="modal" onCancel={closeModal}>
-      <div className="modal-box p-0 border border-neutral">
+      <div className="modal-box p-0 border border-neutral bg-base-200">
         <div className="p-5 pb-3">
           <h2 className="text-3xl font-bold text-base-content">Recycle Bin</h2>
           <p className="text-info-content text-sm mt-3">Notes will be automatically deleted after 7 days in the recycle bin.</p>
@@ -49,7 +49,7 @@ const RecycleBinModal = ({ closeModal }: recycleBinModalProps) => {
                 </div>
                 <button
                   onClick={() => restoreFromRecycleBin({ value: false, noteId: note.id })}
-                  className={`flex btn-ghost btn btn-xs btn-square shrink-0 relative rounded-lg transition-all `}
+                  className={`flex btn-ghost btn-neutral text-info-content btn btn-xs btn-square shrink-0 relative rounded-lg transition-all `}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

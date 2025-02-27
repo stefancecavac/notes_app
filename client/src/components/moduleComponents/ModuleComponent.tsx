@@ -45,7 +45,7 @@ const ModuleComponent = ({ module, nextModule, singleNote, singleNoteLoading }: 
         }
       })()}
       <div className="absolute   flex-row-reverse gap-1  items-center -left-28 top-3 px-5 hidden group-hover/handle:flex scale-up-center ">
-        <div {...attributes} {...listeners} className="btn btn-xs btn-square">
+        <div {...attributes} {...listeners} className="btn btn-xs btn-ghost text-info-content btn-square">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"

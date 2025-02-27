@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useCreateTextModule } from "../../api/modulesApi/TextModuleApi";
 import { useUpdateNote } from "../../api/NoteApi";
 import { useWideModeStore } from "../../Stores/useWideModeStore";
-import { useDebounce } from "use-debounce";
 import HeaderComponent from "./HeaderComponent";
 import IconPicker from "./IconPicker";
 import TagHandleComponent from "./TagHandleComponent";
@@ -14,6 +13,7 @@ import { moduleData, noteData, UpdateData } from "../../dataTypes";
 import { SubPagesComponent } from "./SubPagesComponent";
 import { ColorPicker } from "./ColorPicker";
 import { useDynamicTitleAndFaviconHook } from "../../hooks/useDynamicTitleAndFavicontHook";
+import { useDebounceHook } from "../../hooks/useDebounceHook";
 
 type noteViewComponentProps = {
   singleNote: noteData;
@@ -35,7 +35,7 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
     icon: singleNote.icon,
   });
 
-  const [debouncedNoteState] = useDebounce(noteState, 500);
+  const { debouncedValue: debouncedNoteState } = useDebounceHook(noteState, 500);
 
   useDynamicTitleAndFaviconHook(singleNote.title, singleNote.icon);
 
@@ -64,7 +64,7 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
     ) {
       updateNote(debouncedNoteState);
     }
-  }, [debouncedNoteState]);
+  }, [debouncedNoteState]); // this needs to be only dependency , it gets buggy if other dependencies are included
 
   if (singleNoteLoading)
     return (

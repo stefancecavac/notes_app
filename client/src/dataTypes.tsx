@@ -8,7 +8,7 @@ export const userSchema = z.object({
 export type userData = z.infer<typeof userSchema>;
 
 export const tagSchema = z.object({
-  id: z.string(),
+  id: z.string().optional(),
   name: z.string().min(1),
   textColor: z.string(),
   backgroundColor: z.string(),

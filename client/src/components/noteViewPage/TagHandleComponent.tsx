@@ -38,7 +38,7 @@ const TagHandleComponent = ({ singleNote }: { singleNote: noteData | undefined }
           key={index}
           className="rounded-md px-2 py-1  cursor-pointer "
         >
-          <p className="font-medium">{tag.name}</p>
+          <p className="font-medium"># {tag.name}</p>
         </span>
       ))}
 
@@ -49,7 +49,7 @@ const TagHandleComponent = ({ singleNote }: { singleNote: noteData | undefined }
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
           </svg>
         </div>
-        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1  p-2 shadow-md border border-neutral">
+        <ul tabIndex={0} className="dropdown-content menu bg-base-200 rounded-box z-1  p-2 shadow-md border border-neutral">
           <div className="flex items-center gap-2  p-1">
             <input
               value={tagName}

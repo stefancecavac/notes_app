@@ -17,16 +17,17 @@ export const useCreateImageModule = () => {
   const { mutate: createImageModule } = useMutation({
     mutationKey: ["image-module"],
     mutationFn: postImageModuleApi,
-    onSuccess: (data) => {
+    onSuccess: () => {
       showToast({ type: "SUCCESS", message: "Image module created" });
 
-      queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
-        return {
-          ...oldData,
-          modules: [...oldData.modules, data],
-          updatedAt: new Date(),
-        };
-      });
+      // queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
+      //   return {
+      //     ...oldData,
+      //     modules: [...oldData.modules, data],
+      //     updatedAt: new Date(),
+      //   };
+      // });
+      queryClient.invalidateQueries({ queryKey: ["note", noteId] });
     },
   });
 

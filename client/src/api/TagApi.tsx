@@ -21,7 +21,7 @@ export const useCreateTags = () => {
   const { noteId } = useParams();
   const queryClient = useQueryClient();
 
-  const postTagApi = async ({ name, textColor, backgroundColor }: tagData) => {
+  const postTagApi = async ({ name, textColor, backgroundColor }: { name: string; textColor?: string; backgroundColor?: string }) => {
     const response = await axiosInstance.put(`/api/tags/${noteId}`, {
       name,
       textColor,

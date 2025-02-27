@@ -10,7 +10,7 @@ type searchModalProps = {
 
 const SearchModal = ({ closeModal }: searchModalProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { debouncedValue, debouncing } = useDebounceHook(searchParams.get("q") || "", 500);
+  const { debouncedValue, isDebouncing } = useDebounceHook(searchParams.get("q") || "", 500);
   const { searchedNotes } = useSearchNotes(debouncedValue);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,30 +35,30 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
 
   return (
     <dialog ref={modalRef} id="search-modal" className="modal " onCancel={handleCloseModal}>
-      <div className="modal-box w-9/12 max-w-3xl bg-base-100 border border-neutral p-0">
+      <div className="modal-box w-9/12 max-w-3xl bg-base-200 border border-neutral p-0">
         <div className="flex items-center p-2 px-5  gap-3">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 ">
             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
-          <input onChange={handleSearch} placeholder="Search your notes by name or tag" className="input w-full input-ghost focus:outline-0" />
+          <input
+            onChange={handleSearch}
+            placeholder="Search your notes by name or tag"
+            className="input w-full input-ghost focus:outline-0 focus:bg-base-200"
+          />
         </div>
         <div className="divider my-0 px-3"></div>
 
         <div className="flex flex-col gap-1 p-1 mt-2 overflow-auto max-h-100 m-3">
-          <p className="text-info-content text-sm my-2">
+          <p className="text-info-content text-sm m-3 ">
             Notes: <span className="border border-neutral rounded w-3 h-3 bg-neutral p-1"> {searchedNotes?.length ? searchedNotes.length : 0}</span>
           </p>
           <div className="flex flex-col items-center">
-            {debouncing ? (
+            {isDebouncing ? (
               <span className="flex justify-center items-center  my-3 grow loading loading-spinner text-primary "></span>
             ) : (
               searchedNotes?.map((note) => (
-                <div key={note.id} className="grid grid-cols-3 items-center p-2 hover:bg-base-300 rounded-md">
-                  <Link
-                    to={`/notes/${note.id}`}
-                    onClick={handleCloseModal}
-                    className="flex items-center gap-2 w-full text-base-content hover:underline"
-                  >
+                <div key={note.id} className="flex w-full justify-between  items-center p-2 hover:bg-base-300 rounded-md">
+                  <Link to={`/notes/${note.id}`} onClick={handleCloseModal} className="flex items-center gap-2 text-base-content hover:underline">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
@@ -77,7 +77,7 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
                     </svg>
                     <p className="truncate w-50">{note.title}</p>
                   </Link>
-                  <div className="flex gap-2 justify-end ">
+                  <div className="flex gap-2  ">
                     {note?.tags?.map((tag, tagIndex) => (
                       <span
                         key={tagIndex}
@@ -91,7 +91,8 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
                       </span>
                     ))}
                   </div>
-                  <p className="text-info-content text-sm font-thin text-end">
+                  <p className="text-info-content text-xs font-thin ">
+                    Edited{" "}
                     {formatDistanceToNow(new Date(note.updatedAt), {
                       addSuffix: true,
                     })}

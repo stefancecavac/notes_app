@@ -40,15 +40,10 @@ export const useMoveTorecycleBin = () => {
   const { mutate: moveToRecycleBin } = useMutation({
     mutationKey: ["recycleBinNotes"],
     mutationFn: moveNoteToRecycleBin,
-    onSuccess: (data) => {
+    onSuccess: () => {
       navigate("/dashboard");
       showToast({ message: "Note moved to recycle bin", type: "WARNING" });
-      queryClient.setQueryData(["favouriteNotes"], (oldData: NotesData[] | undefined) =>
-        oldData ? oldData.filter((note) => note.id !== data.id) : []
-      );
-      queryClient.setQueryData(["favouriteNotes"], (oldData: NotesData[]) => {
-        return oldData.filter((dData) => dData.id === data.id);
-      });
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
     },
   });
 

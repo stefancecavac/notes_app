@@ -32,7 +32,7 @@ export const ColorPicker = ({ setNoteState }: colorPickerProps) => {
         </svg>
         Change Cover
       </div>
-      <ul tabIndex={0} className="dropdown-content menu flex flex-col  shadow-md  border border-neutral mt-2    bg-base-100 rounded-box z-1   p-2 ">
+      <ul tabIndex={0} className="dropdown-content menu flex flex-col  shadow-md  border border-neutral mt-2    bg-base-200 rounded-box z-1   p-2 ">
         <div className="flex items-center gap-2 ">
           {colors.map((color, index) => (
             <label key={index} style={{ backgroundColor: color }} className=" rounded-lg hover:cursor-pointer size-8 shadow-md">

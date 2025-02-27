@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { noteData } from "../../dataTypes";
+import { moduleData, noteData } from "../../dataTypes";
 import { axiosInstance } from "../../config/ApiClient";
 import { useToastStore } from "../../Stores/useToastNotificationToast";
 
@@ -11,21 +11,23 @@ export const useCreateTextModule = () => {
 
   const postTextModuleApi = async ({ content, order, noteId }: { content: string; order?: number; noteId?: string }) => {
     const response = await axiosInstance.post(`/api/notes/modules/text-module`, { content, order, noteId }, { withCredentials: true });
-    return response.data as noteData;
+    return response.data as moduleData;
   };
 
   const { mutate: createTextModule } = useMutation({
     mutationKey: ["text-module"],
     mutationFn: postTextModuleApi,
-    onSuccess: (data) => {
+    onSuccess: () => {
       showToast({ type: "SUCCESS", message: "Text module created" });
-      queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
-        return {
-          ...oldData,
-          modules: [...oldData.modules, data],
-          updatedAt: new Date(),
-        };
-      });
+      // queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
+      //   return {
+      //     ...oldData,
+      //     modules: [...oldData.modules, data],
+      //     updatedAt: new Date(),
+      //   };
+      // });
+
+      queryClient.invalidateQueries({ queryKey: ["note", noteId] });
     },
   });
 

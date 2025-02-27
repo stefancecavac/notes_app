@@ -7,9 +7,9 @@ import { arrayMove } from "@dnd-kit/sortable";
 import { moduleData } from "../dataTypes";
 import { createPortal } from "react-dom";
 import ModuleComponent from "../components/moduleComponents/ModuleComponent";
-import { useDebounce } from "use-debounce";
 import { useUpdateModuleOrder } from "../api/modulesApi/ModuleApi";
 import { DragStartEvent } from "@dnd-kit/core";
+import { useDebounceHook } from "../hooks/useDebounceHook";
 
 const NoteViewPage = () => {
   const { noteId } = useParams();
@@ -19,7 +19,7 @@ const NoteViewPage = () => {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [moduleList, setModuleList] = useState(singleNote?.modules || []);
 
-  const [debouncedModuleList] = useDebounce(moduleList, 1000);
+  const { debouncedValue: debouncedModuleList } = useDebounceHook(moduleList, 1000);
 
   const navigate = useNavigate();
 
