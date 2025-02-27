@@ -8,7 +8,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div id="main-div" className="flex h-screen bg-base-200 ">
       <Navbar></Navbar>
-      <div id="content-div" className="flex-1 flex bg-base-100 m-1 rounded-lg overflow-hidden shadow-md  ">
+      <div id="content-div" className="flex-1 flex bg-base-100 m-1 rounded-lg overflow-hidden  ">
         {children}
       </div>
       <Toast></Toast>

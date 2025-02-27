@@ -13,7 +13,7 @@ export const NotesList = ({ notes, notesLoading, text }: notesListProps) => {
   const [allNotesExpanded, setAllNotesExpanded] = useState(true);
 
   return (
-    <div className={`flex flex-col text-sm max-h-[30rem] overflow-auto   hover:cursor-pointer  overflow-hidden   my-1  gap-1`}>
+    <div className={`flex flex-col text-sm max-h-[30rem] overflow-auto   hover:cursor-pointer  mb-2  my-1  gap-1`}>
       <button
         onClick={() => {
           setAllNotesExpanded((prev) => !prev);
@@ -51,7 +51,7 @@ export const NotesList = ({ notes, notesLoading, text }: notesListProps) => {
         (notesLoading ? (
           <SkeletonLoader height={20} width={"100%"}></SkeletonLoader>
         ) : (
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col ">
             {notes?.map((note) => (
               <NoteListCard key={note.id} note={note}></NoteListCard>
             ))}

@@ -65,7 +65,7 @@ const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }
     : createPortal(
         <div onClick={() => setOpenMenu(false)} className="absolute inset-0 z-50">
           <div ref={menuRef} style={{ position: "absolute", top: `${menuPosition.top}px`, left: `${menuPosition.left}px`, zIndex: 50 }}>
-            <div className={`  flex flex-col  bg-base-200 rounded-md p-1 w-60  shadow-md border-neutral border-2`}>
+            <div className={`  flex flex-col  bg-base-100 rounded-md p-1 w-60  shadow-md border-neutral border-2`}>
               <FavouriteButton note={note} />
               <AddSubPageButton note={note} />
               <div className="divider my-0 "></div>

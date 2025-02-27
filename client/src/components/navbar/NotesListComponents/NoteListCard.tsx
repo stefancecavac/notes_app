@@ -63,7 +63,7 @@ export const NoteListCard = ({ note }: noteListCardProps) => {
         }}
         style={{ backgroundColor: note.color !== "" ? `${note.color}20` : "", borderColor: note.color !== "" ? `${note.color}60` : "" }}
         className={({ isActive }) =>
-          ` relative transition-all     items-center  p-0.5 border border-transparent flex group  gap-2 rounded-md group hover:cursor-pointer hover:bg-base-300 ${
+          ` relative transition-all  mb-1   items-center  p-0.5 border border-transparent flex group  gap-2 rounded-md group hover:cursor-pointer hover:bg-base-300 ${
             isActive ? `bg-base-300 font-bold bg-${note.color}  ` : ""
           }`
         }

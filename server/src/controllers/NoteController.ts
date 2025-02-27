@@ -57,6 +57,9 @@ export const getAllNotes = async (req: Request, res: Response, next: NextFunctio
       orderBy: {
         createdAt: "desc",
       },
+      include: {
+        tags: true,
+      },
     });
 
     const noteMap: Record<string, any[]> = {};

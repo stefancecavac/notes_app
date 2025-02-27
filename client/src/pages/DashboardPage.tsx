@@ -4,7 +4,6 @@ import SkeletonLoader from "../components/loaders/SkeletonLoader";
 import NoteCard from "../components/NoteCard";
 import { UseAuthContext } from "../context/AuthContext";
 import { useEditorHook } from "../hooks/useEditorHook";
-import RecycleBinComponent from "../components/navbar/RecycleBinComponent";
 
 const DashboardPage = () => {
   const editor = useEditorHook();
@@ -26,7 +25,7 @@ const DashboardPage = () => {
   return (
     <div className="w-full h-full m-10 ">
       <div className="m-3 mx-10">
-        <h2 className="text-4xl text-primary-content">
+        <h2 className="text-4xl text-base-content">
           Welcome back , <span className="text-primary font-bold">{user?.email}</span>
         </h2>
 

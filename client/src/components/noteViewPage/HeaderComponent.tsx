@@ -17,7 +17,9 @@ const HeaderComponent = ({ singleNote }: { singleNote: noteData }) => {
 
           return shouldRender ? (
             <div key={crumb.noteId} className="flex items-center gap-2">
-              {singleNote?.breadCrumbs?.length > 4 && index === array.length - 2 && <p className="text-info-content text-sm">...</p>}
+              {singleNote.breadCrumbs && singleNote?.breadCrumbs?.length > 4 && index === array.length - 2 && (
+                <p className="text-info-content text-sm">...</p>
+              )}
 
               <Link
                 className={`${
@@ -47,7 +49,7 @@ const HeaderComponent = ({ singleNote }: { singleNote: noteData }) => {
                     <path d="M16 17H8" />
                   </svg>
                 )}
-                <p className="truncate w-20"> {crumb.noteTitle}</p>
+                <p className="truncate w-35"> {crumb.noteTitle}</p>
               </Link>
 
               {array.length > index + 1 ? <p className="text-xl text-neutral">/</p> : null}

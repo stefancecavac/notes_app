@@ -119,12 +119,15 @@ const TodoModuleCard = ({ todo }: { todo?: todoModuleData }) => {
       <input checked={completed} onChange={handleCheck} type="checkbox" className="checkbox checkbox-sm checkbox-primary peer" />
       <p className=" text-base-content text-sm font-medium peer-checked:line-through peer-checked:text-info-content w-full  ">{todo?.title}</p>
       <div
-        className={`rounded-lg p-0.5 flex gap-1 text-xs text-neutral font-semibold  ${
-          todo?.priority === "low" ? "bg-green-400" : todo?.priority === "medium" ? "bg-yellow-400" : "bg-red-500"
+        className={`rounded-full p-1 px-2 flex gap-1 text-xs font-semibold  ${
+          todo?.priority === "low"
+            ? "bg-green-200 text-green-600"
+            : todo?.priority === "medium"
+            ? "bg-yellow-200 text-yellow-600"
+            : "bg-red-200 text-red-600"
         }`}
       >
         <p className="flex">{todo?.priority}</p>
-        <p>priority</p>
       </div>
     </label>
   );
