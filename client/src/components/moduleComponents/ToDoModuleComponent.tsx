@@ -121,10 +121,10 @@ const TodoModuleCard = ({ todo }: { todo?: todoModuleData }) => {
       <div
         className={`rounded-full p-1 px-2 flex gap-1 text-xs font-semibold  ${
           todo?.priority === "low"
-            ? "bg-green-200 text-green-600"
+            ? "bg-green-400 text-green-600"
             : todo?.priority === "medium"
-            ? "bg-yellow-200 text-yellow-600"
-            : "bg-red-200 text-red-600"
+            ? "bg-yellow-400 text-yellow-600"
+            : "bg-red-400 text-red-600"
         }`}
       >
         <p className="flex">{todo?.priority}</p>

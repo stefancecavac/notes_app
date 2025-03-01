@@ -14,6 +14,8 @@ import { SubPagesComponent } from "./SubPagesComponent";
 import { ColorPicker } from "./ColorPicker";
 import { useDynamicTitleAndFaviconHook } from "../../hooks/useDynamicTitleAndFavicontHook";
 import { useDebounceHook } from "../../hooks/useDebounceHook";
+import { HeaderSkeleton } from "../loaders/HeaderSkeleton";
+import SkeletonLoader from "../loaders/SkeletonLoader";
 
 type noteViewComponentProps = {
   singleNote: noteData;
@@ -66,16 +68,16 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
     }
   }, [debouncedNoteState]); // this needs to be only dependency , it gets buggy if other dependencies are included
 
-  if (singleNoteLoading)
-    return (
-      <div className="flex items-center justify-center w-full">
-        <span className="loading loading-spinner text-primary loading-xl"></span>
-      </div>
-    );
+  // if (singleNoteLoading)
+  //   return (
+  //     <div className="flex items-center justify-center w-full">
+  //       <span className="loading loading-spinner text-primary loading-xl"></span>
+  //     </div>
+  //   );
 
   return (
     <div ref={setDroppableRef} className="flex flex-col flex-1 h-full w-full group/global overflow-auto ">
-      <HeaderComponent singleNote={singleNote}></HeaderComponent>
+      {singleNoteLoading ? <HeaderSkeleton /> : <HeaderComponent singleNote={singleNote} />}
 
       <div className="group/titleItems ">
         <div
@@ -88,34 +90,34 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
             <IconPicker noteState={noteState} setNoteState={setNoteState}></IconPicker>
             <ColorPicker setNoteState={setNoteState}></ColorPicker>
           </div>
-          <div className="flex items-center gap-3">
-            {singleNote.icon !== "" && <div className=" size-12 " dangerouslySetInnerHTML={{ __html: noteState.icon! }}></div>}
 
-            <div className="flex flex-col w-full">
-              <input
-                onChange={(e) => setNoteState((prev) => ({ ...prev, title: e.target.value }))}
-                value={noteState.title}
-                placeholder="Empty note"
-                className="focus:outline-hidden text-4xl h-full font-bold bg-transparent input-lg input-ghost text-base-content  w-full   "
-              ></input>
-              <TagHandleComponent singleNote={singleNote}></TagHandleComponent>
+          {singleNoteLoading ? (
+            <SkeletonLoader width={400} height={60}></SkeletonLoader>
+          ) : (
+            <div className="flex items-center gap-3">
+              {singleNote.icon !== "" && <div className=" size-12 " dangerouslySetInnerHTML={{ __html: noteState.icon! }}></div>}
+
+              <div className="flex flex-col w-full">
+                <input
+                  onChange={(e) => setNoteState((prev) => ({ ...prev, title: e.target.value }))}
+                  value={noteState.title}
+                  placeholder="Empty note"
+                  className="focus:outline-hidden text-4xl h-full font-bold bg-transparent input-lg input-ghost text-base-content  w-full   "
+                ></input>
+                <TagHandleComponent singleNote={singleNote}></TagHandleComponent>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
       <div className={`flex flex-col flex-1 mb-5   ${!wideMode ? "lg:mx-60" : "lg:mx-25 "} mx-25 relative   mt-10  transition-all  `}>
         {singleNote?.modules?.length === 0 && (
-          <div className="   w-full flex   opacity-0  group-hover/global:opacity-100    transition-all   ">
+          <div className="   w-full h-full flex   opacity-0  group-hover/global:opacity-100    transition-all   ">
             <button
               onClick={() => createTextModule({ content: "", order: 1, noteId: singleNote.id })}
-              className="rounded-lg flex text-sm  btn btn-sm  btn-soft  items-center gap-3  px-2 py-0.5   scale-0 transition-all group-hover/global:scale-100 "
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 ">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
-              <p className="">Add new module</p>
-            </button>
+              className="w-full h-full hover:cursor-text scale-0 transition-all group-hover/global:scale-100 "
+            ></button>
           </div>
         )}
 
