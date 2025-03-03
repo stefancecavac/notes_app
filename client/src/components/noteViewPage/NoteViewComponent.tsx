@@ -14,8 +14,7 @@ import { SubPagesComponent } from "./SubPagesComponent";
 import { ColorPicker } from "./ColorPicker";
 import { useDynamicTitleAndFaviconHook } from "../../hooks/useDynamicTitleAndFavicontHook";
 import { useDebounceHook } from "../../hooks/useDebounceHook";
-import { HeaderSkeleton } from "../loaders/HeaderSkeleton";
-import SkeletonLoader from "../loaders/SkeletonLoader";
+import NoteViewSkeleton from "../loaders/NoteViewSkeleton";
 
 type noteViewComponentProps = {
   singleNote: noteData;
@@ -75,9 +74,11 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
   //     </div>
   //   );
 
+  if (singleNoteLoading) return <NoteViewSkeleton />;
+
   return (
     <div ref={setDroppableRef} className="flex flex-col flex-1 h-full w-full group/global overflow-auto ">
-      {singleNoteLoading ? <HeaderSkeleton /> : <HeaderComponent singleNote={singleNote} />}
+      <HeaderComponent singleNote={singleNote} />
 
       <div className="group/titleItems ">
         <div
@@ -91,23 +92,19 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
             <ColorPicker setNoteState={setNoteState}></ColorPicker>
           </div>
 
-          {singleNoteLoading ? (
-            <SkeletonLoader width={400} height={60}></SkeletonLoader>
-          ) : (
-            <div className="flex items-center gap-3">
-              {singleNote.icon !== "" && <div className=" size-12 " dangerouslySetInnerHTML={{ __html: noteState.icon! }}></div>}
+          <div className="flex items-center gap-3">
+            {singleNote.icon !== "" && <div className=" size-12 " dangerouslySetInnerHTML={{ __html: noteState.icon! }}></div>}
 
-              <div className="flex flex-col w-full">
-                <input
-                  onChange={(e) => setNoteState((prev) => ({ ...prev, title: e.target.value }))}
-                  value={noteState.title}
-                  placeholder="Empty note"
-                  className="focus:outline-hidden text-4xl h-full font-bold bg-transparent input-lg input-ghost text-base-content  w-full   "
-                ></input>
-                <TagHandleComponent singleNote={singleNote}></TagHandleComponent>
-              </div>
+            <div className="flex flex-col w-full">
+              <input
+                onChange={(e) => setNoteState((prev) => ({ ...prev, title: e.target.value }))}
+                value={noteState.title}
+                placeholder="Empty note"
+                className="focus:outline-hidden text-4xl h-full font-bold bg-transparent input-lg input-ghost text-base-content  w-full   "
+              ></input>
+              <TagHandleComponent singleNote={singleNote}></TagHandleComponent>
             </div>
-          )}
+          </div>
         </div>
       </div>
 

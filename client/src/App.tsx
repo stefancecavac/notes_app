@@ -8,7 +8,7 @@ import SettingsPage from "./pages/SettingsPage";
 import ProfileSettingsComponent from "./components/settings/ProfileSettingsComponent";
 import PreferencesSettingsComponent from "./components/settings/PreferencesSettingsComponent";
 import LandingPage from "./pages/LandingPage";
-import SplitScreenView from "./pages/SplitScreenView";
+// import SplitScreenView from "./pages/SplitScreenView";
 import DashboardPage from "./pages/DashboardPage";
 
 const App = () => {
@@ -48,7 +48,7 @@ const App = () => {
           }
         />
 
-        <Route
+        {/* <Route
           path="/notes-split/:noteId1/:noteId2"
           element={
             user ? (
@@ -59,7 +59,7 @@ const App = () => {
               <Navigate to="/" />
             )
           }
-        />
+        /> */}
 
         <Route
           path="/settings"

@@ -2,7 +2,7 @@ import { createPortal } from "react-dom";
 import { LegacyRef, useEffect, useRef, useState } from "react";
 import { useUpdateNote } from "../../../api/NoteApi";
 import { useDebounce } from "use-debounce";
-import { Link, useLocation, useParams } from "react-router-dom";
+// import { Link, useLocation, useParams } from "react-router-dom";
 import { FavouriteButton } from "../../MenuButtons/FavouriteButton";
 import { AddSubPageButton } from "../../MenuButtons/AddSubPageButton";
 import { DuplicateNoteButton } from "../../MenuButtons/DuplicateNoteButton";
@@ -19,8 +19,8 @@ type noteListCardMenuProps = {
 };
 
 const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }: noteListCardMenuProps) => {
-  const { noteId } = useParams();
-  const location = useLocation();
+  // const { noteId } = useParams();
+  // const location = useLocation();
 
   const { updateNote } = useUpdateNote({ noteId: note?.id });
 
@@ -88,7 +88,7 @@ const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }
               </button>
               <DuplicateNoteButton note={note} />
               <MoveNoteButton note={note} />
-              {noteId !== note.id && location.pathname.includes("/notes/") && (
+              {/* {noteId !== note.id && location.pathname.includes("/notes/") && (
                 <Link
                   to={`/notes-split/${noteId}/${note.id}`}
                   className="flex items-center gap-4  text-sm btn btn-sm justify-start btn-ghost p-1 rounded-sm"
@@ -112,7 +112,7 @@ const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }
                   </svg>
                   Open in Split screen
                 </Link>
-              )}
+              )} */}
 
               <div className="divider  my-0"></div>
 
