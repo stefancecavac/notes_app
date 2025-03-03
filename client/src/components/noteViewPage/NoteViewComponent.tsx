@@ -100,7 +100,7 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
                 onChange={(e) => setNoteState((prev) => ({ ...prev, title: e.target.value }))}
                 value={noteState.title}
                 placeholder="Empty note"
-                className="focus:outline-hidden text-4xl h-full font-bold bg-transparent input-lg input-ghost text-base-content  w-full   "
+                className="focus:outline-hidden text-[2.5rem] h-full font-bold bg-transparent input-lg input-ghost text-base-content  w-full   "
               ></input>
               <TagHandleComponent singleNote={singleNote}></TagHandleComponent>
             </div>

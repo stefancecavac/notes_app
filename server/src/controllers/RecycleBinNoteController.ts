@@ -113,4 +113,22 @@ const restoreFromRecycleBin = async (req: Request, res: Response, next: NextFunc
   }
 };
 
-export { getAllNotesFromRecycleBin, moveToRecycleBin, restoreFromRecycleBin };
+const deleteNoteFromRecycleBin = async (req: Request, res: Response, next: NextFunction) => {
+  const { noteId } = req.body;
+  const { userId } = req.user;
+
+  try {
+    await client.note.delete({
+      where: {
+        userId: userId,
+        id: noteId,
+        inTrash: true,
+      },
+    });
+    res.status(200).json({ message: "Note successfully deleted" });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export { getAllNotesFromRecycleBin, moveToRecycleBin, restoreFromRecycleBin, deleteNoteFromRecycleBin };

@@ -76,3 +76,27 @@ export const useRestoreFromRecycleBin = () => {
 
   return { restoreFromRecycleBin };
 };
+
+export const useDeleteFromRecycleBin = () => {
+  const { showToast } = useToastStore();
+  const queryClient = useQueryClient();
+
+  const removeFromRecycleBinApi = async ({ noteId }: { noteId: string }) => {
+    const response = await axiosInstance.delete("/api/notes/recycle-bin/", { data: { noteId: noteId } });
+
+    return response.data;
+  };
+
+  const { mutate: deleteFromRecycleBin } = useMutation({
+    mutationKey: ["recycleBinNotes"],
+    mutationFn: removeFromRecycleBinApi,
+    onSuccess: () => {
+      showToast({ message: "Note Removed", type: "SUCCESS" });
+      queryClient.resetQueries({ queryKey: ["recycleBinNotes"] });
+      queryClient.resetQueries({ queryKey: ["notes"] });
+      queryClient.resetQueries({ queryKey: ["favouriteNotes"] });
+    },
+  });
+
+  return { deleteFromRecycleBin };
+};
