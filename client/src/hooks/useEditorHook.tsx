@@ -1,5 +1,3 @@
-import TaskItem from "@tiptap/extension-task-item";
-import TaskList from "@tiptap/extension-task-list";
 import TextAlign from "@tiptap/extension-text-align";
 import { Editor, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -68,12 +66,6 @@ export const useEditorHook = () => {
       Link.configure({
         HTMLAttributes: {
           class: "custom-link",
-        },
-      }),
-      TaskList,
-      TaskItem.configure({
-        HTMLAttributes: {
-          class: "custom-task-item",
         },
       }),
 

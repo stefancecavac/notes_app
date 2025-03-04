@@ -16,7 +16,7 @@ const DashboardLink = () => {
         strokeWidth={1.5}
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="size-5 "
+        className="size-5  text-info-content "
       >
         <rect width="7" height="9" x="3" y="3" rx="1" />
         <rect width="7" height="5" x="14" y="3" rx="1" />

@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 
 export const useDynamicTitleAndFaviconHook = (title: string | undefined, icon: string | undefined) => {
   const location = useLocation();
+  console.log(location);
 
   useEffect(() => {
     if (!location.pathname.includes("notes")) {
@@ -30,5 +31,5 @@ export const useDynamicTitleAndFaviconHook = (title: string | undefined, icon: s
     if (!document.head.contains(link)) {
       document.head.appendChild(link);
     }
-  }, [icon, location.pathname, title]);
+  }, [icon, title]);
 };

@@ -63,27 +63,32 @@ export const NoteListCard = ({ note }: noteListCardProps) => {
         }}
         style={{ backgroundColor: note.color !== "" ? `${note.color}20` : "", borderColor: note.color !== "" ? `${note.color}60` : "" }}
         className={({ isActive }) =>
-          ` relative transition-all  mb-1   items-center  p-0.5 border border-transparent flex group  gap-2 rounded-md group hover:cursor-pointer hover:bg-base-300 ${
+          ` relative transition-all  mb-1 text-xs    items-center font-medium  p-0.5 border border-transparent flex group  gap-2 rounded-md group hover:cursor-pointer hover:bg-base-300 ${
             isActive ? `bg-base-300 font-bold bg-${note.color}  ` : ""
           }`
         }
       >
         <div className="size-5 flex items-center relative">
-          <div
-            className="size-5 absolute group-hover:opacity-0"
-            ref={(el) => {
-              if (el)
-                el.innerHTML =
-                  note.icon ||
-                  ` <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={5} stroke="currentColor" className="size-6">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
-                  />
-                </svg>`;
-            }}
-          ></div>
+          <div className="size-5 absolute group-hover:opacity-0">
+            {note.icon ? (
+              <div dangerouslySetInnerHTML={{ __html: note.icon }} />
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-5 text-info-content"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
+                />
+              </svg>
+            )}
+          </div>
 
           <button
             className="btn btn-xs btn-square btn-ghost opacity-0 absolute group-hover:opacity-100 transition-all p-0.5 rounded-md hover:bg-neutral"
@@ -115,7 +120,7 @@ export const NoteListCard = ({ note }: noteListCardProps) => {
           </button>
         </div>
 
-        <p className=" truncate flex-1 text-xs py-1  ">{note?.title}</p>
+        <p className=" truncate flex-1  py-1  ">{note?.title}</p>
 
         <div className="relative shrink-0 flex items-center">
           <button

@@ -8,7 +8,14 @@ const SettingsLink = () => {
         `hover:bg-base-300 btn btn-ghost btn-sm justify-start p-1    rounded-lg flex items-center gap-4 ${isActive ? "bg-base-300" : ""}`
       }
     >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 ">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={1.5}
+        stroke="currentColor"
+        className="size-5 text-info-content "
+      >
         <path
           strokeLinecap="round"
           strokeLinejoin="round"

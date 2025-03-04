@@ -1,8 +1,11 @@
 import { Editor, FloatingMenu } from "@tiptap/react";
 import { useEffect, useState } from "react";
+import { colors } from "../../util/Colors";
 
 export const FloatingMenuBar = ({ editor }: { editor: Editor }) => {
   const [selectedColor, setSelectedColor] = useState<string>("");
+  const baseContentColor = getComputedStyle(document.documentElement).getPropertyValue("--color-base-content");
+
   useEffect(() => {
     if (!editor) return;
 
@@ -18,14 +21,6 @@ export const FloatingMenuBar = ({ editor }: { editor: Editor }) => {
     };
   }, [editor]);
 
-  const colors = [
-    { color: "", border: "#eae8e8" },
-    { color: "#958DF1", border: "#958DF1" },
-    { color: "#5e87c9", border: "#5e87c9" },
-    { color: "#ca9849", border: "#ca9849" },
-    { color: "#df5452", border: "#df5452" },
-    { color: "#529e72", border: "#529e72" },
-  ];
   if (!editor) {
     return null;
   }
@@ -110,16 +105,36 @@ export const FloatingMenuBar = ({ editor }: { editor: Editor }) => {
                 Text Color
               </span>
             </div>
-            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-              <div className="grid grid-cols-4 my-2 gap-3">
-                {colors.map(({ color, border }) => (
+            <ul tabIndex={0} className="dropdown-content w-30 bg-base-200 mt-2  rounded-box z-1  p-2 shadow-sm">
+              <div className="grid grid-cols-4  gap-2 ">
+                <button
+                  onClick={() => {
+                    editor.chain().focus().setColor(baseContentColor).run();
+                    setSelectedColor(baseContentColor);
+                  }}
+                  className={`btn btn-xs btn-square  flex p-1 `}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className={`size-6 text-base-content `}
+                  >
+                    <path d="M14 16.5a.5.5 0 0 0 .5.5h.5a2 2 0 0 1 0 4H9a2 2 0 0 1 0-4h.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5V8a2 2 0 0 1-4 0V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3a2 2 0 0 1-4 0v-.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5Z" />
+                  </svg>
+                </button>
+                {colors.map((color) => (
                   <button
                     key={color}
                     onClick={() => {
                       editor.chain().focus().setColor(color).run();
                       setSelectedColor(color);
                     }}
-                    className={`btn btn-xs btn-square border-[${border}] flex p-1 `}
+                    className={`btn btn-xs btn-square border-[${color}] flex p-1 `}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +145,7 @@ export const FloatingMenuBar = ({ editor }: { editor: Editor }) => {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       style={{ color: color }}
-                      className={`size-4 ${color ? `text-[${color}]` : "text-[#eae8e8]"}`}
+                      className={`size-6 ${color ? `text-[${color}]` : "text-[#eae8e8]"}`}
                     >
                       <path d="M14 16.5a.5.5 0 0 0 .5.5h.5a2 2 0 0 1 0 4H9a2 2 0 0 1 0-4h.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5V8a2 2 0 0 1-4 0V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3a2 2 0 0 1-4 0v-.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5Z" />
                     </svg>
@@ -139,7 +154,6 @@ export const FloatingMenuBar = ({ editor }: { editor: Editor }) => {
               </div>
             </ul>
           </div>
-
           <button
             type="button"
             onClick={() => editor.chain().focus().toggleHighlight({ color: "#faf594" }).run()}
@@ -317,29 +331,6 @@ export const FloatingMenuBar = ({ editor }: { editor: Editor }) => {
 
             <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
               Ordered List
-            </span>
-          </button>
-          <button
-            type="button"
-            onClick={() => editor.chain().focus().toggleTaskList().run()}
-            className={`btn btn-square btn-xs btn-ghost p-1 relative group ${editor.isActive("taskList") ? "bg-base-300" : ""}`}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="size-4"
-            >
-              <path d="M21 10.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h12.5" />
-              <path d="m9 11 3 3L22 4" />
-            </svg>
-
-            <span className="group-hover:flex hidden   shadow-md px-2 py-1 text-sm bg-base-100 text-base-content border-neutral font-medium border rounded-md absolute  top-8 whitespace-nowrap   items-center  ">
-              Task List
             </span>
           </button>
         </div>

@@ -22,7 +22,7 @@
   padding: 10px 0;
   color: hsl(var(--bc));
   font-size: 0.8em;
-  font-weight: 600;
+  font-weight: 500;
 }
 .tiptap mark {
   background-color: yellow;
@@ -37,25 +37,6 @@
   opacity: 0.3;
   font-style: italic;
   font-weight: 300;
-}
-
-/* Task Item */
-.custom-task-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 1px;
-  border-radius: 5px;
-}
-
-.custom-task-item:hover {
-  background-color: hsl(var(--b3));
-}
-
-.custom-task-item[data-checked="true"] p {
-  text-decoration: line-through;
-  color: hsl(var(--bc));
-  opacity: 0.5;
 }
 
 /* Lists */

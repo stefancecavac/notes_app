@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap") layer(base);
-
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 @import "tailwindcss";
 
 @plugin '@tailwindcss/typography';
@@ -9,7 +8,7 @@
 }
 
 @theme {
-  --font-sans: Open Sans, sans;
+  --font-sans: Inter, sans;
 }
 
 .tron-grid {
@@ -36,7 +35,7 @@
   --color-base-100: #ffffff;
   --color-base-200: oklch(0.97 0.001 106.424);
   --color-base-300: oklch(0.923 0.003 48.717); /* Slightly darker for elements */
-  --color-base-content: #3c3b38;
+  --color-base-content: #5f5e5b;
 
   --color-primary: #4a90e2; /* Dark red */
   --color-primary-content: oklch(98% 0.01 240); /* Light text for primary elements */
@@ -66,7 +65,7 @@
   --color-base-100: oklch(17.22% 0.01 106.424); /* Dark background oklch(0.15 0.01 106.424) */
   --color-base-200: #1a1a1a; /* Slightly lighter dark background */
   --color-base-300: #121110; /* Even lighter for elements */
-  --color-base-content: #e0e0e0; /* Light text for readability */
+  --color-base-content: #e3e1e1; /* Light text for readability */
 
   --color-primary: #4a90e2; /* Dark red */
   --color-primary-content: oklch(90% 0.01 240) oklch(90% 0.01 240); /* Light text for primary elements */
