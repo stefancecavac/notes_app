@@ -1,8 +1,8 @@
 import { useDuplicateNote } from "../../api/NoteApi";
-import { noteData, notesData } from "../../dataTypes";
+import { NotesData } from "../../dataTypes";
 
 type duplicateNoteProps = {
-  note: noteData | notesData;
+  note: NotesData;
 };
 
 export const DuplicateNoteButton = ({ note }: duplicateNoteProps) => {

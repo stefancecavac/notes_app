@@ -1,8 +1,8 @@
 import { useCreateNote } from "../../api/NoteApi";
-import { noteData, notesData } from "../../dataTypes";
+import { NotesData } from "../../dataTypes";
 
 type addSubPageButtonProps = {
-  note: noteData | notesData;
+  note: NotesData;
 };
 
 export const AddSubPageButton = ({ note }: addSubPageButtonProps) => {

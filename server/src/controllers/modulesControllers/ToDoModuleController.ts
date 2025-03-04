@@ -29,7 +29,7 @@ export const createToDoModule = async (req: Request, res: Response, next: NextFu
 };
 
 export const addTodoInModule = async (req: Request, res: Response, next: NextFunction) => {
-  const { title, priority, moduleId, noteId } = req.body;
+  const { title, moduleId, noteId } = req.body;
   try {
     const TodoModule = await client.module.update({
       where: {
@@ -39,7 +39,6 @@ export const addTodoInModule = async (req: Request, res: Response, next: NextFun
         TodoModule: {
           create: {
             title: title,
-            priority: priority,
           },
         },
       },

@@ -37,12 +37,8 @@ export const useAddTodoInModule = () => {
   const { noteId } = useParams();
   const queryClient = useQueryClient();
 
-  const postTodoModuleApi = async ({ title, priority, noteId, moduleId }: { title: string; priority: string; noteId: string; moduleId: string }) => {
-    const response = await axiosInstance.post(
-      `/api/notes/modules/todo-module/addTodo`,
-      { title, priority, moduleId, noteId },
-      { withCredentials: true }
-    );
+  const postTodoModuleApi = async ({ title, noteId, moduleId }: { title: string; noteId: string; moduleId: string }) => {
+    const response = await axiosInstance.post(`/api/notes/modules/todo-module/addTodo`, { title, moduleId, noteId }, { withCredentials: true });
     return response.data as moduleData;
   };
 
