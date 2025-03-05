@@ -59,7 +59,7 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
 
   return (
     <>
-      <button className="btn btn-xs btn-square btn-ghost m-1 text-info-content" onClick={() => setModal(true)}>
+      <button className="btn btn-xs btn-square btn-ghost m-1 hover:bg-base-300  text-info-content" onClick={() => setModal(true)}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 ">
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
@@ -76,7 +76,7 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
             <div className="flex flex-col my-5 ">
               <button
                 onClick={() => createNote({ title: "New page", content: "", parentNoteId: noteId })}
-                className=" items-center btn btn-ghost  h-full justify-start  flex p-1  gap-5"
+                className=" items-center btn btn-ghost hover:bg-base-300  h-full justify-start  flex p-1  gap-5"
               >
                 <div className="rounded-lg  p-1 bg-neutral/50">
                   <svg
@@ -98,13 +98,13 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
                 </div>
                 <div className="flex flex-col items-start">
                   <p className="text-sm">Page </p>
-                  <p className="text-xs text-info-content font-thin">Embed a sub-page indside this page </p>
+                  <p className="text-xs text-info-content ">Embed a sub-page indside this page </p>
                 </div>
               </button>
 
               <button
                 onClick={() => createTextModule({ content: "", order: calculateOrder(module!.order, nextModule?.order), noteId: singleNote?.id })}
-                className=" items-center btn btn-ghost  h-full justify-start  flex p-1  gap-5"
+                className=" items-center btn btn-ghost hover:bg-base-300  h-full justify-start  flex p-1  gap-5"
               >
                 <div className="rounded-lg p-1 bg-neutral/50">
                   <svg
@@ -124,10 +124,10 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
                 </div>
                 <div className="flex flex-col items-start">
                   <p className="text-sm">Text </p>
-                  <p className="text-xs text-info-content font-thin">Add text block </p>
+                  <p className="text-xs text-info-content ">Add text block </p>
                 </div>
               </button>
-              <label className=" items-center btn btn-ghost  h-full justify-start  flex p-1  gap-5">
+              <label className=" items-center btn btn-ghost hover:bg-base-300  h-full justify-start  flex p-1  gap-5">
                 <input onChange={handleUploadPic} type="file" className="appearance-none hidden input"></input>
                 <div className="rounded-lg  p-1 bg-neutral/50">
                   <svg
@@ -149,12 +149,12 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
                 </div>
                 <div className="flex flex-col items-start">
                   <p className="text-sm">Image </p>
-                  <p className="text-xs text-info-content font-thin">Insert an image </p>
+                  <p className="text-xs text-info-content ">Insert an image </p>
                 </div>
               </label>
               <button
                 onClick={() => createTodoModule({ order: calculateOrder(module!.order, nextModule?.order), noteId: singleNote?.id })}
-                className=" items-center btn btn-ghost  h-full justify-start  flex p-1  gap-5"
+                className=" items-center btn btn-ghost hover:bg-base-300  h-full justify-start  flex p-1  gap-5"
               >
                 <div className="rounded-lg  p-1 bg-neutral/50">
                   <svg
@@ -173,13 +173,13 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
                 </div>
                 <div className="flex flex-col items-start">
                   <p className="text-sm">To Do </p>
-                  <p className="text-xs text-info-content font-thin">Add todo list</p>
+                  <p className="text-xs text-info-content ">Add todo list</p>
                 </div>
               </button>
 
               <button
                 onClick={() => createDrawingModule({ order: calculateOrder(module!.order, nextModule?.order), noteId: singleNote?.id })}
-                className=" items-center btn btn-ghost  h-full justify-start  flex p-1  gap-5"
+                className=" items-center btn btn-ghost hover:bg-base-300  h-full justify-start  flex p-1  gap-5"
               >
                 <div className="rounded-lg  p-1 bg-neutral/50">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
@@ -192,7 +192,7 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
                 </div>
                 <div className="flex flex-col items-start">
                   <p className="text-sm">Drawing </p>
-                  <p className="text-xs text-info-content font-thin">Add Drawing</p>
+                  <p className="text-xs text-info-content ">Add Drawing</p>
                 </div>
               </button>
             </div>

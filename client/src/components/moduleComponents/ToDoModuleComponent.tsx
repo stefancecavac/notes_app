@@ -73,14 +73,14 @@ export const ToDoModuleComponent = ({ module }: { module: moduleData }) => {
 
       <div className="flex flex-col gap-1 mt-5">
         {sortedTodos.map((todo) => (
-          <TodoModuleCard key={todo?.id} todo={todo} />
+          <TodoModuleCard key={todo?.id} todo={todo} todos={module?.TodoModule} />
         ))}
       </div>
     </div>
   );
 };
 
-const TodoModuleCard = ({ todo }: { todo?: todoModuleData }) => {
+const TodoModuleCard = ({ todos, todo }: { todos?: todoModuleData[]; todo?: todoModuleData }) => {
   const { checkTodo } = useCheckTodo();
   const [completed, setCompleted] = useState(todo?.completed);
   const { noteId } = useParams();
@@ -90,7 +90,13 @@ const TodoModuleCard = ({ todo }: { todo?: todoModuleData }) => {
   }, [todo]);
 
   function handleCheck() {
-    const storedTodos = JSON.parse(localStorage.getItem(`sorted-${todo?.moduleId}`) || "[]");
+    const storedTodosExists = JSON.parse(localStorage.getItem(`sorted-${todo?.moduleId}`)!);
+    if (!storedTodosExists) {
+      localStorage.setItem(`sorted-${todo?.moduleId}`, JSON.stringify(todos));
+    }
+
+    const storedTodos = JSON.parse(localStorage.getItem(`sorted-${todo?.moduleId}`)!);
+
     const updatedTodo = storedTodos.map((t: todoModuleData) => (t.id === todo?.id ? { ...t, completed: !completed } : t));
     localStorage.setItem(`sorted-${todo?.moduleId}`, JSON.stringify(updatedTodo));
 

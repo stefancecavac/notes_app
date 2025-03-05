@@ -13,10 +13,6 @@ const getAllNotesFromRecycleBin = async (req: Request, res: Response, next: Next
       },
     });
 
-    if (notes.length === 0) {
-      return next(new AppError("No notes in Recycle Bin", 404));
-    }
-
     res.status(200).json(notes);
   } catch (error) {
     return next(error);

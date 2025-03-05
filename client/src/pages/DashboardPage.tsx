@@ -23,8 +23,8 @@ const DashboardPage = () => {
   const skeletonArray = Array(3).fill(null);
 
   return (
-    <div className="w-full h-full m-10 ">
-      <div className="m-3 mx-10">
+    <div className="w-full h-full   overflow-auto ">
+      <div className="m-3 m-10">
         <h2 className="text-4xl text-base-content">
           Welcome back , <span className="text-primary font-bold">{user?.email}</span>
         </h2>

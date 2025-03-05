@@ -13,7 +13,7 @@ export const useGetRecycleBinNotes = () => {
   const {
     data: recycleBinNotes,
     isLoading: recycleBinNotesLoading,
-    isError: recycleBinError,
+    error: recycleBinError,
   } = useQuery({
     queryKey: ["recycleBinNotes"],
     queryFn: fetchAllNotes,
