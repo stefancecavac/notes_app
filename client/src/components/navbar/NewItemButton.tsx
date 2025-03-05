@@ -15,10 +15,7 @@ const NewItemButton = () => {
 
   return (
     <>
-      <button
-        onClick={handleCreateNote}
-        className={` btn-ghost  hover:bg-base-300   btn btn-sm justify-start p-1 rounded-lg flex items-center gap-4`}
-      >
+      <button onClick={handleCreateNote} className={` btn-soft  hover:bg-base-300   btn btn-sm justify-start p-1 rounded-lg flex items-center gap-4`}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

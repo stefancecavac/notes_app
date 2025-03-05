@@ -4,19 +4,21 @@ import { useNavbarExpandedStore } from "../../Stores/useNavbarExpandedStore";
 import NoteViewMenu from "./NoteViewMenu";
 import { formatDistanceToNow } from "date-fns";
 import { useFavouritesHook } from "../../hooks/useFavouritesHook";
+import ExpandNavbarButton from "../navbar/ExpandNavbarButton";
 
 const HeaderComponent = ({ singleNote }: { singleNote: noteData }) => {
-  const { expanded } = useNavbarExpandedStore();
+  const { expanded, toggleExpanded } = useNavbarExpandedStore();
   const { favourite, handleFavourite } = useFavouritesHook(singleNote?.favourite);
 
   return (
-    <div className={`${expanded ? "" : "pl-10"} sticky top-0  min-w-full flex z-60 items-center justify-between text-sm bg-base-100 px-3 py-2`}>
+    <div className={` sticky top-0  min-w-full flex z-60 items-center justify-between text-sm bg-base-100 px-3 pl-1 py-2`}>
       <div className="flex items-center gap-2">
+        {!expanded && <ExpandNavbarButton setExpanded={toggleExpanded}></ExpandNavbarButton>}
         {singleNote?.breadCrumbs?.map((crumb, index, array) => {
           const shouldRender = index === 0 || index === array.length - 1 || index === array.length - 2 || array.length <= 4;
 
           return shouldRender ? (
-            <div key={crumb.noteId} className="flex items-center gap-2">
+            <div key={crumb.noteId} className="flex items-center gap-2 pl-3">
               {singleNote.breadCrumbs && singleNote?.breadCrumbs?.length > 4 && index === array.length - 2 && (
                 <p className="text-info-content text-sm">...</p>
               )}

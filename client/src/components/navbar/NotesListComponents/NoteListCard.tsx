@@ -39,7 +39,7 @@ export const NoteListCard = ({ note }: noteListCardProps) => {
       let menuTop = buttonRect.bottom + window.scrollY;
 
       if (spaceBelow < menuHeight) {
-        menuTop = buttonRect.top + window.scrollY - menuHeight - 35;
+        menuTop = buttonRect.top + window.scrollY - menuHeight;
       }
 
       setMenuPosition({

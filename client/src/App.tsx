@@ -10,6 +10,7 @@ import PreferencesSettingsComponent from "./components/settings/PreferencesSetti
 import LandingPage from "./pages/LandingPage";
 // import SplitScreenView from "./pages/SplitScreenView";
 import DashboardPage from "./pages/DashboardPage";
+import { MagicLoginPage } from "./pages/MagicLoginPage";
 
 const App = () => {
   const { user, userLoading } = UseAuthContext();
@@ -79,6 +80,8 @@ const App = () => {
         </Route>
 
         <Route path="/" element={!user ? <LandingPage></LandingPage> : <Navigate to="/notes-explorer" />} />
+
+        <Route path="/magic-login" element={!user ? <MagicLoginPage></MagicLoginPage> : <Navigate to="/" />} />
 
         <Route path="/signup" element={!user ? <SignupPage /> : <Navigate to="/" />} />
         <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/" />} />

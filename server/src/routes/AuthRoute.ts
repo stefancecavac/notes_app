@@ -1,10 +1,10 @@
 import express from "express";
 
 const router = express.Router();
-import { registerUser, loginUser, logoutUser, getCurrentUser, refreshToken } from "../controllers/AuthController";
+import { logoutUser, getCurrentUser, refreshToken, sendMagicLink, verifyMagicLink } from "../controllers/AuthController";
 
-router.post("/register", registerUser);
-router.post("/login", loginUser);
+router.post("/magicLink", sendMagicLink);
+router.post("/verify-magicLink", verifyMagicLink);
 router.post("/logout", logoutUser);
 
 import authenticate from "../middleware/authentication";

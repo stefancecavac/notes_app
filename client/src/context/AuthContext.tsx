@@ -13,8 +13,8 @@ type AuthContextType = {
   user?: userData;
   userLoading: boolean;
   accessToken: string | null;
-  register: (data: userData) => void;
-  login: (data: userData) => void;
+  sendMagicLink: (email: string) => void;
+  verifyMagicLink: (token: string) => void;
   logout: () => void;
 };
 
@@ -31,7 +31,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     staleTime: Infinity,
   });
 
-  const { mutate: login } = useMutation({
+  const { mutate: verifyMagicLink } = useMutation({
     mutationKey: ["auth"],
     mutationFn: loginUser,
     onSuccess: (data) => {
@@ -40,7 +40,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     },
   });
 
-  const { mutate: register } = useMutation({
+  const { mutate: sendMagicLink } = useMutation({
     mutationKey: ["auth"],
     mutationFn: registerUser,
     onSuccess: () => {
@@ -103,7 +103,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     };
   }, [accessToken]);
 
-  return <AuthContext.Provider value={{ user, userLoading, accessToken, register, login, logout }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, userLoading, accessToken, sendMagicLink, verifyMagicLink, logout }}>{children}</AuthContext.Provider>;
 };
 
 export const UseAuthContext = () => {

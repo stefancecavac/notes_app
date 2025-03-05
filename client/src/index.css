@@ -64,7 +64,7 @@
   default: true;
   --color-base-100: #191919; /* Dark background oklch(0.15 0.01 106.424) */
   --color-base-200: #202020; /* Slightly lighter dark background */
-  --color-base-300: #121110; /* Even lighter for elements */
+  --color-base-300: #2c2c2c; /* Even lighter for elements */
   --color-base-content: #e3e1e1; /* Light text for readability */
 
   --color-primary: #4a90e2; /* Dark red */
@@ -100,18 +100,6 @@
 
 .tiptap input[type="checkbox"] {
   @apply flex items-center hover:cursor-pointer w-4 h-4 rounded-sm bg-black;
-}
-
-::-webkit-scrollbar {
-  @apply w-1;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-gray-200 rounded-lg;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-neutral-400 rounded-lg;
 }
 
 /* animations */

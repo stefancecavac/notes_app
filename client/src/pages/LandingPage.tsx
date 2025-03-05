@@ -1,8 +1,19 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { UseAuthContext } from "../context/AuthContext";
 import { useThemeChangerStore } from "../Stores/useThemeChangerStore";
 
 export default function LandingPage() {
   const { darkMode, toggleTheme } = useThemeChangerStore();
+
+  const { sendMagicLink } = UseAuthContext();
+
+  const [email, setEmail] = useState("");
+  const [emailSent, setEmailSent] = useState(false);
+
+  const handleSendLink = () => {
+    setEmailSent(true);
+    sendMagicLink(email);
+  };
 
   return (
     <div
@@ -29,21 +40,26 @@ export default function LandingPage() {
           <section className="w-full py-12 md:py-24 lg:py-32 px-10">
             <div className="flex px-4 md:px-6">
               <div className="flex mx-auto items-center mt-20">
-                <div className="flex flex-col justify-center space-y-4">
-                  <div className="space-y-2">
-                    <h1 className="text-3xl text-base-content text-center font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                      Capture Your Thoughts, <span className="text-primary">Anytime, Anywhere</span>
-                    </h1>
-                    <p className="max-w-[600px] text-info-content md:text-xl text-center mt-10">
-                      Notes_ is your digital notebook. Jot down ideas, create to-do lists, and organize your life with ease.
-                    </p>
+                {!emailSent ? (
+                  <div className="flex flex-col justify-center space-y-4">
+                    <div className="space-y-2">
+                      <h1 className="text-3xl text-base-content text-center font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+                        Capture Your Thoughts, <span className="text-primary">Anytime, Anywhere</span>
+                      </h1>
+                      <p className="max-w-[600px] text-info-content md:text-xl text-center mt-10">
+                        Notes_ is your digital notebook. Jot down ideas, create to-do lists, and organize your life with ease.
+                      </p>
+                    </div>
+                    <div className="flex flex-col gap-2  items-center mt-10 ">
+                      <input onChange={(e) => setEmail(e.target.value)} className="input"></input>
+                      <button onClick={() => handleSendLink()} className="btn btn-primary w-fit btn-lg">
+                        Send magic link
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex flex-col gap-2  items-center mt-10 ">
-                    <button className="btn btn-primary w-fit btn-lg">
-                      <Link to="/signup">Get Started</Link>
-                    </button>
-                  </div>
-                </div>
+                ) : (
+                  <p>Please check your email</p>
+                )}
               </div>
             </div>
           </section>

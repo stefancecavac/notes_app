@@ -13,7 +13,7 @@ export const NotesList = ({ notes, notesLoading, text }: notesListProps) => {
   const [allNotesExpanded, setAllNotesExpanded] = useState(true);
 
   return (
-    <div className={`flex flex-col text-sm max-h-[30rem] overflow-auto   hover:cursor-pointer  mb-2  my-1  gap-1`}>
+    <div className={`flex flex-col text-sm  overflow-auto   hover:cursor-pointer    my-1  gap-1`}>
       <button
         onClick={() => {
           setAllNotesExpanded((prev) => !prev);

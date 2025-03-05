@@ -16,29 +16,27 @@ const Navbar = () => {
   const { favouriteNotes, favouriteNotesLoading, favouriteNotesError } = useGetAllFavouriteNotes();
 
   return (
-    <div className={`${expanded ? "w-60    " : "w-0 p-0  "} transition-all relative  flex flex-col `}>
-      <div className={`flex items-center justify-between  z-70  p-2 ${expanded ? "" : "px-1"}`}>
+    <div className={`${expanded ? "w-60    " : "w-0 p-0"} transition-all relative  flex flex-col `}>
+      <div className={`flex items-center justify-between  z-70  pl-2 py-2`}>
         {expanded && <UserComponent></UserComponent>}
 
-        <ExpandNavbarButton expanded={expanded} setExpanded={toggleExpanded}></ExpandNavbarButton>
+        {expanded && <ExpandNavbarButton setExpanded={toggleExpanded}></ExpandNavbarButton>}
       </div>
       {expanded && (
-        <div className={`pl-2  flex  flex-col justify-between  `}>
-          <div className={` flex flex-col gap-1  mt-3 `}>
+        <div className="pl-2 flex flex-col grow overflow-hidden h-full min-h-0">
+          <div className="flex flex-col border-b border-neutral pb-2">
             <NewItemButton />
-            <DashboardLink />
             <SearchComponent />
-            <div className="overflow-auto  h-130">
-              <NotesList notes={notes} notesLoading={notesLoading} text="Private"></NotesList>
-
-              {!favouriteNotesError && favouriteNotes?.length !== 0 && (
-                <NotesList notes={favouriteNotes} notesLoading={favouriteNotesLoading} text="Favourites"></NotesList>
-              )}
-            </div>
-          </div>
-          <div className={`flex flex-col gap-1 mb-2 `}>
-            <RecycleBinComponent />
+            <DashboardLink />
             <SettingsLink />
+            <RecycleBinComponent />
+          </div>
+          <div className="flex flex-col grow overflow-auto  min-h-0 custom-scrollbar">
+            <NotesList notes={notes} notesLoading={notesLoading} text="Private" />
+
+            {!favouriteNotesError && favouriteNotes?.length !== 0 && (
+              <NotesList notes={favouriteNotes} notesLoading={favouriteNotesLoading} text="Favourites" />
+            )}
           </div>
         </div>
       )}

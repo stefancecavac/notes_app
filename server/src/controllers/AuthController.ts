@@ -6,11 +6,12 @@ import jwt from "jsonwebtoken";
 import { generateAccessToken } from "../util/GenerateAccessToken";
 import { generateRefreshToken } from "../util/GenerateRefreshToken";
 import AppError from "../middleware/ErrorHandlerMiddleware";
+import { sendMagicLinkEmail } from "../util/EmailSendService";
 
-const registerUser = async (req: Request, res: Response, next: NextFunction) => {
-  const { email, password } = req.body;
+export const sendMagicLink = async (req: Request, res: Response, next: NextFunction) => {
+  const { email } = req.body;
 
-  if (!email || !password) {
+  if (!email) {
     return next(new AppError("Please fill out all fields", 400));
   }
 
@@ -18,72 +19,46 @@ const registerUser = async (req: Request, res: Response, next: NextFunction) => 
     return next(new AppError("Not a valid email", 400));
   }
 
-  if (!validator.isStrongPassword(password)) {
-    return next(new AppError("Not a strong password , password must contain atleast: one capital letter , one number , one special character", 400));
-  }
-
   try {
-    const emailExists = await client.user.findUnique({
-      where: {
-        email: email,
-      },
-    });
-
-    if (emailExists) {
-      return next(new AppError("User with that email already exists", 400));
-    }
-
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
-    const user = await client.user.create({
-      data: {
-        email: email,
-        password: hashedPassword,
-      },
-    });
-
-    const accessToken = generateAccessToken(user.id);
-    const refreshToken = generateRefreshToken(user.id);
-
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      maxAge: 864000000,
-    });
-
-    res.status(201).json({ accessToken });
+    await sendMagicLinkEmail(email);
+    res.status(201).json({ message: "Magic link sent" });
   } catch (error) {
     return next(error);
   }
 };
 
-const loginUser = async (req: Request, res: Response, next: NextFunction) => {
-  const { email, password } = req.body;
+interface MagicLinkJwtPayload {
+  email: string;
+  iat: number;
+  exp: number;
+}
 
-  if (!email || !password) {
-    return next(new AppError("Please fill out all fields", 400));
+export const verifyMagicLink = async (req: Request, res: Response, next: NextFunction) => {
+  const { token } = req.body;
+
+  if (!token) {
+    return next(new AppError("Token is required", 400));
   }
 
   try {
-    const user = await client.user.findUnique({
+    const decoded = jwt.verify(token, process.env.MAGIC_LINK_SECRET as string) as MagicLinkJwtPayload;
+
+    let user = await client.user.findUnique({
       where: {
-        email: email,
+        email: decoded.email,
       },
     });
 
     if (!user) {
-      return next(new AppError("Invalid credentials", 400));
-    }
-
-    const checkPassword = await bcrypt.compare(password, user.password);
-
-    if (!checkPassword) {
-      return next(new AppError("Invalid credentials", 400));
+      user = await client.user.create({
+        data: {
+          email: decoded.email,
+        },
+      });
     }
 
     const accessToken = generateAccessToken(user.id);
     const refreshToken = generateRefreshToken(user.id);
-    console.log(accessToken);
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
@@ -139,4 +114,4 @@ const getCurrentUser = async (req: Request, res: Response, next: NextFunction) =
   }
 };
 
-export { registerUser, loginUser, logoutUser, getCurrentUser, refreshToken };
+export { logoutUser, getCurrentUser, refreshToken };

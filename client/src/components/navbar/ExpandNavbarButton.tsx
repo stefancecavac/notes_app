@@ -1,20 +1,22 @@
-const ExpandNavbarButton = ({ expanded, setExpanded }: { expanded: boolean; setExpanded: React.Dispatch<React.SetStateAction<boolean>> }) => {
+const ExpandNavbarButton = ({ setExpanded }: { setExpanded: React.Dispatch<React.SetStateAction<boolean>> }) => {
   return (
     <button
-      className={`${
-        expanded ?? "absolute top-0 left-0  "
-      } btn btn-square btn-ghost p-0 size-8  z-50 bg-transparent border-0 hover:bg-base-300  btn-soft `}
+      className={` btn btn-square btn-ghost p-0 size-8  z-50 bg-transparent border-0 hover:bg-neutral  btn-soft `}
       onClick={() => setExpanded((prev) => !prev)}
     >
-      {expanded ? (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-        </svg>
-      ) : (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
-          <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-        </svg>
-      )}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="size-5 text-info-content"
+      >
+        <rect width="18" height="18" x="3" y="3" rx="2" />
+        <path d="M9 3v18" />
+      </svg>
     </button>
   );
 };
