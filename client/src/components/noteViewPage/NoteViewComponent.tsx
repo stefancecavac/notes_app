@@ -7,7 +7,6 @@ import IconPicker from "./IconPicker";
 import TagHandleComponent from "./TagHandleComponent";
 import { useDroppable } from "@dnd-kit/core";
 import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
-import { useLocation } from "react-router-dom";
 import ModuleComponent from "../moduleComponents/ModuleComponent";
 import { moduleData, noteData, UpdateData } from "../../dataTypes";
 import { SubPagesComponent } from "./SubPagesComponent";
@@ -24,7 +23,7 @@ type noteViewComponentProps = {
 
 const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteViewComponentProps) => {
   const { updateNote } = useUpdateNote({ noteId: singleNote?.id });
-  const { wideMode, toggleWideMode } = useWideModeStore();
+  const { wideMode } = useWideModeStore();
   const { createTextModule } = useCreateTextModule();
   const { setNodeRef: setDroppableRef } = useDroppable({
     id: singleNote.id,
@@ -40,12 +39,6 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
 
   useDynamicTitleAndFaviconHook(singleNote.title, singleNote.icon);
 
-  const location = useLocation();
-  if (location.pathname.includes("/notes-split")) {
-    if (!wideMode) {
-      toggleWideMode();
-    }
-  }
   useEffect(() => {
     if (!singleNote) return;
     setNoteState({
@@ -66,13 +59,6 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
       updateNote(debouncedNoteState);
     }
   }, [debouncedNoteState]); // this needs to be only dependency , it gets buggy if other dependencies are included
-
-  // if (singleNoteLoading)
-  //   return (
-  //     <div className="flex items-center justify-center w-full">
-  //       <span className="loading loading-spinner text-primary loading-xl"></span>
-  //     </div>
-  //   );
 
   if (singleNoteLoading) return <NoteViewSkeleton />;
 

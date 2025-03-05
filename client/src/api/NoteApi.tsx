@@ -53,7 +53,7 @@ export const useGraphNotes = () => {
 
 export const useGetSingleNote = ({ noteId }: { noteId: string }) => {
   const fetchSingleNote = async () => {
-    const response = await axiosInstance.get(`/api/notes/${noteId}`, {});
+    const response = await axiosInstance.get(`/api/notes/${noteId}`);
 
     return response.data as noteData;
   };
@@ -65,6 +65,7 @@ export const useGetSingleNote = ({ noteId }: { noteId: string }) => {
   } = useQuery({
     queryKey: ["note", noteId],
     queryFn: fetchSingleNote,
+    staleTime: 0,
   });
 
   return { singleNote, singleNoteLoading, singleNoteError };
@@ -161,7 +162,7 @@ export const useUpdateNote = ({ noteId }: { noteId: string }) => {
   };
 
   const { mutate: updateNote, isPending: updatePending } = useMutation({
-    mutationKey: ["notes"],
+    mutationKey: ["note", noteId],
     mutationFn: updateNoteFunction,
     onSuccess: (data) => {
       queryClient.setQueryData(["note", noteId], (oldData: noteData) => {

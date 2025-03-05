@@ -72,7 +72,12 @@ const NoteViewPage = () => {
 
   return (
     <DndContext collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <NoteViewComponent moduleList={moduleList} singleNote={singleNote} singleNoteLoading={singleNoteLoading}></NoteViewComponent>
+      <NoteViewComponent
+        key={singleNote.id}
+        moduleList={moduleList}
+        singleNote={singleNote}
+        singleNoteLoading={singleNoteLoading}
+      ></NoteViewComponent>
       {createPortal(
         <DragOverlay>
           {activeId ? (

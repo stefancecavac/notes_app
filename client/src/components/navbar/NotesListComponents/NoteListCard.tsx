@@ -120,7 +120,7 @@ export const NoteListCard = ({ note }: noteListCardProps) => {
           </button>
         </div>
 
-        <p className=" truncate flex-1  py-1  ">{note?.title}</p>
+        <p className=" truncate flex-1  py-1  ">{note?.title || "Empty note"} </p>
 
         <div className="relative shrink-0 flex items-center">
           <button
