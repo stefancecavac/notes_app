@@ -18,7 +18,7 @@ export const NotesList = ({ notes, notesLoading, text }: notesListProps) => {
         onClick={() => {
           setAllNotesExpanded((prev) => !prev);
         }}
-        className=" btn btn-ghost btn-xs hover:bg-base-300 justify-start text-info-content font-light flex items-center  w-full text-start rounded-md p-1 "
+        className="pl-0 btn btn-ghost btn-xs hover:bg-base-300 justify-start text-info-content  flex items-center  w-full rounded-md  "
       >
         {allNotesExpanded ? (
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="size-5 fill-info-content ">

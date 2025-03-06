@@ -50,7 +50,7 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
 
         <div className="flex flex-col gap-1 p-1 mt-2 overflow-auto max-h-100 m-3">
           <p className="text-info-content text-sm m-3 ">
-            Notes: <span className="border border-neutral rounded w-3 h-3 bg-neutral p-1"> {searchedNotes?.length ? searchedNotes.length : 0}</span>
+            Notes: <span className="kbd"> {searchedNotes?.length ? searchedNotes.length : 0}</span>
           </p>
           <div className="flex flex-col items-center">
             {isDebouncing ? (
@@ -91,7 +91,7 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
                       </span>
                     ))}
                   </div>
-                  <p className="text-info-content text-xs font-thin ">
+                  <p className="text-info-content text-xs  ">
                     Edited{" "}
                     {formatDistanceToNow(new Date(note.updatedAt), {
                       addSuffix: true,

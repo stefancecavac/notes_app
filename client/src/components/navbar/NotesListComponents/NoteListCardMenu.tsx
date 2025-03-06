@@ -19,9 +19,6 @@ type noteListCardMenuProps = {
 };
 
 const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }: noteListCardMenuProps) => {
-  // const { noteId } = useParams();
-  // const location = useLocation();
-
   const { updateNote } = useUpdateNote({ noteId: note?.id });
 
   const [renameMenu, setRenameMenu] = useState(false);

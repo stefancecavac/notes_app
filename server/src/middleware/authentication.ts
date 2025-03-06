@@ -25,7 +25,7 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
 
     next();
   } catch (error) {
-    next(error);
+    return next(new AppError("Access token expired, please refresh your token", 401));
   }
 };
 
