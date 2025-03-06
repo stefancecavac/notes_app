@@ -106,7 +106,7 @@ export const useCreateNote = () => {
     mutationFn: postNoteFunction,
     onSuccess: (data) => {
       navigate(`/notes/${data.id}`);
-      showToast({ message: "Note successfuly created", type: "SUCCESS" });
+      showToast("SUCCESS");
       queryClient.setQueryData(["notes"], (oldData: noteData[] | undefined) => {
         if (!oldData) return [data];
         if (!data.parentNoteId) return [data, ...oldData];
@@ -214,7 +214,7 @@ export const useMoveNote = () => {
     mutationKey: ["notes"],
     mutationFn: updateNoteFunction,
     onSuccess: () => {
-      showToast({ message: "Note Moved", type: "SUCCESS" });
+      showToast("Note Moved");
 
       queryClient.invalidateQueries({ queryKey: ["notes"] });
       queryClient.invalidateQueries({ queryKey: ["favouriteNotes"] });

@@ -44,7 +44,7 @@ export const useDeleteModule = () => {
     mutationKey: ["module"],
     mutationFn: deleteModuleApi,
     onSuccess: (data) => {
-      showToast({ type: "WARNING", message: `Module deleted` });
+      showToast(`Module deleted`);
       queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
         return {
           ...oldData,

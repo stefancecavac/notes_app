@@ -18,7 +18,7 @@ export const useCreateTextModule = () => {
     mutationKey: ["text-module"],
     mutationFn: postTextModuleApi,
     onSuccess: () => {
-      showToast({ type: "SUCCESS", message: "Text module created" });
+      showToast("Text module created");
       // queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
       //   return {
       //     ...oldData,

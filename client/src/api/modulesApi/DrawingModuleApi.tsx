@@ -18,7 +18,7 @@ export const useCreateDrawingModule = () => {
     mutationKey: ["drawing-module"],
     mutationFn: postDrawingModuleApi,
     onSuccess: () => {
-      showToast({ type: "SUCCESS", message: "Drawing module created" });
+      showToast("Drawing module created");
 
       // queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
       //   return {

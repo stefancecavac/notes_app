@@ -4,11 +4,14 @@ import SkeletonLoader from "../components/loaders/SkeletonLoader";
 import NoteCard from "../components/NoteCard";
 import { UseAuthContext } from "../context/AuthContext";
 import { useEditorHook } from "../hooks/useEditorHook";
+import ExpandNavbarButton from "../components/navbar/ExpandNavbarButton";
+import { useNavbarExpandedStore } from "../Stores/useNavbarExpandedStore";
 
 const DashboardPage = () => {
   const editor = useEditorHook();
   const { user } = UseAuthContext();
   const { notes, notesLoading } = useGetAllNotes();
+  const { toggleExpanded, expanded } = useNavbarExpandedStore();
 
   const { createNote } = useCreateNote();
 
@@ -24,7 +27,8 @@ const DashboardPage = () => {
 
   return (
     <div className="w-full h-full   overflow-auto ">
-      <div className="m-3 m-10">
+      <div className="m-1">{!expanded && <ExpandNavbarButton setExpanded={toggleExpanded} />}</div>
+      <div className=" m-10">
         <h2 className="text-4xl text-base-content">
           Welcome back , <span className="text-primary font-bold">{user?.email}</span>
         </h2>

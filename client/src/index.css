@@ -89,6 +89,16 @@
   --color-error-content: oklch(98% 0.01 30); /* Light text for error elements */
 }
 
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 2px;
+  }
+
+  .custom-scrollbar {
+    scrollbar-width: thin;
+  }
+}
+
 /* .tiptap ul p,
 .tiptap ol p {
   @apply flex inline;

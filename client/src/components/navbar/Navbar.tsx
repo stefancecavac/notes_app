@@ -31,7 +31,7 @@ const Navbar = () => {
             <SettingsLink />
             <RecycleBinComponent />
           </div>
-          <div className="flex flex-col grow overflow-auto  min-h-0 custom-scrollbar mt-5">
+          <div className="flex flex-col grow overflow-auto  min-h-0  mt-5">
             <NotesList notes={notes} notesLoading={notesLoading} text="Private" />
 
             {!favouriteNotesError && favouriteNotes?.length !== 0 && (

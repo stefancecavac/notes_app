@@ -18,7 +18,7 @@ export const useCreateTodoModule = () => {
     mutationKey: ["todo-module"],
     mutationFn: postTodoModuleApi,
     onSuccess: () => {
-      showToast({ type: "SUCCESS", message: "Todo module created" });
+      showToast("Todo module created");
       // queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
       //   return {
       //     ...oldData,

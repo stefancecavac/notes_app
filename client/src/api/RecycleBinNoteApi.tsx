@@ -42,7 +42,7 @@ export const useMoveTorecycleBin = () => {
     mutationFn: moveNoteToRecycleBin,
     onSuccess: () => {
       navigate("/dashboard");
-      showToast({ message: "Note moved to recycle bin", type: "WARNING" });
+      showToast("Note moved to recycle bin");
       queryClient.invalidateQueries({ queryKey: ["notes"] });
     },
   });
@@ -67,7 +67,7 @@ export const useRestoreFromRecycleBin = () => {
     mutationKey: ["recycleBinNotes"],
     mutationFn: restoreNoteFromRecycleBin,
     onSuccess: () => {
-      showToast({ message: "Note successfully restored", type: "SUCCESS" });
+      showToast("Note successfully restored");
       queryClient.resetQueries({ queryKey: ["recycleBinNotes"] });
       queryClient.resetQueries({ queryKey: ["notes"] });
       queryClient.resetQueries({ queryKey: ["favouriteNotes"] });
@@ -91,7 +91,7 @@ export const useDeleteFromRecycleBin = () => {
     mutationKey: ["recycleBinNotes"],
     mutationFn: removeFromRecycleBinApi,
     onSuccess: () => {
-      showToast({ message: "Note Removed", type: "SUCCESS" });
+      showToast("Note Removed");
       queryClient.resetQueries({ queryKey: ["recycleBinNotes"] });
       queryClient.resetQueries({ queryKey: ["notes"] });
       queryClient.resetQueries({ queryKey: ["favouriteNotes"] });

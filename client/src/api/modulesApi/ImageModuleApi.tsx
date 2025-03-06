@@ -18,7 +18,7 @@ export const useCreateImageModule = () => {
     mutationKey: ["image-module"],
     mutationFn: postImageModuleApi,
     onSuccess: () => {
-      showToast({ type: "SUCCESS", message: "Image module created" });
+      showToast("Image module created");
 
       // queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
       //   return {
