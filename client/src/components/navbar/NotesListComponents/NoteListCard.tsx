@@ -64,7 +64,7 @@ export const NoteListCard = ({ note }: noteListCardProps) => {
         style={{ backgroundColor: note.color !== "" ? `${note.color}20` : "", borderColor: note.color !== "" ? `${note.color}60` : "" }}
         className={({ isActive }) =>
           ` relative transition-all  mb-1 text-xs    items-center font-medium  p-0.5 border border-transparent flex group  gap-2 rounded-md group hover:cursor-pointer hover:bg-base-300 ${
-            isActive ? `bg-base-300 font-bold bg-${note.color}  ` : ""
+            isActive ? `bg-base-300 font-bold bg-${note.color} text-base-content ` : "text-info-content"
           }`
         }
       >
@@ -77,7 +77,7 @@ export const NoteListCard = ({ note }: noteListCardProps) => {
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                strokeWidth={1.5}
+                strokeWidth={2}
                 stroke="currentColor"
                 className="size-5 text-info-content"
               >

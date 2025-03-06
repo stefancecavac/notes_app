@@ -8,7 +8,7 @@ const RecycleBinComponent = () => {
     <>
       <button
         onClick={() => setModal(true)}
-        className=" hover:bg-base-300 btn btn-ghost btn-sm justify-start p-1    rounded-lg flex items-center gap-4 "
+        className=" hover:bg-base-300 btn btn-ghost btn-sm justify-start p-1  text-info-content  rounded-lg flex items-center gap-4 "
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

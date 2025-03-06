@@ -65,10 +65,10 @@ const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }
     : createPortal(
         <div onClick={() => setOpenMenu(false)} className="absolute inset-0 z-50">
           <div ref={menuRef} style={{ position: "absolute", top: `${menuPosition.top}px`, left: `${menuPosition.left}px`, zIndex: 50 }}>
-            <div className={`  flex flex-col  bg-base-200 rounded-md p-1 w-60  shadow-md border-neutral border-2`}>
+            <div className={`  flex flex-col  bg-base-200 rounded-xl  p-1 w-60  shadow-md border-neutral border-2`}>
               <FavouriteButton note={note} />
               <AddSubPageButton note={note} />
-              <div className="divider my-0 "></div>
+              <div className="divider my-0 p-0"></div>
               <button
                 onClick={(e) => {
                   setRenameMenu(true);
@@ -88,33 +88,8 @@ const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }
               </button>
               <DuplicateNoteButton note={note} />
               <MoveNoteButton note={note} />
-              {/* {noteId !== note.id && location.pathname.includes("/notes/") && (
-                <Link
-                  to={`/notes-split/${noteId}/${note.id}`}
-                  className="flex items-center gap-4  text-sm btn btn-sm justify-start btn-ghost p-1 rounded-sm"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="size-4"
-                  >
-                    <path d="M8 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h3" />
-                    <path d="M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3" />
-                    <path d="M12 20v2" />
-                    <path d="M12 14v2" />
-                    <path d="M12 8v2" />
-                    <path d="M12 2v2" />
-                  </svg>
-                  Open in Split screen
-                </Link>
-              )} */}
 
-              <div className="divider  my-0"></div>
+              <div className="divider   m-0"></div>
 
               <DeleteButton note={note} />
             </div>

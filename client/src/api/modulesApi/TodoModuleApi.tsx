@@ -42,7 +42,7 @@ export const useAddTodoInModule = () => {
     return response.data as moduleData;
   };
 
-  const { mutate: addTodo } = useMutation({
+  const { mutate: addTodo, isSuccess: addTodoFinished } = useMutation({
     mutationKey: ["todo-module"],
     mutationFn: postTodoModuleApi,
     onSuccess: (data) => {
@@ -63,7 +63,7 @@ export const useAddTodoInModule = () => {
     },
   });
 
-  return { addTodo };
+  return { addTodo, addTodoFinished };
 };
 
 export const useCheckTodo = () => {

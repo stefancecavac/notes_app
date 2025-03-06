@@ -5,7 +5,9 @@ const SettingsLink = () => {
     <NavLink
       to={"/settings"}
       className={({ isActive }) =>
-        `hover:bg-base-300 btn btn-ghost btn-sm justify-start p-1    rounded-lg flex items-center gap-4 ${isActive ? "bg-base-300" : ""}`
+        `hover:bg-base-300 btn btn-ghost btn-sm justify-start p-1    rounded-lg flex items-center gap-4 ${
+          isActive ? "bg-base-300 text-base-content " : "text-info-content"
+        }`
       }
     >
       <svg

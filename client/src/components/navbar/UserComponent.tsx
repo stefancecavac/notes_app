@@ -10,11 +10,24 @@ const UserComponent = () => {
 
   return (
     <div className="dropdown hover:bg-base-300 rounded-lg hover:cursor-pointer w-full">
-      <div tabIndex={0} role="button" className="flex items-center gap-2 m-1">
+      <div tabIndex={0} role="button" className="flex items-center justify-between  m-1">
         <div className=" rounded-md shadow-md p-1 bg-primary ">
           <p className="font-bold text-neutral text-xs">{user?.email.slice(0, 2).toUpperCase()}</p>
         </div>
         <p className=" text-xs text-base-content font-medium w-30 truncate">{user?.email}</p>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="size-5 text-info-content"
+        >
+          <path d="m7 6 5 5 5-5" />
+          <path d="m7 13 5 5 5-5" />
+        </svg>
       </div>
 
       <ul tabIndex={0} className="dropdown-content menu bg-base-200 mt-2 rounded-box z-1 w-52 p-2 gap-1 shadow-md border border-neutral">

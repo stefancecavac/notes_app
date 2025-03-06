@@ -11,12 +11,7 @@ export const ToDoModuleComponent = ({ module }: { module: moduleData }) => {
   const [sortCompleted, setSortCompleted] = useState<"completedFirst" | "completedLast">("completedFirst");
 
   useEffect(() => {
-    const storedTodos = localStorage.getItem(`sorted-${module.id}`);
-    if (storedTodos) {
-      setSortedTodos(JSON.parse(storedTodos));
-    } else {
-      setSortedTodos(module?.TodoModule || []);
-    }
+    setSortedTodos(module?.TodoModule || []);
   }, [module?.TodoModule]);
 
   const handleAddTodo = (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,7 +29,6 @@ export const ToDoModuleComponent = ({ module }: { module: moduleData }) => {
         }
       });
 
-      localStorage.setItem(`sorted-${module.id}`, JSON.stringify(sorted));
       return sorted;
     });
     setSortCompleted((prev) => (prev === "completedFirst" ? "completedLast" : "completedFirst"));
@@ -73,14 +67,14 @@ export const ToDoModuleComponent = ({ module }: { module: moduleData }) => {
 
       <div className="flex flex-col gap-1 mt-5">
         {sortedTodos.map((todo) => (
-          <TodoModuleCard key={todo?.id} todo={todo} todos={module?.TodoModule} />
+          <TodoModuleCard key={todo?.id} todo={todo} />
         ))}
       </div>
     </div>
   );
 };
 
-const TodoModuleCard = ({ todos, todo }: { todos?: todoModuleData[]; todo?: todoModuleData }) => {
+const TodoModuleCard = ({ todo }: { todo?: todoModuleData }) => {
   const { checkTodo } = useCheckTodo();
   const [completed, setCompleted] = useState(todo?.completed);
   const { noteId } = useParams();
@@ -90,16 +84,6 @@ const TodoModuleCard = ({ todos, todo }: { todos?: todoModuleData[]; todo?: todo
   }, [todo]);
 
   function handleCheck() {
-    const storedTodosExists = JSON.parse(localStorage.getItem(`sorted-${todo?.moduleId}`)!);
-    if (!storedTodosExists) {
-      localStorage.setItem(`sorted-${todo?.moduleId}`, JSON.stringify(todos));
-    }
-
-    const storedTodos = JSON.parse(localStorage.getItem(`sorted-${todo?.moduleId}`)!);
-
-    const updatedTodo = storedTodos.map((t: todoModuleData) => (t.id === todo?.id ? { ...t, completed: !completed } : t));
-    localStorage.setItem(`sorted-${todo?.moduleId}`, JSON.stringify(updatedTodo));
-
     setCompleted((prev) => !prev);
     checkTodo({ completed: !completed, noteId: noteId, todoId: todo?.id });
   }

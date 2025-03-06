@@ -24,7 +24,7 @@ const Navbar = () => {
       </div>
       {expanded && (
         <div className="flex flex-col grow overflow-hidden h-full min-h-0">
-          <div className="flex flex-col ">
+          <div className="flex flex-col gap-1 ">
             <NewItemButton />
             <SearchComponent />
             <DashboardLink />

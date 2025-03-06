@@ -94,7 +94,7 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
         </div>
       </div>
 
-      <div className={`flex flex-col flex-1 mb-5   ${!wideMode ? "lg:mx-60" : "lg:mx-25 "} mx-25 relative   mt-10  transition-all  `}>
+      <div className={`flex flex-col flex-1 mb-5   ${!wideMode ? "lg:mr-60 ml-40" : "lg:mr-25 ml-5 "} mx-25 relative    mt-10  transition-all  `}>
         {singleNote?.modules?.length === 0 && (
           <div className="   w-full h-full flex   opacity-0  group-hover/global:opacity-100    transition-all   ">
             <button

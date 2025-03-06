@@ -57,6 +57,8 @@
   --color-warning-content: oklch(20% 0.05 50); /* Darker text for warning */
   --color-error: oklch(70% 0.2 30); /* Light red for error */
   --color-error-content: oklch(98% 0.01 30); /* Light text for error elements */
+
+  --depth: 0;
 }
 
 @plugin "daisyui/theme" {
@@ -87,6 +89,8 @@
   --color-warning-content: oklch(20% 0.05 50); /* Darker text for warning */
   --color-error: oklch(70% 0.2 30); /* Light red for error */
   --color-error-content: oklch(98% 0.01 30); /* Light text for error elements */
+
+  --depth: 0;
 }
 
 @layer utilities {

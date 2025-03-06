@@ -8,7 +8,7 @@ const SearchComponent = () => {
     <>
       <button
         onClick={() => setModal(true)}
-        className={`btn-ghost hover:bg-base-300   btn  p-1 btn-sm justify-start rounded-lg flex items-center gap-4 `}
+        className={`btn-ghost hover:bg-base-300  text-info-content  btn  p-1 btn-sm justify-start rounded-lg flex items-center gap-4 `}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
