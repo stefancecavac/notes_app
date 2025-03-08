@@ -39,14 +39,14 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
 
   useDynamicTitleAndFaviconHook(singleNote.title, singleNote.icon);
 
-  useEffect(() => {
-    if (!singleNote) return;
-    setNoteState({
-      title: singleNote.title,
-      color: singleNote.color,
-      icon: singleNote.icon,
-    });
-  }, [singleNote]);
+  // useEffect(() => {
+  //   if (!singleNote) return;
+  //   setNoteState({
+  //     title: singleNote.title,
+  //     color: singleNote.color,
+  //     icon: singleNote.icon,
+  //   });
+  // }, [singleNote]);
 
   useEffect(() => {
     if (!singleNote || singleNoteLoading) return;

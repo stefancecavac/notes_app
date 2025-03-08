@@ -28,8 +28,8 @@ const DashboardPage = () => {
   return (
     <div className="w-full h-full   overflow-auto ">
       <div className="m-1">{!expanded && <ExpandNavbarButton setExpanded={toggleExpanded} />}</div>
-      <div className=" m-10">
-        <h2 className="text-4xl text-base-content">
+      <div className=" m-10 ml-30">
+        <h2 className="text-2xl text-base-content">
           Welcome back , <span className="text-primary font-bold">{user?.email}</span>
         </h2>
 

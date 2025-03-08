@@ -40,17 +40,24 @@ export const ToDoModuleComponent = ({ module }: { module: moduleData }) => {
 
       <div className="flex items-center justify-between gap-5">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-primary btn-xs">
+          <button className="btn btn-primary btn-xs">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
             New Task
-          </div>
-          <div tabIndex={0} className="dropdown-content menu bg-base-300 mt-2 rounded-box z-1 w-100 p-2 shadow-sm">
-            <form onSubmit={handleAddTodo} className="flex items-center gap-2">
-              <input onChange={(e) => setTitle(e.target.value)} type="text" className="input input-sm w-full"></input>
+          </button>
+          <div tabIndex={0} className="dropdown-content menu bg-base-300 mt-2 rounded-lg border border-neutral z-1 w-100 p-2 shadow-md">
+            <form onSubmit={handleAddTodo} className="flex flex-col  items-end gap-2">
+              <textarea
+                rows={5}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Task name here"
+                className="input input-sm min-w-full resize-none h-20  input-ghost focus:outline-hidden bg-transparent focus:bg-transparent"
+              ></textarea>
 
-              <button className="btn btn-sm btn-primary">Add</button>
+              <div className="flex items-center gap-2">
+                <button className="btn btn-xs btn-primary w-fit ">Add</button>
+              </div>
             </form>
           </div>
         </div>

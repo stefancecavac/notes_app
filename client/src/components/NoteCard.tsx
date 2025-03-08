@@ -8,7 +8,7 @@ const NoteCard = ({ note }: { note: noteData }) => {
       to={`/notes/${note.id}`}
       className=" rounded-lg shadow-md  bg-base-200 flex flex-col overflow-hidden  border border-neutral hover:scale-105 transition-all  "
     >
-      <div style={{ backgroundColor: note.color }} className="py-10 bg-neutral"></div>
+      <div style={{ backgroundColor: note.color }} className="py-8 bg-neutral"></div>
       <div className="flex items-center justify-between  p-2 ">
         <div className="flex  items-center gap-2 text-base-content truncate my-1 ">
           <div className="bg-neutral rounded-lg p-1">
@@ -29,31 +29,37 @@ const NoteCard = ({ note }: { note: noteData }) => {
               <path d="M16 17H8" />
             </svg>
           </div>
-          <p className="truncate ">{note.title == "" ? "Untitled" : note.title}</p>
+          <p className="truncate text-sm ">{note.title == "" ? "Untitled" : note.title}</p>
         </div>
       </div>
 
-      <div className=" mt-2 text-xs text-info-content  flex items-center gap-2 p-2 ">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z"
-          />
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
-        </svg>
+      <div className="  text-xs text-info-content  flex items-center gap-2 p-2 ">
+        {note?.tags?.length === 0 ? (
+          ""
+        ) : (
+          <>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z"
+              />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6Z" />
+            </svg>
 
-        <div className="grid grid-cols-3">
-          {note.tags?.map((tag, index) => (
-            <span
-              style={{ backgroundColor: tag.backgroundColor, color: tag.textColor }}
-              key={index}
-              className="rounded-md px-2 py-1  cursor-pointer "
-            >
-              <p className="font-medium"># {tag.name}</p>
-            </span>
-          ))}
-        </div>
+            <div className="grid grid-cols-3">
+              {note.tags?.map((tag, index) => (
+                <span
+                  style={{ backgroundColor: tag.backgroundColor, color: tag.textColor }}
+                  key={index}
+                  className="rounded-md px-2 py-1  cursor-pointer "
+                >
+                  <p className="font-medium"># {tag.name}</p>
+                </span>
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       <div className="  text-xs text-info-content  flex items-center gap-2 p-2 ">
