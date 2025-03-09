@@ -310,6 +310,7 @@ export const duplicateNote = async (req: Request, res: Response, next: NextFunct
           create: noteToBeDuplicated.modules.map((module) => ({
             type: module.type,
             order: module.order,
+
             textModule: module.textModule
               ? {
                   create: {
@@ -317,6 +318,28 @@ export const duplicateNote = async (req: Request, res: Response, next: NextFunct
                   },
                 }
               : undefined,
+
+            imageModule: module.imageModule
+              ? {
+                  create: {
+                    imageUrl: module.imageModule.imageUrl,
+                    imageId: module.imageModule.imageId,
+                    height: module.imageModule.height,
+                    width: module.imageModule.width,
+                  },
+                }
+              : undefined,
+
+            TodoModule: module.TodoModule.length
+              ? {
+                  create: module.TodoModule.map((todo) => ({
+                    title: todo.title,
+                    completed: todo.completed,
+                  })),
+                }
+              : undefined,
+
+            DrawingModule: module.DrawingModule ? { create: { data: module.DrawingModule.data } } : undefined,
           })),
         },
       },
@@ -327,7 +350,6 @@ export const duplicateNote = async (req: Request, res: Response, next: NextFunct
     return next(error);
   }
 };
-
 export const moveNote = async (req: Request, res: Response, next: NextFunction) => {
   const { noteId, parentNoteId } = req.body;
   const { userId } = req.user;

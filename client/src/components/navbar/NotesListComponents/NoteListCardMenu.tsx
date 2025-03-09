@@ -51,10 +51,15 @@ const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }
           <div
             onClick={(e) => e.stopPropagation()}
             ref={inputRef}
-            style={{ position: "absolute", top: `${menuPosition.top - 30}px`, left: `${menuPosition.left - 200}px`, zIndex: 50 }}
+            style={{ position: "absolute", top: `${menuPosition.top - 26}px`, left: `${menuPosition.left - 205}px`, zIndex: 50 }}
             className=""
           >
-            <input autoFocus onChange={handleRename} placeholder={note.title} className="input  input-sm"></input>
+            <input
+              autoFocus
+              onChange={handleRename}
+              placeholder={note.title}
+              className="input focus:outline-none outline-none border-none  input-sm"
+            ></input>
           </div>
         </div>,
         document.body
