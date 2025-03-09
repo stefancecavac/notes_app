@@ -28,16 +28,24 @@ export const SearchNotes = async (req: Request, res: Response, next: NextFunctio
               },
             },
           },
+          {
+            modules: {
+              some: {
+                textModule: {
+                  content: {
+                    contains: q,
+                    mode: "insensitive",
+                  },
+                },
+              },
+            },
+          },
         ],
       },
       include: {
         tags: true,
       },
     });
-
-    if (notes.length === 0) {
-      return next(new AppError("No notes Found", 404));
-    }
 
     res.status(200).json(notes);
   } catch (error) {

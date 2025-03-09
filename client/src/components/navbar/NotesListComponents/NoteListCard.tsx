@@ -128,7 +128,7 @@ export const NoteListCard = ({ note }: noteListCardProps) => {
             onClick={handleMenuClick}
             className={`${
               openMenu ? "flex" : "hidden group-hover:flex"
-            } bg-inherit shrink-0 relative rounded-md transition-all hover:bg-neutral link p-0`}
+            } bg-inherit shrink-0 relative rounded-md transition-all hover:bg-base-200 link p-0`}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 ">
               <path

@@ -15,6 +15,7 @@ const NewItemButton = () => {
 
   return (
     <button
+      id="newItemId"
       title="hello"
       onClick={handleCreateNote}
       className={` btn-soft   hover:bg-base-300 w-full  text-info-content  btn btn-sm justify-start p-1 rounded-lg flex items-center gap-4`}
