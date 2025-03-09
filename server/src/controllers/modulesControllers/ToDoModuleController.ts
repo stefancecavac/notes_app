@@ -62,40 +62,6 @@ export const addTodoInModule = async (req: Request, res: Response, next: NextFun
   }
 };
 
-// export const editTodoInModule = async (req: Request, res: Response, next: NextFunction) => {
-//   const { title, moduleId, noteId } = req.body;
-//   try {
-//     const TodoModule = await client.todoModule.update({
-//       where: {
-//         moduleId: moduleId,
-//       },
-//       data: {
-//         TodoModule: {
-//           create: {
-//             title: title,
-//           },
-//         },
-//       },
-//       include: {
-//         TodoModule: true,
-//       },
-//     });
-
-//     await client.note.update({
-//       where: {
-//         id: noteId,
-//       },
-//       data: {
-//         updatedAt: new Date(),
-//       },
-//     });
-
-//     res.status(200).json(TodoModule);
-//   } catch (error) {
-//     return next(error);
-//   }
-// };
-
 export const checkTodoModule = async (req: Request, res: Response, next: NextFunction) => {
   const { completed, todoId, noteId } = req.body;
 
@@ -119,6 +85,30 @@ export const checkTodoModule = async (req: Request, res: Response, next: NextFun
     });
 
     res.status(200).json(updatedTodo);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const deleteOneTodo = async (req: Request, res: Response, next: NextFunction) => {
+  const { todoId, noteId } = req.body;
+  try {
+    const TodoModule = await client.todoModule.delete({
+      where: {
+        id: todoId,
+      },
+    });
+
+    await client.note.update({
+      where: {
+        id: noteId,
+      },
+      data: {
+        updatedAt: new Date(),
+      },
+    });
+
+    res.status(200).json(TodoModule);
   } catch (error) {
     return next(error);
   }

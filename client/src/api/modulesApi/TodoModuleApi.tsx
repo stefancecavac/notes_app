@@ -94,9 +94,42 @@ export const useCheckTodo = () => {
           updatedAt: new Date(),
         };
       });
-      console.log(queryClient.getQueryData(["note", noteId]));
     },
   });
 
   return { checkTodo };
+};
+
+export const useDeleteOneTodo = () => {
+  const { noteId } = useParams();
+  const queryClient = useQueryClient();
+
+  const deleteOneTodoApi = async ({ noteId, todoId }: { noteId?: string; todoId?: string }) => {
+    const response = await axiosInstance.delete(`/api/notes/modules/todo-module/delete`, { data: { noteId, todoId } });
+    return response.data as noteData;
+  };
+
+  const { mutate: deleteOneTodo } = useMutation({
+    mutationKey: ["todo-module"],
+    mutationFn: deleteOneTodoApi,
+    onSuccess: (data) => {
+      queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
+        return {
+          ...oldData,
+          modules: oldData.modules?.map((module) => {
+            if (module.type === "TODO" && module.TodoModule) {
+              return {
+                ...module,
+                TodoModule: module.TodoModule.filter((todo) => todo?.id !== data.id),
+              };
+            }
+            return module;
+          }),
+          updatedAt: new Date(),
+        };
+      });
+    },
+  });
+
+  return { deleteOneTodo };
 };
