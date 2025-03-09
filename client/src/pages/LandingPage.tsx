@@ -20,7 +20,7 @@ export default function LandingPage() {
       className={`${darkMode ? "tron-grid" : "tron-grid-light"} bg-gradient-to-b from-base-200 to-base-300 h-auto flex items-center justify-center  `}
     >
       <div className={`flex flex-col min-h-full items-center justify-center w-200 `}>
-        <div className="p-3 px-5 flex justify-between items-center fixed top-0 left-0 right-0 bg-base-200/50 z-50 backdrop-blur-md ">
+        <div className="p-1 px-5 flex justify-between items-center fixed top-0 left-0 right-0 bg-base-200/50 z-50 backdrop-blur-md ">
           <h1 className="text-primary font-bold text-2xl">Notes_</h1>
           <div className="flex items-center gap-5">
             <label className="swap swap-rotate hover:bg-neutral rounded">
@@ -50,15 +50,33 @@ export default function LandingPage() {
                         Notes_ is your digital notebook. Jot down ideas, create to-do lists, and organize your life with ease.
                       </p>
                     </div>
-                    <div className="flex flex-col gap-2  items-center mt-10 ">
-                      <input onChange={(e) => setEmail(e.target.value)} className="input"></input>
-                      <button onClick={() => handleSendLink()} className="btn btn-primary w-fit btn-lg">
+                    <div className="flex gap-2  items-center mt-10 mx-20">
+                      <input placeholder="eg: someone@something.com" onChange={(e) => setEmail(e.target.value)} className="input w-full"></input>
+                      <button onClick={() => handleSendLink()} className="btn btn-primary w-fit ">
                         Send magic link
                       </button>
                     </div>
                   </div>
                 ) : (
-                  <p>Please check your email</p>
+                  <div className="flex flex-col items-center rounded-lg bg-base-200 p-5 shadow-md ">
+                    <div className="bg-primary/50 p-3 rounded-full mt-2 mb-5">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="size-10 text-primary"
+                      >
+                        <rect width="20" height="16" x="2" y="4" rx="2" />
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                      </svg>
+                    </div>
+                    <h2 className="text-2xl text-primary font-medium">Please check your email</h2>
+                    <p className="text-info-content mt-2">Verification link sent to your email</p>
+                  </div>
                 )}
               </div>
             </div>
