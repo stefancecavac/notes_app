@@ -75,7 +75,7 @@ export type NotesData = {
   trashedAt: Date | null;
   parentNoteId: string;
   childNotes?: NotesData[];
-  breadCrumbs?: { noteId: string; noteTitle: string; icon: string }[];
+  breadCrumbs?: { id: string; title: string; icon: string }[];
 };
 
 export const notesSchema: z.ZodType<NotesData> = z.lazy(() =>
@@ -98,8 +98,8 @@ export const notesSchema: z.ZodType<NotesData> = z.lazy(() =>
     breadCrumbs: z
       .array(
         z.object({
-          noteId: z.string(),
-          noteTitle: z.string(),
+          id: z.string(),
+          title: z.string(),
           icon: z.string(),
         })
       )

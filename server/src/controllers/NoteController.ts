@@ -124,24 +124,29 @@ interface Breadcrumb {
   icon: string;
 }
 
-const getBreadcrumbs = async (noteId: string, userId: number): Promise<Breadcrumb[]> => {
-  const note = await client.note.findUnique({
-    where: { id: noteId },
-    include: {
-      parentNote: true,
-    },
-  });
+const getBreadcrumbs = async (noteId: string, userId: number) => {
+  const breadCrumbs = [];
+  let currentNoteId = noteId;
 
-  if (!note) {
-    return [];
+  while (currentNoteId) {
+    const note = await client.note.findUnique({
+      where: { id: currentNoteId },
+      select: {
+        parentNoteId: true,
+        title: true,
+        id: true,
+        icon: true,
+      },
+    });
+
+    if (!note) break;
+
+    breadCrumbs.unshift(note);
+
+    currentNoteId = note.parentNoteId!;
   }
 
-  if (!note.parentNoteId) {
-    return [{ noteId: note.id, noteTitle: note.title, icon: note.icon }];
-  }
-  const parentBreadcrumbs = await getBreadcrumbs(note.parentNoteId, userId);
-
-  return [...parentBreadcrumbs, { noteId: note.id, noteTitle: note.title, icon: note.icon }];
+  return breadCrumbs;
 };
 
 export const getSingleNote = async (req: Request, res: Response, next: NextFunction) => {
@@ -178,8 +183,7 @@ export const getSingleNote = async (req: Request, res: Response, next: NextFunct
       return next(new AppError("No note with that Id found", 404));
     }
 
-    const breadCrumbs = await getBreadcrumbs(noteId, userId);
-
+    const breadCrumbs = await getBreadcrumbs(note.id, userId);
     res.status(200).json({ ...note, breadCrumbs });
   } catch (error) {
     return next(error);

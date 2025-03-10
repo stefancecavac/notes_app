@@ -18,7 +18,7 @@ const HeaderComponent = ({ singleNote }: { singleNote: noteData }) => {
           const shouldRender = index === 0 || index === array.length - 1 || index === array.length - 2 || array.length <= 4;
 
           return shouldRender ? (
-            <div key={crumb.noteId} className="flex items-center gap-2 pl-3">
+            <div key={crumb.id} className="flex items-center gap-2 pl-3">
               {singleNote.breadCrumbs && singleNote?.breadCrumbs?.length > 4 && index === array.length - 2 && (
                 <p className="text-info-content text-sm">...</p>
               )}
@@ -27,7 +27,7 @@ const HeaderComponent = ({ singleNote }: { singleNote: noteData }) => {
                 className={`${
                   index === array.length - 1 && "font-bold text-base-content"
                 } text-info-content hover:underline gap-2 text-xs flex items-center`}
-                to={`/notes/${crumb.noteId}`}
+                to={`/notes/${crumb.id}`}
               >
                 {crumb.icon ? (
                   <div className="size-4 " dangerouslySetInnerHTML={{ __html: crumb.icon }}></div>
@@ -51,7 +51,7 @@ const HeaderComponent = ({ singleNote }: { singleNote: noteData }) => {
                     <path d="M16 17H8" />
                   </svg>
                 )}
-                <p className="truncate w-35"> {crumb.noteTitle}</p>
+                <p className="truncate w-fit"> {crumb.title}</p>
               </Link>
 
               {array.length > index + 1 ? <p className="text-xl text-neutral">/</p> : null}
