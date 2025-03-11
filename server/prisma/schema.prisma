@@ -50,11 +50,12 @@ enum ModuleType {
 }
 
 model Module {
-  id     String     @id @default(uuid())
-  type   ModuleType
-  order  Float
+  id    String     @id @default(uuid())
+  type  ModuleType
+  order Float
+
   noteId String
-  Note   Note       @relation(fields: [noteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  Note   Note   @relation(fields: [noteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

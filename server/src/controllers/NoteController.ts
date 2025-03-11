@@ -42,8 +42,11 @@ export const SearchNotes = async (req: Request, res: Response, next: NextFunctio
           },
         ],
       },
-      include: {
+      select: {
         tags: true,
+        id: true,
+        title: true,
+        updatedAt: true,
       },
     });
 
