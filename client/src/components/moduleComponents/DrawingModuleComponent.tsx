@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { moduleData } from "../../dataTypes";
 import CanvasDraw from "react-canvas-draw";
 import { useUpdateDrawingModule } from "../../api/modulesApi/DrawingModuleApi";
 import { colors } from "../../util/Colors";
-import { useDebounce } from "use-debounce";
 
-export const DrawingModuleComponent = ({ module }: { module: moduleData }) => {
+export const DrawingModuleComponent = React.memo(({ module }: { module: moduleData }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<CanvasDraw | null>(null);
 
@@ -20,8 +19,6 @@ export const DrawingModuleComponent = ({ module }: { module: moduleData }) => {
   const [canvasWidth, setCanvasWidth] = useState<number>(800);
 
   const [savedData, setSavedData] = useState<string | undefined>(module.DrawingModule?.data);
-
-  const [debouncedSave] = useDebounce(savedData, 1000);
 
   useEffect(() => {
     const updateWidth = () => {
@@ -39,15 +36,6 @@ export const DrawingModuleComponent = ({ module }: { module: moduleData }) => {
 
     return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    if (debouncedSave === module.DrawingModule?.data) return;
-    updateDrawingModule({
-      data: debouncedSave,
-      moduleId: module.id,
-      noteId: module.noteId,
-    });
-  }, [debouncedSave, module.DrawingModule?.data, module.id, module.noteId, updateDrawingModule]);
 
   const handleSave = () => {
     if (canvasRef.current) {
@@ -152,4 +140,4 @@ export const DrawingModuleComponent = ({ module }: { module: moduleData }) => {
       />
     </div>
   );
-};
+});

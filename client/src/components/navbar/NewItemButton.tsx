@@ -1,17 +1,20 @@
 import { useEditorHook } from "../../hooks/useEditorHook";
 import { useCreateNote } from "../../api/NoteApi";
+import React, { useMemo } from "react";
 
-const NewItemButton = () => {
+const NewItemButton = React.memo(() => {
   const editor = useEditorHook();
-  const { createNote, pendingCreateNote } = useCreateNote();
+  const { createNote } = useCreateNote();
 
-  const handleCreateNote = () => {
-    const editorContent = editor?.getHTML();
-    if (!editorContent) {
-      return;
-    }
-    createNote({ title: "New Note", content: editorContent });
-  };
+  const handleCreateNote = useMemo(() => {
+    return () => {
+      const editorContent = editor?.getHTML();
+      if (!editorContent) {
+        return;
+      }
+      createNote({ title: "New Note", content: editorContent });
+    };
+  }, [editor, createNote]);
 
   return (
     <button
@@ -38,6 +41,6 @@ const NewItemButton = () => {
       Add new Note
     </button>
   );
-};
+});
 
 export default NewItemButton;

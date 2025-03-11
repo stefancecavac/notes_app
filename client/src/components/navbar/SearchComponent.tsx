@@ -1,7 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import SearchModal from "../modals/SearchModal";
 
-const SearchComponent = () => {
+const SearchComponent = React.memo(() => {
   const [modal, setModal] = useState(false);
 
   return (
@@ -26,6 +26,6 @@ const SearchComponent = () => {
       {modal && <SearchModal closeModal={() => setModal(false)} />}
     </>
   );
-};
+});
 
 export default SearchComponent;

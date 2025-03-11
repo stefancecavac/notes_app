@@ -7,6 +7,7 @@ import { NewModuleModal } from "./NewModuleModal";
 import { ImageModuleComponent } from "./ImageModuleComponent";
 import { ToDoModuleComponent } from "./ToDoModuleComponent";
 import { DrawingModuleComponent } from "./DrawingModuleComponent";
+import React from "react";
 
 type moduleComponentProps = {
   module: moduleData;
@@ -15,7 +16,7 @@ type moduleComponentProps = {
   singleNoteLoading?: boolean;
 };
 
-const ModuleComponent = ({ module, nextModule, singleNote, singleNoteLoading }: moduleComponentProps) => {
+const ModuleComponent = React.memo(({ module, nextModule, singleNote, singleNoteLoading }: moduleComponentProps) => {
   const { deleteModule, deleteModulePending } = useDeleteModule();
 
   const { attributes, listeners, setNodeRef, isOver, activeIndex, overIndex } = useSortable({
@@ -90,6 +91,6 @@ const ModuleComponent = ({ module, nextModule, singleNote, singleNoteLoading }: 
       </div>
     </div>
   );
-};
+});
 
 export default ModuleComponent;

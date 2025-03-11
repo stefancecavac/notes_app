@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { icons } from "../../util/Icons";
 import { colors } from "../../util/Colors";
 import { UpdateData } from "../../dataTypes";
@@ -8,7 +8,7 @@ type iconPickerProps = {
   noteState: UpdateData;
 };
 
-export const IconPicker = ({ setNoteState, noteState }: iconPickerProps) => {
+export const IconPicker = React.memo(({ setNoteState, noteState }: iconPickerProps) => {
   const [iconsArray, setIconArray] = useState(icons);
 
   const handleIconPick = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,6 +86,6 @@ export const IconPicker = ({ setNoteState, noteState }: iconPickerProps) => {
       </ul>
     </div>
   );
-};
+});
 
 export default IconPicker;

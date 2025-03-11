@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useCreateTextModule } from "../../api/modulesApi/TextModuleApi";
 import { useUpdateNote } from "../../api/NoteApi";
 import { useWideModeStore } from "../../Stores/useWideModeStore";
@@ -21,7 +21,7 @@ type noteViewComponentProps = {
   moduleList: moduleData[];
 };
 
-const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteViewComponentProps) => {
+const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading, moduleList }: noteViewComponentProps) => {
   const { updateNote } = useUpdateNote({ noteId: singleNote?.id });
   const { wideMode } = useWideModeStore();
   const { createTextModule } = useCreateTextModule();
@@ -94,7 +94,7 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
         </div>
       </div>
 
-      <div className={`flex flex-col flex-1 mb-5    ${!wideMode ? "lg:mr-60 ml-40" : "lg:mr-25 ml-5 "} mx-25 relative    pt-10  transition-all  `}>
+      <div className={`flex flex-col flex-1 mb-5    ${!wideMode ? "lg:mr-60 ml-40" : "lg:mr-25 ml-5 "} mx-25 relative    pt-5  transition-all  `}>
         {singleNote?.modules?.length === 0 && (
           <div className="   w-full h-full flex   opacity-0  group-hover/global:opacity-100    transition-all   ">
             <button
@@ -122,6 +122,6 @@ const NoteViewComponent = ({ singleNote, singleNoteLoading, moduleList }: noteVi
       </div>
     </div>
   );
-};
+});
 
 export default NoteViewComponent;

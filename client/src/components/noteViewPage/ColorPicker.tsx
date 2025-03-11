@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { colors } from "../../util/Colors";
 import { UpdateData } from "../../dataTypes";
 
@@ -6,7 +6,7 @@ type colorPickerProps = {
   setNoteState: Dispatch<SetStateAction<UpdateData>>;
 };
 
-export const ColorPicker = ({ setNoteState }: colorPickerProps) => {
+export const ColorPicker = React.memo(({ setNoteState }: colorPickerProps) => {
   const handleColorPick = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNoteState((prev) => ({ ...prev, color: e.target.value }));
   };
@@ -51,4 +51,4 @@ export const ColorPicker = ({ setNoteState }: colorPickerProps) => {
       </ul>
     </div>
   );
-};
+});

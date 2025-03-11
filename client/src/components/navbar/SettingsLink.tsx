@@ -1,6 +1,7 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
 
-const SettingsLink = () => {
+const SettingsLink = React.memo(() => {
   return (
     <NavLink
       id="settingsId"
@@ -29,6 +30,6 @@ const SettingsLink = () => {
       Settings
     </NavLink>
   );
-};
+});
 
 export default SettingsLink;

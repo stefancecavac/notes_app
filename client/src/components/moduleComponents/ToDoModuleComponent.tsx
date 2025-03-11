@@ -101,7 +101,7 @@ const TodoModuleCard = ({ todo, module }: { todo?: todoModuleData; module: modul
       } `}
     >
       <div className="flex items-center gap-2">
-        <input checked={completed} onChange={handleCheck} type="checkbox" className="checkbox checkbox-xs  checkbox-primary peer" />
+        <input checked={completed} onChange={handleCheck} type="checkbox" className="checkbox checkbox-xs rounded-sm  checkbox-primary peer" />
         <p className=" text-base-content text-sm font-medium peer-checked:line-through peer-checked:text-info-content w-full  ">{todo?.title}</p>
       </div>
       <button

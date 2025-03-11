@@ -1,7 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import RecycleBinModal from "../modals/RecycleBinModal";
 
-const RecycleBinComponent = () => {
+const RecycleBinComponent = React.memo(() => {
   const [modal, setModal] = useState(false);
 
   return (
@@ -29,6 +29,6 @@ const RecycleBinComponent = () => {
       {modal && <RecycleBinModal closeModal={() => setModal(false)} />}
     </>
   );
-};
+});
 
 export default RecycleBinComponent;

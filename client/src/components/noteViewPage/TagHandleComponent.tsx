@@ -1,9 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { noteData, tagSchema } from "../../dataTypes";
 import { useCreateTags, useDeleteTag } from "../../api/TagApi";
 import FetchedTags from "./FetchedTags";
 
-const TagHandleComponent = ({ singleNote }: { singleNote: noteData | undefined }) => {
+const TagHandleComponent = React.memo(({ singleNote }: { singleNote: noteData | undefined }) => {
   const [tagName, setTagName] = useState("");
   const [menu, setMenu] = useState(false);
 
@@ -69,6 +69,6 @@ const TagHandleComponent = ({ singleNote }: { singleNote: noteData | undefined }
       </div>
     </div>
   );
-};
+});
 
 export default TagHandleComponent;

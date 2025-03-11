@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetSingleNote } from "../api/NoteApi";
 import NoteViewComponent from "../components/noteViewPage/NoteViewComponent";
 import { DndContext, DragEndEvent, DragOverlay, pointerWithin, UniqueIdentifier } from "@dnd-kit/core";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { arrayMove } from "@dnd-kit/sortable";
 import { moduleData } from "../dataTypes";
 import { createPortal } from "react-dom";
@@ -44,40 +44,41 @@ const NoteViewPage = () => {
     navigate("/dashboard");
   }, [navigate, singleNoteError]);
 
+  const handleDragStart = useCallback((event: DragStartEvent) => {
+    setActiveId(event.active.id);
+  }, []);
+
+  const handleDragEnd = useCallback(
+    (event: DragEndEvent) => {
+      const { active, over } = event;
+
+      if (active.id !== over?.id) {
+        const oldIndex = moduleList.findIndex((module) => module.id === active.id);
+        const newIndex = moduleList.findIndex((module) => module.id === over?.id);
+
+        if (oldIndex !== newIndex) {
+          const newOrder = arrayMove(moduleList, oldIndex, newIndex);
+
+          const updatedModules = newOrder.map((module: moduleData, index: number) => {
+            const newOrderValue = (index + 1) * 0.1;
+            return { ...module, order: newOrderValue };
+          });
+
+          setModuleList(updatedModules);
+        }
+      }
+      setActiveId(null);
+    },
+    [moduleList]
+  );
+
   if (!singleNote) {
     return null;
   }
 
-  function handleDragStart(event: DragStartEvent) {
-    setActiveId(event.active.id);
-  }
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-
-    if (active.id !== over?.id) {
-      const oldIndex = moduleList.findIndex((module) => module.id === active.id);
-      const newIndex = moduleList.findIndex((module) => module.id === over?.id);
-      const newOrder = arrayMove(moduleList, oldIndex, newIndex);
-
-      const updatedModules = newOrder.map((module: moduleData, index: number) => {
-        const newOrderValue = (index + 1) * 0.1;
-        return { ...module, order: newOrderValue };
-      });
-
-      setModuleList(updatedModules);
-      setActiveId(null);
-    }
-  };
-
   return (
     <DndContext collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <NoteViewComponent
-        key={singleNote.id}
-        moduleList={moduleList}
-        singleNote={singleNote}
-        singleNoteLoading={singleNoteLoading}
-      ></NoteViewComponent>
+      <NoteViewComponent moduleList={moduleList} singleNote={singleNote} singleNoteLoading={singleNoteLoading}></NoteViewComponent>
       {createPortal(
         <DragOverlay>
           {activeId ? (

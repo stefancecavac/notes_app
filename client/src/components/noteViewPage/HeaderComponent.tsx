@@ -5,8 +5,9 @@ import NoteViewMenu from "./NoteViewMenu";
 import { formatDistanceToNow } from "date-fns";
 import { useFavouritesHook } from "../../hooks/useFavouritesHook";
 import ExpandNavbarButton from "../navbar/ExpandNavbarButton";
+import React from "react";
 
-const HeaderComponent = ({ singleNote }: { singleNote: noteData }) => {
+const HeaderComponent = React.memo(({ singleNote }: { singleNote: noteData }) => {
   const { expanded, toggleExpanded } = useNavbarExpandedStore();
   const { favourite, handleFavourite } = useFavouritesHook(singleNote?.favourite);
 
@@ -86,6 +87,6 @@ const HeaderComponent = ({ singleNote }: { singleNote: noteData }) => {
       </div>
     </div>
   );
-};
+});
 
 export default HeaderComponent;

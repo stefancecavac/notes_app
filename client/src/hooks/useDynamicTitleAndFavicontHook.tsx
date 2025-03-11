@@ -31,5 +31,5 @@ export const useDynamicTitleAndFaviconHook = (title: string | undefined, icon: s
     if (!document.head.contains(link)) {
       document.head.appendChild(link);
     }
-  }, [icon, title]);
+  }, [icon, location.pathname, title]);
 };

@@ -1,7 +1,8 @@
+import React from "react";
 import { UseAuthContext } from "../../context/AuthContext";
 import SettingsLink from "./SettingsLink";
 
-const UserComponent = () => {
+const UserComponent = React.memo(() => {
   const { user, userLoading, logout } = UseAuthContext();
 
   if (userLoading) {
@@ -45,6 +46,6 @@ const UserComponent = () => {
       </ul>
     </div>
   );
-};
+});
 
 export default UserComponent;

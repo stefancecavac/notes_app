@@ -1,6 +1,7 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
 
-const DashboardLink = () => {
+const DashboardLink = React.memo(() => {
   return (
     <NavLink
       to={"/dashboard"}
@@ -28,6 +29,6 @@ const DashboardLink = () => {
       Dashboard
     </NavLink>
   );
-};
+});
 
 export default DashboardLink;
