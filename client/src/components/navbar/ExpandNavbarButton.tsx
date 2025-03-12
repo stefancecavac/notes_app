@@ -1,4 +1,6 @@
-const ExpandNavbarButton = ({ setExpanded }: { setExpanded: React.Dispatch<React.SetStateAction<boolean>> }) => {
+import React from "react";
+
+const ExpandNavbarButton = React.memo(({ setExpanded }: { setExpanded: React.Dispatch<React.SetStateAction<boolean>> }) => {
   return (
     <button
       className={` btn btn-square btn-ghost btn-xs  bg-transparent border-0 hover:bg-neutral  btn-soft `}
@@ -19,6 +21,6 @@ const ExpandNavbarButton = ({ setExpanded }: { setExpanded: React.Dispatch<React
       </svg>
     </button>
   );
-};
+});
 
 export default ExpandNavbarButton;

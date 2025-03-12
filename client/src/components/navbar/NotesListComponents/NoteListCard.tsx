@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { NotesData } from "../../../dataTypes";
 import NoteListCardMenu from "./NoteListCardMenu";
 
@@ -7,7 +7,7 @@ type noteListCardProps = {
   note: NotesData;
 };
 
-export const NoteListCard = ({ note }: noteListCardProps) => {
+export const NoteListCard = React.memo(({ note }: noteListCardProps) => {
   const [openMenu, setOpenMenu] = useState(false);
 
   const [treeViewStates, setTreeViewStates] = useState<{ [key: string]: boolean }>(JSON.parse(localStorage.getItem("treeViewStates")!) || {});
@@ -151,4 +151,4 @@ export const NoteListCard = ({ note }: noteListCardProps) => {
         ))}
     </div>
   );
-};
+});

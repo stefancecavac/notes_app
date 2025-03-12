@@ -2,24 +2,25 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetSingleNote } from "../api/NoteApi";
 import NoteViewComponent from "../components/noteViewPage/NoteViewComponent";
 import { DndContext, DragEndEvent, DragOverlay, pointerWithin, UniqueIdentifier } from "@dnd-kit/core";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { arrayMove } from "@dnd-kit/sortable";
 import { moduleData } from "../dataTypes";
 import { createPortal } from "react-dom";
 import ModuleComponent from "../components/moduleComponents/ModuleComponent";
 import { useUpdateModuleOrder } from "../api/modulesApi/ModuleApi";
 import { DragStartEvent } from "@dnd-kit/core";
-import { useDebounceHook } from "../hooks/useDebounceHook";
+// import { useDebounceHook } from "../hooks/useDebounceHook";
 
-const NoteViewPage = () => {
+const NoteViewPage = React.memo(() => {
   const { noteId } = useParams();
   const { updateModuleOrder } = useUpdateModuleOrder();
+
   const { singleNote, singleNoteLoading, singleNoteError } = useGetSingleNote({ noteId: noteId! });
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [moduleList, setModuleList] = useState(singleNote?.modules || []);
 
-  const { debouncedValue: debouncedModuleList } = useDebounceHook(moduleList, 1000);
+  // const { debouncedValue: debouncedModuleList } = useDebounceHook(moduleList, 1000);
 
   const navigate = useNavigate();
 
@@ -32,14 +33,6 @@ const NoteViewPage = () => {
   }, [singleNote]);
 
   useEffect(() => {
-    if (singleNote) {
-      if (debouncedModuleList !== singleNote.modules) {
-        updateModuleOrder({ modules: debouncedModuleList, noteId: singleNote.id });
-      }
-    }
-  }, [debouncedModuleList]);
-
-  useEffect(() => {
     if (!singleNoteError) return;
     navigate("/dashboard");
   }, [navigate, singleNoteError]);
@@ -50,6 +43,7 @@ const NoteViewPage = () => {
 
   const handleDragEnd = useCallback(
     (event: DragEndEvent) => {
+      if (!singleNote) return;
       const { active, over } = event;
 
       if (active.id !== over?.id) {
@@ -65,11 +59,13 @@ const NoteViewPage = () => {
           });
 
           setModuleList(updatedModules);
+
+          updateModuleOrder({ modules: updatedModules, noteId: singleNote.id });
         }
       }
       setActiveId(null);
     },
-    [moduleList]
+    [moduleList, singleNote, updateModuleOrder]
   );
 
   if (!singleNote) {
@@ -91,6 +87,6 @@ const NoteViewPage = () => {
       )}
     </DndContext>
   );
-};
+});
 
 export default NoteViewPage;

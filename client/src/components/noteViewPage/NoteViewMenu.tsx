@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { createPortal } from "react-dom";
 import { useWideModeStore } from "../../Stores/useWideModeStore";
 import { noteData } from "../../dataTypes";
@@ -9,7 +9,7 @@ import { DuplicateNoteButton } from "../MenuButtons/DuplicateNoteButton";
 import { MoveNoteButton } from "../MenuButtons/MoveNoteButton";
 import { DeleteButton } from "../MenuButtons/DeleteButton";
 
-const NoteViewMenu = ({ singleNote }: { singleNote: noteData }) => {
+const NoteViewMenu = React.memo(({ singleNote }: { singleNote: noteData }) => {
   const { toggleWideMode, wideMode } = useWideModeStore();
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -82,6 +82,6 @@ const NoteViewMenu = ({ singleNote }: { singleNote: noteData }) => {
       )}
     </>
   );
-};
+});
 
 export default NoteViewMenu;
