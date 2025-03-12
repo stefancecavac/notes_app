@@ -2,7 +2,7 @@ import { useState } from "react";
 import { moduleData } from "../../dataTypes";
 import { useUpdateImageModule } from "../../api/modulesApi/ImageModuleApi";
 
-export const ImageModuleComponent = ({ module }: { module: moduleData }) => {
+const ImageModuleComponent = ({ module }: { module: moduleData }) => {
   const { updateImageModule } = useUpdateImageModule({ noteId: module.noteId });
 
   const [size, setSize] = useState<{ width: number | undefined; height: number | undefined }>({
@@ -43,3 +43,5 @@ export const ImageModuleComponent = ({ module }: { module: moduleData }) => {
     </div>
   );
 };
+
+export default ImageModuleComponent;

@@ -4,7 +4,7 @@ import CanvasDraw from "react-canvas-draw";
 import { useUpdateDrawingModule } from "../../api/modulesApi/DrawingModuleApi";
 import { colors } from "../../util/Colors";
 
-export const DrawingModuleComponent = React.memo(({ module }: { module: moduleData }) => {
+const DrawingModuleComponent = React.memo(({ module }: { module: moduleData }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<CanvasDraw | null>(null);
 
@@ -141,3 +141,5 @@ export const DrawingModuleComponent = React.memo(({ module }: { module: moduleDa
     </div>
   );
 });
+
+export default DrawingModuleComponent;

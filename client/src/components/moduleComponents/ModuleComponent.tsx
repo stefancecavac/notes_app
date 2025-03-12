@@ -1,22 +1,23 @@
-import { moduleData, noteData } from "../../dataTypes";
+import { moduleData } from "../../dataTypes";
 import { useDeleteModule } from "../../api/modulesApi/ModuleApi";
 import { useSortable } from "@dnd-kit/sortable";
-import TextModuleComponent from "./TextModuleComponent";
 import SkeletonLoader from "../loaders/SkeletonLoader";
 import { NewModuleModal } from "./NewModuleModal";
-import { ImageModuleComponent } from "./ImageModuleComponent";
-import { ToDoModuleComponent } from "./ToDoModuleComponent";
-import { DrawingModuleComponent } from "./DrawingModuleComponent";
-import React from "react";
+
+import React, { lazy, Suspense } from "react";
+
+const TextModuleComponent = lazy(() => import("./TextModuleComponent"));
+const ImageModuleComponent = lazy(() => import("./ImageModuleComponent"));
+const ToDoModuleComponent = lazy(() => import("./ToDoModuleComponent"));
+const DrawingModuleComponent = lazy(() => import("./DrawingModuleComponent"));
 
 type moduleComponentProps = {
   module: moduleData;
   nextModule?: moduleData | null;
-  singleNote?: noteData;
   singleNoteLoading?: boolean;
 };
 
-const ModuleComponent = React.memo(({ module, nextModule, singleNote, singleNoteLoading }: moduleComponentProps) => {
+const ModuleComponent = React.memo(({ module, nextModule, singleNoteLoading }: moduleComponentProps) => {
   const { deleteModule, deleteModulePending } = useDeleteModule();
 
   const { attributes, listeners, setNodeRef, isOver, activeIndex, overIndex } = useSortable({
@@ -38,13 +39,31 @@ const ModuleComponent = React.memo(({ module, nextModule, singleNote, singleNote
       {(() => {
         switch (module?.type) {
           case "TEXT":
-            return <TextModuleComponent module={module} />;
+            return (
+              <Suspense fallback={<SkeletonLoader height={100} width={500}></SkeletonLoader>}>
+                <TextModuleComponent module={module} />
+              </Suspense>
+            );
           case "IMAGE":
-            return <ImageModuleComponent module={module} />;
+            return (
+              <Suspense fallback={<SkeletonLoader height={100} width={500}></SkeletonLoader>}>
+                <ImageModuleComponent module={module} />
+              </Suspense>
+            );
+
           case "TODO":
-            return <ToDoModuleComponent module={module} />;
+            return (
+              <Suspense fallback={<SkeletonLoader height={100} width={500}></SkeletonLoader>}>
+                <ToDoModuleComponent module={module} />
+              </Suspense>
+            );
+
           case "DRAWING":
-            return <DrawingModuleComponent module={module} />;
+            return (
+              <Suspense fallback={<SkeletonLoader height={100} width={500}></SkeletonLoader>}>
+                <DrawingModuleComponent module={module} />
+              </Suspense>
+            );
         }
       })()}
       <div className="absolute   flex-row-reverse gap-1  items-center -left-8 top-0 px-5 hidden group-hover/handle:flex scale-up-center ">
@@ -70,7 +89,7 @@ const ModuleComponent = React.memo(({ module, nextModule, singleNote, singleNote
             <circle cx="5" cy="19" r="1" />
           </svg>
         </div>
-        <NewModuleModal singleNote={singleNote} module={module} nextModule={nextModule}></NewModuleModal>
+        <NewModuleModal module={module} nextModule={nextModule}></NewModuleModal>
 
         <button
           className="btn btn-xs btn-square btn-error btn-soft  transition-all "

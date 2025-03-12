@@ -1,6 +1,7 @@
 import { Editor, EditorContent } from "@tiptap/react";
+import React from "react";
 
-const EditorComponent = ({ editor }: { editor: Editor }) => {
+const EditorComponent = React.memo(({ editor }: { editor: Editor }) => {
   return (
     <EditorContent
       editor={editor}
@@ -11,6 +12,6 @@ const EditorComponent = ({ editor }: { editor: Editor }) => {
       }}
     />
   );
-};
+});
 
 export default EditorComponent;

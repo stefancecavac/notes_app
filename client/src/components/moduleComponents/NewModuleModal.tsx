@@ -1,19 +1,18 @@
 import { useCreateTextModule } from "../../api/modulesApi/TextModuleApi";
-import { moduleData, noteData } from "../../dataTypes";
+import { moduleData } from "../../dataTypes";
 import { useCreateNote } from "../../api/NoteApi";
 import { useParams } from "react-router-dom";
 import { useCreateImageModule } from "../../api/modulesApi/ImageModuleApi";
 import { useCreateTodoModule } from "../../api/modulesApi/TodoModuleApi";
 import { useCreateDrawingModule } from "../../api/modulesApi/DrawingModuleApi";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 type newModuleModalProps = {
   module?: moduleData;
   nextModule?: moduleData | null;
-  singleNote: noteData | undefined;
 };
 
-export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModalProps) => {
+export const NewModuleModal = React.memo(({ module, nextModule }: newModuleModalProps) => {
   const { createTextModule } = useCreateTextModule();
   const { createNote } = useCreateNote();
   const { createImageModule } = useCreateImageModule();
@@ -53,7 +52,7 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
     reader.readAsDataURL(file);
     reader.onload = () => {
       const base64Image = reader.result as string;
-      createImageModule({ imagePath: base64Image, order: calculateOrder(module!.order, nextModule?.order), noteId: singleNote?.id });
+      createImageModule({ imagePath: base64Image, order: calculateOrder(module!.order, nextModule?.order), noteId: module?.noteId });
     };
   };
 
@@ -103,7 +102,7 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
               </button>
 
               <button
-                onClick={() => createTextModule({ content: "", order: calculateOrder(module!.order, nextModule?.order), noteId: singleNote?.id })}
+                onClick={() => createTextModule({ content: "", order: calculateOrder(module!.order, nextModule?.order), noteId: module?.noteId })}
                 className=" items-center btn btn-ghost hover:bg-base-300  h-full justify-start  flex p-1  gap-5"
               >
                 <div className="rounded-lg p-1 bg-neutral/50">
@@ -153,7 +152,7 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
                 </div>
               </label>
               <button
-                onClick={() => createTodoModule({ order: calculateOrder(module!.order, nextModule?.order), noteId: singleNote?.id })}
+                onClick={() => createTodoModule({ order: calculateOrder(module!.order, nextModule?.order), noteId: module?.noteId })}
                 className=" items-center btn btn-ghost hover:bg-base-300  h-full justify-start  flex p-1  gap-5"
               >
                 <div className="rounded-lg  p-1 bg-neutral/50">
@@ -178,7 +177,7 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
               </button>
 
               <button
-                onClick={() => createDrawingModule({ order: calculateOrder(module!.order, nextModule?.order), noteId: singleNote?.id })}
+                onClick={() => createDrawingModule({ order: calculateOrder(module!.order, nextModule?.order), noteId: module?.noteId })}
                 className=" items-center btn btn-ghost hover:bg-base-300  h-full justify-start  flex p-1  gap-5"
               >
                 <div className="rounded-lg  p-1 bg-neutral/50">
@@ -205,4 +204,4 @@ export const NewModuleModal = ({ module, nextModule, singleNote }: newModuleModa
       )}
     </>
   );
-};
+});

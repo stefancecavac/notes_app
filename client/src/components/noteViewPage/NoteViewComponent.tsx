@@ -6,22 +6,21 @@ import HeaderComponent from "./HeaderComponent";
 import IconPicker from "./IconPicker";
 import TagHandleComponent from "./TagHandleComponent";
 import { useDroppable } from "@dnd-kit/core";
-import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
-import ModuleComponent from "../moduleComponents/ModuleComponent";
-import { moduleData, noteData, UpdateData } from "../../dataTypes";
+import { noteData, UpdateData } from "../../dataTypes";
 import { SubPagesComponent } from "./SubPagesComponent";
 import { ColorPicker } from "./ColorPicker";
 import { useDynamicTitleAndFaviconHook } from "../../hooks/useDynamicTitleAndFavicontHook";
 import { useDebounceHook } from "../../hooks/useDebounceHook";
 import NoteViewSkeleton from "../loaders/NoteViewSkeleton";
 
+import ModuleListDraggable from "../ModuleListDraggable";
+
 type noteViewComponentProps = {
   singleNote: noteData;
   singleNoteLoading: boolean;
-  moduleList: moduleData[];
 };
 
-const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading, moduleList }: noteViewComponentProps) => {
+const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteViewComponentProps) => {
   const { updateNote } = useUpdateNote({ noteId: singleNote?.id });
   const { wideMode } = useWideModeStore();
   const { createTextModule } = useCreateTextModule();
@@ -37,16 +36,16 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading, moduleLis
 
   const { debouncedValue: debouncedNoteState } = useDebounceHook(noteState, 500);
 
-  useDynamicTitleAndFaviconHook(singleNote.title, singleNote.icon);
+  // useDynamicTitleAndFaviconHook(singleNote.title, singleNote.icon);
 
-  // useEffect(() => {
-  //   if (!singleNote) return;
-  //   setNoteState({
-  //     title: singleNote.title,
-  //     color: singleNote.color,
-  //     icon: singleNote.icon,
-  //   });
-  // }, [singleNote]);
+  useEffect(() => {
+    if (!singleNote) return;
+    setNoteState({
+      title: singleNote.title,
+      color: singleNote.color,
+      icon: singleNote.icon,
+    });
+  }, [singleNote]);
 
   useEffect(() => {
     if (!singleNote || singleNoteLoading) return;
@@ -64,7 +63,7 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading, moduleLis
 
   return (
     <div ref={setDroppableRef} className="flex flex-col flex-1 h-full w-full group/global overflow-auto ">
-      <HeaderComponent singleNote={singleNote} />
+      <HeaderComponent breadCrumbs={singleNote.breadCrumbs} singleNote={singleNote} />
 
       <div className="group/titleItems ">
         <div
@@ -104,19 +103,7 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading, moduleLis
           </div>
         )}
 
-        <SortableContext items={moduleList} strategy={rectSortingStrategy}>
-          <div className="flex flex-col gap-1    ">
-            {moduleList?.map((module, index) => (
-              <ModuleComponent
-                key={module.id}
-                module={module}
-                nextModule={moduleList[index + 1] || null}
-                singleNote={singleNote}
-                singleNoteLoading={singleNoteLoading}
-              />
-            ))}
-          </div>
-        </SortableContext>
+        <ModuleListDraggable modules={singleNote.modules} singleNoteId={singleNote.id} singleNoteLoading={singleNoteLoading} />
 
         <SubPagesComponent note={singleNote}></SubPagesComponent>
       </div>

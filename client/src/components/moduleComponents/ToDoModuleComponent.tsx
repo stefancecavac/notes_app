@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useAddTodoInModule, useCheckTodo, useDeleteOneTodo } from "../../api/modulesApi/TodoModuleApi";
 import { moduleData, todoModuleData } from "../../dataTypes";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export const ToDoModuleComponent = ({ module }: { module: moduleData }) => {
+const ToDoModuleComponent = React.memo(({ module }: { module: moduleData }) => {
   const { addTodo } = useAddTodoInModule();
 
   const [title, setTitle] = useState<string>("");
@@ -77,9 +77,9 @@ export const ToDoModuleComponent = ({ module }: { module: moduleData }) => {
       </div>
     </div>
   );
-};
+});
 
-const TodoModuleCard = ({ todo, module }: { todo?: todoModuleData; module: moduleData }) => {
+const TodoModuleCard = React.memo(({ todo, module }: { todo?: todoModuleData; module: moduleData }) => {
   const { checkTodo } = useCheckTodo();
   const { deleteOneTodo } = useDeleteOneTodo();
   const [completed, setCompleted] = useState(todo?.completed);
@@ -118,4 +118,6 @@ const TodoModuleCard = ({ todo, module }: { todo?: todoModuleData; module: modul
       </button>
     </label>
   );
-};
+});
+
+export default ToDoModuleComponent;
