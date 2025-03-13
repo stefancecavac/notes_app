@@ -10,15 +10,16 @@ export const useUpdateModuleOrder = () => {
 
   const updateModuleOrderApi = async ({ modules, noteId }: { modules: moduleData[]; noteId: string }) => {
     const response = await axiosInstance.put(`/api/notes/modules/update-module-order`, { modules, noteId }, { withCredentials: true });
-    return response.data;
+    return response.data as moduleData[];
   };
 
   const { mutate: updateModuleOrder } = useMutation({
     mutationKey: ["module"],
     mutationFn: updateModuleOrderApi,
+
     onSuccess(data) {
       queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
-        console.log(oldData);
+        console.log("mutation data", data);
         return { ...oldData, modules: data };
       });
     },

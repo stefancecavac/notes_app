@@ -1,20 +1,12 @@
-import { useEditorHook } from "../../hooks/useEditorHook";
 import { useCreateNote } from "../../api/NoteApi";
-import React, { useMemo } from "react";
+import React from "react";
 
 const NewItemButton = React.memo(() => {
-  const editor = useEditorHook();
   const { createNote } = useCreateNote();
 
-  const handleCreateNote = useMemo(() => {
-    return () => {
-      const editorContent = editor?.getHTML();
-      if (!editorContent) {
-        return;
-      }
-      createNote({ title: "New Note", content: editorContent });
-    };
-  }, [editor, createNote]);
+  const handleCreateNote = () => {
+    createNote({ title: "New Note", content: "" });
+  };
 
   return (
     <button

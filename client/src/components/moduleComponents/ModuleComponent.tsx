@@ -40,27 +40,27 @@ const ModuleComponent = React.memo(({ module, nextModule, singleNoteLoading }: m
         switch (module?.type) {
           case "TEXT":
             return (
-              <Suspense fallback={<SkeletonLoader height={100} width={500}></SkeletonLoader>}>
+              <Suspense fallback={<SkeletonLoader height={100} width={"100%"}></SkeletonLoader>}>
                 <TextModuleComponent module={module} />
               </Suspense>
             );
           case "IMAGE":
             return (
-              <Suspense fallback={<SkeletonLoader height={100} width={500}></SkeletonLoader>}>
+              <Suspense fallback={<SkeletonLoader height={100} width={"100%"}></SkeletonLoader>}>
                 <ImageModuleComponent module={module} />
               </Suspense>
             );
 
           case "TODO":
             return (
-              <Suspense fallback={<SkeletonLoader height={100} width={500}></SkeletonLoader>}>
+              <Suspense fallback={<SkeletonLoader height={100} width={"100%"}></SkeletonLoader>}>
                 <ToDoModuleComponent module={module} />
               </Suspense>
             );
 
           case "DRAWING":
             return (
-              <Suspense fallback={<SkeletonLoader height={100} width={500}></SkeletonLoader>}>
+              <Suspense fallback={<SkeletonLoader height={100} width={"100%"}></SkeletonLoader>}>
                 <DrawingModuleComponent module={module} />
               </Suspense>
             );

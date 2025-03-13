@@ -28,11 +28,11 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
     id: singleNote.id,
   });
 
-  const [noteState, setNoteState] = useState<UpdateData>({
+  const [noteState, setNoteState] = useState<UpdateData>(() => ({
     title: singleNote.title,
     color: singleNote.color,
     icon: singleNote.icon,
-  });
+  }));
 
   const { debouncedValue: debouncedNoteState } = useDebounceHook(noteState, 500);
 
@@ -58,6 +58,8 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
       updateNote(debouncedNoteState);
     }
   }, [debouncedNoteState]); // this needs to be only dependency , it gets buggy if other dependencies are included
+
+  console.log("note view componetn", singleNote.modules);
 
   if (singleNoteLoading) return <NoteViewSkeleton />;
 
