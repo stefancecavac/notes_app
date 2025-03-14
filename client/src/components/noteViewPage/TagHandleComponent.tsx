@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { noteData, tagSchema } from "../../dataTypes";
+import { noteData } from "../../dataTypes";
 import { useCreateTags, useDeleteTag } from "../../api/TagApi";
 import FetchedTags from "./FetchedTags";
 
@@ -22,10 +22,10 @@ const TagHandleComponent = React.memo(({ singleNote }: { singleNote: noteData | 
     const backgroundColor = `rgb(${backgroundR} ${backgroundG} ${backgroundB} )`;
     const textColor = `rgb(${textR} ${textG} ${textB})`;
 
-    const validationResult = tagSchema.safeParse({ name: tagName });
-    if (!validationResult.success) {
-      return;
-    }
+    // const validationResult = tagSchema.safeParse({ name: tagName });
+    // if (!validationResult.success) {
+    //   return;
+    // }
     addTag({ name: tagName, textColor: textColor, backgroundColor: backgroundColor });
   };
 

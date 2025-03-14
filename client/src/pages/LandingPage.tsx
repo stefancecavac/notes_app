@@ -16,12 +16,13 @@ export default function LandingPage() {
   };
 
   return (
-    <div
-      className={`${darkMode ? "tron-grid" : "tron-grid-light"} bg-gradient-to-b from-base-200 to-base-300 h-auto flex items-center justify-center  `}
-    >
+    <div className={`  bg-gradient-to-b from-base-100 to-base-200 h-screen flex items-center justify-center  `}>
       <div className={`flex flex-col min-h-full items-center justify-center w-200 `}>
         <div className="p-1 px-5 flex justify-between items-center fixed top-0 left-0 right-0 bg-base-200/50 z-50 backdrop-blur-md ">
-          <h1 className="text-primary font-bold text-2xl">Notes_</h1>
+          <div className="flex items-center gap-3">
+            <img width={30} height={30} src="/pencil.png"></img>
+            <h1 className="text-primary font-bold text-2xl">Notes_</h1>
+          </div>
           <div className="flex items-center gap-5">
             <label className="swap swap-rotate hover:bg-neutral rounded">
               <input onChange={toggleTheme} checked={!darkMode} type="checkbox" />

@@ -93,8 +93,6 @@ export const useDeleteFromRecycleBin = () => {
     onSuccess: () => {
       showToast("Note Removed");
       queryClient.resetQueries({ queryKey: ["recycleBinNotes"] });
-      queryClient.resetQueries({ queryKey: ["notes"] });
-      queryClient.resetQueries({ queryKey: ["favouriteNotes"] });
     },
   });
 

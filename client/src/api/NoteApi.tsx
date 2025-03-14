@@ -106,7 +106,7 @@ export const useCreateNote = () => {
     mutationFn: postNoteFunction,
     onSuccess: (data) => {
       navigate(`/notes/${data.id}`);
-      showToast("SUCCESS");
+      showToast("New note created");
       queryClient.setQueryData(["notes"], (oldData: noteData[] | undefined) => {
         if (!oldData) return [data];
         if (!data.parentNoteId) return [data, ...oldData];

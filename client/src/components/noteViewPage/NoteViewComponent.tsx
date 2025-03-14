@@ -9,7 +9,7 @@ import { useDroppable } from "@dnd-kit/core";
 import { noteData, UpdateData } from "../../dataTypes";
 import { SubPagesComponent } from "./SubPagesComponent";
 import { ColorPicker } from "./ColorPicker";
-import { useDynamicTitleAndFaviconHook } from "../../hooks/useDynamicTitleAndFavicontHook";
+// import { useDynamicTitleAndFaviconHook } from "../../hooks/useDynamicTitleAndFavicontHook";
 import { useDebounceHook } from "../../hooks/useDebounceHook";
 import NoteViewSkeleton from "../loaders/NoteViewSkeleton";
 
@@ -59,8 +59,6 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
     }
   }, [debouncedNoteState]); // this needs to be only dependency , it gets buggy if other dependencies are included
 
-  console.log("note view componetn", singleNote.modules);
-
   if (singleNoteLoading) return <NoteViewSkeleton />;
 
   return (
@@ -96,7 +94,7 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
       </div>
 
       <div
-        className={`flex flex-col flex-1 mb-5    ${!wideMode ? "lg:mr-60 lg:ml-40" : "lg:mr-25 lg:ml-5 "} mx-25 relative    pt-5  transition-all  `}
+        className={`flex flex-col flex-1 mb-5    ${!wideMode ? "lg:mr-60 lg:ml-40" : "lg:mr-25 lg:ml-5 "} mx-25 relative    pt-10  transition-all  `}
       >
         {singleNote?.modules?.length === 0 && (
           <div className="   w-full h-full flex   opacity-0  group-hover/global:opacity-100    transition-all   ">

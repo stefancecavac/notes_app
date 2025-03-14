@@ -30,7 +30,7 @@ const ModuleComponent = React.memo(({ module, nextModule, singleNoteLoading }: m
   if (singleNoteLoading) return <SkeletonLoader height={100} width={"100%"}></SkeletonLoader>;
 
   return (
-    <div ref={setNodeRef} className={`rounded-lg  lg:pl-20 transition-all  relative group/handle`}>
+    <div ref={setNodeRef} className={`rounded-lg  pl-0 lg:pl-20 transition-all  relative group/handle`}>
       {isOver && (
         <div
           className={`absolute ${activeIndex > overIndex ? "-top-1" : "-bottom-1"} left-0 w-full h-[3px] rounded-full bg-primary/50 transition-all`}
@@ -66,7 +66,7 @@ const ModuleComponent = React.memo(({ module, nextModule, singleNoteLoading }: m
             );
         }
       })()}
-      <div className="absolute   flex-row-reverse gap-1  items-center -left-8 top-0 px-5 hidden group-hover/handle:flex scale-up-center ">
+      <div className="absolute   flex-row-reverse gap-1  items-center -left-27 lg:-left-8 top-0 px-5 hidden group-hover/handle:flex scale-up-center ">
         <div {...attributes} {...listeners} className="btn btn-xs btn-ghost hover:bg-base-300 text-info-content btn-square">
           <svg
             xmlns="http://www.w3.org/2000/svg"

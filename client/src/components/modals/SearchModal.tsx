@@ -13,12 +13,12 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
   const editor = useEditorHook();
   const { createNote, pendingCreateNote } = useCreateNote();
 
-  const handleCreateNote = () => {
+  const handleCreateNote = (title: string) => {
     const editorContent = editor?.getHTML();
     if (!editorContent) {
       return;
     }
-    createNote({ title: "New Note", content: editorContent });
+    createNote({ title: title, content: editorContent });
   };
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -26,7 +26,12 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
   const { searchedNotes } = useSearchNotes(debouncedValue);
 
   const [selectedIndex, setSeletctedIndex] = useState(-1);
-  const totalItems = 2 + (searchedNotes?.length || 0);
+
+  const [totalItems, setTotalItems] = useState(3);
+
+  useEffect(() => {
+    setTotalItems(searchedNotes?.length === 0 ? 3 : 3 + (searchedNotes?.length || 0));
+  }, [searchedNotes]);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchParams({ q: e.target.value });
@@ -65,6 +70,10 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
       if (selectedIndex === 1) {
         closeModal();
         document.getElementById("settingsId")?.click();
+      }
+      if (selectedIndex === 2) {
+        closeModal();
+        document.getElementById("newItemifNoNoteId")?.click();
       } else {
         if (searchedNotes) {
           closeModal();
@@ -84,7 +93,7 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
           <input
             id="searchId"
             onChange={handleSearch}
-            placeholder="Search your notes by name or tag"
+            placeholder="Search your notes by name , tag or simply by the contents of the note"
             className="input w-full input-ghost focus:outline-0 focus:bg-base-200"
           />
         </div>
@@ -97,7 +106,7 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
             <button
               id="newItemId"
               title="hello"
-              onClick={handleCreateNote}
+              onClick={() => handleCreateNote("Empty note")}
               className={` btn-ghost ${
                 selectedIndex === 0 ? "bg-base-300" : ""
               }   hover:bg-base-300 w-full  text-info-content  btn btn-sm justify-start p-1 rounded-lg flex items-center gap-4`}
@@ -154,7 +163,34 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
             {isDebouncing ? (
               <span className="flex justify-center items-center  my-3 grow loading loading-spinner text-primary "></span>
             ) : searchedNotes?.length === 0 ? (
-              <p className="text-info-content">No notes found</p>
+              <div className="flex flex-col gap-2 w-full">
+                <p className="text-info-content text-center">No notes found</p>
+                <button
+                  id="newItemifNoNoteId"
+                  title="hello"
+                  onClick={() => handleCreateNote(searchParams.get("q")!)}
+                  className={` btn-ghost ${
+                    selectedIndex === 2 ? "bg-base-300" : ""
+                  }   hover:bg-base-300 w-full  text-info-content  btn btn-sm justify-start p-1 rounded-lg flex items-center gap-4`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="size-5 text-info-content "
+                  >
+                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                    <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                    <path d="M9 15h6" />
+                    <path d="M12 18v-6" />
+                  </svg>
+                  Create note {searchParams.get("q")}
+                </button>
+              </div>
             ) : (
               searchedNotes?.map((note, index) => (
                 <div

@@ -30,7 +30,7 @@ export const useEditorHook = (content = "") => {
       Highlight.configure({ HTMLAttributes: { class: "custom-mark" } }),
       Underline,
       Color,
-      Placeholder.configure({ placeholder: "Write something interesting" }),
+      Placeholder.configure({ showOnlyCurrent: true, placeholder: "Write something interesting" }),
       Link.configure({ HTMLAttributes: { class: "custom-link" } }),
       TextAlign.configure({ types: ["heading", "paragraph", "taskList", "listItem", "bulletList"] }),
     ],
