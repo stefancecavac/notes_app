@@ -54,7 +54,6 @@ const ModuleListDraggable = React.memo(({ modules, singleNoteId, singleNoteLoadi
     [memoModules, singleNoteId, updateModuleOrder]
   );
 
-  console.log(memoModules);
   if (!memoModules) return;
 
   return (

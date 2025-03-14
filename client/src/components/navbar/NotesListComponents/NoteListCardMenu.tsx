@@ -9,6 +9,7 @@ import { DuplicateNoteButton } from "../../MenuButtons/DuplicateNoteButton";
 import { MoveNoteButton } from "../../MenuButtons/MoveNoteButton";
 import { DeleteButton } from "../../MenuButtons/DeleteButton";
 import { NotesData } from "../../../dataTypes";
+import { formatDistanceToNow } from "date-fns";
 
 type noteListCardMenuProps = {
   openMenu: boolean;
@@ -90,10 +91,13 @@ const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }
               </button>
               <DuplicateNoteButton note={note} />
               <MoveNoteButton note={note} />
-
               <div className="divider   m-0"></div>
-
               <DeleteButton note={note} />
+              <div className="border-t border-neutral mt-2 flex flex-col gap-2 p-2">
+                <p className="text-info-content/50 text-xs">
+                  Edited {formatDistanceToNow(new Date(note?.updatedAt).toISOString(), { addSuffix: true })}
+                </p>
+              </div>
             </div>
           </div>
         </div>,

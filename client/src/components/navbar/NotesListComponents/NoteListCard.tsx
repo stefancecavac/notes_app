@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import React, { useState, useRef } from "react";
 import { NotesData } from "../../../dataTypes";
 import NoteListCardMenu from "./NoteListCardMenu";
+import { useTreeViewStore } from "../../../Stores/useTreeViewStore";
 
 type noteListCardProps = {
   note: NotesData;
@@ -10,18 +11,7 @@ type noteListCardProps = {
 export const NoteListCard = React.memo(({ note }: noteListCardProps) => {
   const [openMenu, setOpenMenu] = useState(false);
 
-  const [treeViewStates, setTreeViewStates] = useState<{ [key: string]: boolean }>(JSON.parse(localStorage.getItem("treeViewStates")!) || {});
-
-  const isTreeViewOpen = treeViewStates[note.id] || false;
-
-  const toggleTreeView = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setTreeViewStates((prev) => {
-      const updated = { ...prev, [note.id]: !prev[note.id] };
-      localStorage.setItem("treeViewStates", JSON.stringify(updated));
-      return updated;
-    });
-  };
+  const { toggleTreeView, treeViewState } = useTreeViewStore();
 
   const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
   const menuRef = useRef<HTMLDivElement>(null);
@@ -92,9 +82,9 @@ export const NoteListCard = React.memo(({ note }: noteListCardProps) => {
 
           <button
             className="btn btn-xs btn-square btn-ghost opacity-0 absolute group-hover:opacity-100 transition-all p-0.5 rounded-md hover:bg-neutral"
-            onClick={toggleTreeView}
+            onClick={() => toggleTreeView(note.id)}
           >
-            {isTreeViewOpen ? (
+            {treeViewState[note.id] ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -143,7 +133,7 @@ export const NoteListCard = React.memo(({ note }: noteListCardProps) => {
         </div>
       </NavLink>
 
-      {isTreeViewOpen &&
+      {treeViewState[note.id] &&
         note?.childNotes?.map((childNote: NotesData, index: number) => (
           <div key={index} className="ml-3 pl-2 space-y-1 border-l-2 border-neutral">
             <NoteListCard note={childNote} />

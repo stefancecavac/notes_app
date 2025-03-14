@@ -27,8 +27,8 @@ const NoteViewMenu = React.memo(({ singleNote }: { singleNote: noteData }) => {
       </button>
       {createPortal(
         <div className={`${menuOpen ? " w-60  " : "w-0"}   transition-all `}>
-          <div className={` ${menuOpen ? "flex flex-col " : "hidden"}   gap-1     p-2 `}>
-            <p className="px-3 py-2  font-medium text-info-content">Note Actions</p>
+          <div className={` ${menuOpen ? "flex flex-col " : "hidden"}   gap-1     p-1`}>
+            <p className=" py-2  font-medium text-info-content/50">Actions</p>
             {!location.pathname.includes("/notes-split") && (
               <label className="text-xs flex items-center gap-3  hover:cursor-pointer hover:bg-base-300 rounded p-1 border border-transparent hover:border-neutral">
                 <input type="checkbox" onChange={toggleWideMode} checked={wideMode} className="toggle toggle-primary toggle-xs" />
@@ -49,9 +49,9 @@ const NoteViewMenu = React.memo(({ singleNote }: { singleNote: noteData }) => {
 
             <DeleteButton note={singleNote} />
             <div className="flex flex-col gap-2  mt-3">
-              <p className=" py-2  font-medium  pl-2 text-info-content">Note Details</p>
+              <p className=" py-2  font-medium  text-info-content">Note Details</p>
 
-              <div className="flex items-center gap-2 pl-3">
+              <div className="flex items-center gap-2 ">
                 <p className=" text-xs font-medium text-info-content">Tags: </p>
                 <div className="grid grid-cols-2 gap-2">
                   {singleNote?.tags?.map((tag, index) => (
@@ -66,12 +66,12 @@ const NoteViewMenu = React.memo(({ singleNote }: { singleNote: noteData }) => {
                 </div>
               </div>
 
-              <p className=" text-xs font-medium  pl-3 text-base-content">
+              <p className=" text-xs font-medium   text-base-content">
                 <span className="text-info-content">Created:</span>{" "}
                 {formatDistanceToNow(new Date(singleNote?.createdAt).toISOString(), { addSuffix: true })}
               </p>
 
-              <p className=" text-xs font-medium  pl-3 text-base-content">
+              <p className=" text-xs font-medium   text-base-content">
                 <span className="text-info-content">Edited:</span>{" "}
                 {formatDistanceToNow(new Date(singleNote?.updatedAt).toISOString(), { addSuffix: true })}
               </p>

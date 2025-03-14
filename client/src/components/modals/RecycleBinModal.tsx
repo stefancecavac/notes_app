@@ -26,9 +26,9 @@ const RecycleBinModal = ({ closeModal }: recycleBinModalProps) => {
 
         <div className=" flex flex-col   ">
           <div className="divider my-0 mx-5"></div>
-          <div className="flex flex-col gap-2  overflow-auto h-100 w-full  p-5">
+          <div className="flex flex-col gap-2  bg-base-100 m-3 overflow-auto h-70 rounded-lg p-2 border border-neutral">
             {recycleBinNotes?.length === 0 ? (
-              <div className="flex flex-col gap-2 items-center justify-center">
+              <div className="flex flex-col my-auto gap-2 items-center justify-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"

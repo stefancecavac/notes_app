@@ -159,7 +159,7 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
           <p className="text-info-content text-sm m-1 ">
             Notes: <span className="kbd"> {searchedNotes?.length ? searchedNotes.length : 0}</span>
           </p>
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center bg-base-100 rounded-lg p-2 border border-neutral">
             {isDebouncing ? (
               <span className="flex justify-center items-center  my-3 grow loading loading-spinner text-primary "></span>
             ) : searchedNotes?.length === 0 ? (
@@ -260,7 +260,7 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
           </div>
 
           <div className=" text-info-content flex items-center gap-2 text-sm">
-            <p className="kbd">ESC</p>
+            <p className="kbd">esc</p>
             <p>Close</p>
           </div>
         </div>

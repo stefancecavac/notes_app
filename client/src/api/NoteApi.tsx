@@ -3,6 +3,7 @@ import { noteData } from "../dataTypes";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../config/ApiClient";
 import { useToastStore } from "../Stores/useToastNotificationToast";
+import { useTreeViewStore } from "../Stores/useTreeViewStore";
 
 export const useSearchNotes = (q: string | null) => {
   const fetchAllNotes = async () => {
@@ -75,6 +76,7 @@ export const useCreateNote = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { showToast } = useToastStore();
+  const { setOpenTreeView } = useTreeViewStore();
 
   const addNoteToParent = (notes: noteData[], newNote: noteData) => {
     return notes.map((note): noteData => {
@@ -107,6 +109,7 @@ export const useCreateNote = () => {
     onSuccess: (data) => {
       navigate(`/notes/${data.id}`);
       showToast("New note created");
+      setOpenTreeView(data.parentNoteId);
       queryClient.setQueryData(["notes"], (oldData: noteData[] | undefined) => {
         if (!oldData) return [data];
         if (!data.parentNoteId) return [data, ...oldData];
