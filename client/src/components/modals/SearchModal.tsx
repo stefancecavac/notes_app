@@ -25,7 +25,7 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
   const { debouncedValue, isDebouncing } = useDebounceHook(searchParams.get("q") || "", 500);
   const { searchedNotes } = useSearchNotes(debouncedValue);
 
-  const [selectedIndex, setSeletctedIndex] = useState(0);
+  const [selectedIndex, setSeletctedIndex] = useState(-1);
   const totalItems = 2 + (searchedNotes?.length || 0);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,8 +98,8 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
               id="newItemId"
               title="hello"
               onClick={handleCreateNote}
-              className={` btn-soft ${
-                selectedIndex === 0 ? "outline-1 outline-primary" : ""
+              className={` btn-ghost ${
+                selectedIndex === 0 ? "bg-base-300" : ""
               }   hover:bg-base-300 w-full  text-info-content  btn btn-sm justify-start p-1 rounded-lg flex items-center gap-4`}
             >
               <svg
@@ -122,8 +122,8 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
             <NavLink
               id="settingsId"
               to={"/settings"}
-              className={`hover:bg-base-300 btn btn-ghost btn-sm justify-start p-1 outline-inherit  w-full   rounded-lg flex items-center gap-4 text-info-content ${
-                selectedIndex === 1 ? "outline-1 outline-primary" : ""
+              className={`hover:bg-base-300 btn btn-ghost btn-sm justify-start p-1   w-full   rounded-lg flex items-center gap-4 text-info-content ${
+                selectedIndex === 1 ? "bg-base-300" : ""
               }`}
             >
               <svg
@@ -160,7 +160,7 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
                 <div
                   key={note.id}
                   className={`flex w-full justify-between  items-center p-2 hover:bg-base-300 rounded-md ${
-                    index + 2 === selectedIndex ? "outline-1 outline-primary" : ""
+                    index + 2 === selectedIndex ? "bg-base-300" : ""
                   }`}
                 >
                   <Link to={`/notes/${note.id}`} onClick={handleCloseModal} className="flex items-center gap-2 text-base-content hover:underline">

@@ -12,10 +12,12 @@ const UserComponent = React.memo(() => {
   return (
     <div className="dropdown hover:bg-base-300 rounded-lg hover:cursor-pointer w-full">
       <div tabIndex={0} role="button" className="flex items-center justify-between  m-1">
-        <div className=" rounded-md shadow-md p-1 bg-primary ">
-          <p className="font-bold text-neutral text-xs">{user?.email.slice(0, 2).toUpperCase()}</p>
+        <div className="flex items-center gap-2">
+          <div className=" rounded-md shadow-md p-1 bg-primary ">
+            <p className="font-bold text-neutral text-xs">{user?.email.slice(0, 2).toUpperCase()}</p>
+          </div>
+          <p className=" text-xs text-base-content font-medium w-40 truncate">{user?.email}</p>
         </div>
-        <p className=" text-xs text-base-content font-medium w-30 truncate">{user?.email}</p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"

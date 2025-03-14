@@ -30,7 +30,7 @@ const ModuleComponent = React.memo(({ module, nextModule, singleNoteLoading }: m
   if (singleNoteLoading) return <SkeletonLoader height={100} width={"100%"}></SkeletonLoader>;
 
   return (
-    <div ref={setNodeRef} className={`rounded-lg  pl-20  relative group/handle`}>
+    <div ref={setNodeRef} className={`rounded-lg  lg:pl-20 transition-all  relative group/handle`}>
       {isOver && (
         <div
           className={`absolute ${activeIndex > overIndex ? "-top-1" : "-bottom-1"} left-0 w-full h-[3px] rounded-full bg-primary/50 transition-all`}

@@ -16,7 +16,7 @@ const Navbar = () => {
   const { favouriteNotes, favouriteNotesLoading, favouriteNotesError } = useGetAllFavouriteNotes();
 
   return (
-    <div className={`${expanded ? "w-60  pl-3  " : "w-0 p-0"} transition-all relative   flex flex-col `}>
+    <div className={`${expanded ? "w-65  pl-3  " : "w-0 p-0"} transition-all relative   flex flex-col `}>
       <div className={`flex items-center justify-between  z-70   py-2`}>
         {expanded && <UserComponent></UserComponent>}
 
