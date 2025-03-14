@@ -105,6 +105,14 @@ const DrawingModuleComponent = React.memo(({ module }: { module: moduleData }) =
           </label>
         </div>
 
+        <button
+          disabled={savedData === module.DrawingModule?.data}
+          onClick={() => updateDrawingModule({ moduleId: module.id, noteId: module.noteId, data: savedData })}
+          className="btn btn-soft btn-sm"
+        >
+          Save
+        </button>
+
         <div className="w-30 max-w-xs ">
           <input
             onChange={(e) => setSelectedBrushWidth(Number(e.target.value))}
