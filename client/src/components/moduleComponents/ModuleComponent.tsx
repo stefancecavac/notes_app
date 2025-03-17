@@ -1,7 +1,6 @@
 import { moduleData } from "../../dataTypes";
 import { useDeleteModule } from "../../api/modulesApi/ModuleApi";
 import { useSortable } from "@dnd-kit/sortable";
-import SkeletonLoader from "../loaders/SkeletonLoader";
 import { NewModuleModal } from "./NewModuleModal";
 
 import React, { lazy, Suspense } from "react";
@@ -27,7 +26,7 @@ const ModuleComponent = React.memo(({ module, nextModule, singleNoteLoading }: m
     },
   });
 
-  if (singleNoteLoading) return <SkeletonLoader height={100} width={"100%"}></SkeletonLoader>;
+  if (singleNoteLoading) return null;
 
   return (
     <div ref={setNodeRef} className={`rounded-lg  pl-0 lg:pl-20 transition-all  relative group/handle`}>
@@ -40,27 +39,27 @@ const ModuleComponent = React.memo(({ module, nextModule, singleNoteLoading }: m
         switch (module?.type) {
           case "TEXT":
             return (
-              <Suspense fallback={<SkeletonLoader height={100} width={"100%"}></SkeletonLoader>}>
+              <Suspense fallback={""}>
                 <TextModuleComponent module={module} />
               </Suspense>
             );
           case "IMAGE":
             return (
-              <Suspense fallback={<SkeletonLoader height={100} width={"100%"}></SkeletonLoader>}>
+              <Suspense fallback={""}>
                 <ImageModuleComponent module={module} />
               </Suspense>
             );
 
           case "TODO":
             return (
-              <Suspense fallback={<SkeletonLoader height={100} width={"100%"}></SkeletonLoader>}>
+              <Suspense fallback={""}>
                 <ToDoModuleComponent module={module} />
               </Suspense>
             );
 
           case "DRAWING":
             return (
-              <Suspense fallback={<SkeletonLoader height={100} width={"100%"}></SkeletonLoader>}>
+              <Suspense fallback={""}>
                 <DrawingModuleComponent module={module} />
               </Suspense>
             );

@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
-import SearchModal from "../modals/SearchModal";
+import React, { Suspense, useEffect, useState } from "react";
+// import SearchModal from "../modals/SearchModal";
+
+const SearchModal = React.lazy(() => import("../modals/SearchModal"));
 
 const SearchComponent = React.memo(() => {
   const [modal, setModal] = useState(false);
@@ -45,7 +47,11 @@ const SearchComponent = React.memo(() => {
         </div>
       </button>
 
-      {modal && <SearchModal closeModal={() => setModal(false)} />}
+      {modal && (
+        <Suspense fallback>
+          <SearchModal closeModal={() => setModal(false)} />
+        </Suspense>
+      )}
     </>
   );
 });

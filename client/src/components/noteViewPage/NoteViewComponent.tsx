@@ -9,11 +9,10 @@ import { useDroppable } from "@dnd-kit/core";
 import { noteData, UpdateData } from "../../dataTypes";
 import { SubPagesComponent } from "./SubPagesComponent";
 import { ColorPicker } from "./ColorPicker";
-// import { useDynamicTitleAndFaviconHook } from "../../hooks/useDynamicTitleAndFavicontHook";
 import { useDebounceHook } from "../../hooks/useDebounceHook";
-import NoteViewSkeleton from "../loaders/NoteViewSkeleton";
 
 import ModuleListDraggable from "../ModuleListDraggable";
+import SkeletonLoader from "../loaders/SkeletonLoader";
 
 type noteViewComponentProps = {
   singleNote: noteData;
@@ -36,8 +35,6 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
 
   const { debouncedValue: debouncedNoteState } = useDebounceHook(noteState, 500);
 
-  // useDynamicTitleAndFaviconHook(singleNote.title, singleNote.icon);
-
   useEffect(() => {
     if (!singleNote) return;
     setNoteState({
@@ -59,11 +56,9 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
     }
   }, [debouncedNoteState]); // this needs to be only dependency , it gets buggy if other dependencies are included
 
-  if (singleNoteLoading) return <NoteViewSkeleton />;
-
   return (
     <div ref={setDroppableRef} className="flex flex-col flex-1 h-full w-full group/global overflow-auto ">
-      <HeaderComponent breadCrumbs={singleNote.breadCrumbs} singleNote={singleNote} />
+      <HeaderComponent breadCrumbs={singleNote.breadCrumbs} singleNote={singleNote} singleNoteLoading={singleNoteLoading} />
 
       <div className="group/titleItems ">
         <div
@@ -78,16 +73,26 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
           </div>
 
           <div className="flex items-center gap-3">
-            {singleNote.icon !== "" && <div className=" size-12 " dangerouslySetInnerHTML={{ __html: noteState.icon! }}></div>}
+            {singleNoteLoading ? (
+              <SkeletonLoader height={70} width={70}></SkeletonLoader>
+            ) : (
+              singleNote.icon !== "" && <div className=" size-12 " dangerouslySetInnerHTML={{ __html: noteState.icon! }}></div>
+            )}
 
-            <div className="flex flex-col w-full">
-              <input
-                onChange={(e) => setNoteState((prev) => ({ ...prev, title: e.target.value }))}
-                value={noteState.title}
-                placeholder="Empty note"
-                className="focus:outline-hidden text-[2.5rem] h-full font-bold bg-transparent input-lg input-ghost text-base-content  w-full   "
-              ></input>
-              <TagHandleComponent singleNote={singleNote}></TagHandleComponent>
+            <div className="flex flex-col w-full h-20">
+              {singleNoteLoading ? (
+                <SkeletonLoader height={45} width={300}></SkeletonLoader>
+              ) : (
+                <>
+                  <input
+                    onChange={(e) => setNoteState((prev) => ({ ...prev, title: e.target.value }))}
+                    value={noteState.title}
+                    placeholder="Empty note"
+                    className="focus:outline-hidden text-[2.5rem] h-full font-bold bg-transparent input-lg input-ghost text-base-content  w-full   "
+                  ></input>
+                  <TagHandleComponent singleNote={singleNote}></TagHandleComponent>
+                </>
+              )}
             </div>
           </div>
         </div>

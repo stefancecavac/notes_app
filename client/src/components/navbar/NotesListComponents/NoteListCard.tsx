@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, Suspense } from "react";
 import { NotesData } from "../../../dataTypes";
-import NoteListCardMenu from "./NoteListCardMenu";
 import { useTreeViewStore } from "../../../Stores/useTreeViewStore";
+
+const NoteListCardMenu = React.lazy(() => import("./NoteListCardMenu"));
 
 type noteListCardProps = {
   note: NotesData;
@@ -129,7 +130,11 @@ export const NoteListCard = React.memo(({ note }: noteListCardProps) => {
             </svg>
           </button>
 
-          {openMenu && <NoteListCardMenu menuRef={menuRef} note={note} openMenu={openMenu} setOpenMenu={setOpenMenu} menuPosition={menuPosition} />}
+          {openMenu && (
+            <Suspense fallback>
+              <NoteListCardMenu menuRef={menuRef} note={note} openMenu={openMenu} setOpenMenu={setOpenMenu} menuPosition={menuPosition} />
+            </Suspense>
+          )}
         </div>
       </NavLink>
 

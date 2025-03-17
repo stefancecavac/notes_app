@@ -3,7 +3,7 @@ import { UseAuthContext } from "../context/AuthContext";
 import { useEffect } from "react";
 import { useThemeChangerStore } from "../Stores/useThemeChangerStore";
 
-export const MagicLoginPage = () => {
+const MagicLoginPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { darkMode } = useThemeChangerStore();
@@ -59,3 +59,5 @@ export const MagicLoginPage = () => {
     </div>
   );
 };
+
+export default MagicLoginPage;

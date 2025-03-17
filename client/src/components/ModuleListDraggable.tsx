@@ -70,7 +70,7 @@ const ModuleListDraggable = React.memo(({ modules, singleNoteId, singleNoteLoadi
         <DragOverlay>
           {activeId ? (
             <div className="shadow-md rounded-sm border-dashed border-neutral opacity-40  border-2">
-              <ModuleComponent singleNoteLoading={singleNoteLoading} key={activeId} module={modulesData.find((module) => module.id === activeId)!} />
+              <ModuleComponent key={activeId} module={modulesData.find((module) => module.id === activeId)!} />
             </div>
           ) : null}
         </DragOverlay>,

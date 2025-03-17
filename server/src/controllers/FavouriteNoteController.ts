@@ -17,10 +17,6 @@ const getAllFavouriteNotes = async (req: Request, res: Response, next: NextFunct
       },
     });
 
-    if (notes.length === 0) {
-      return next(new AppError("No notes found", 404));
-    }
-
     res.status(200).json(notes);
   } catch (error) {
     return next(error);
