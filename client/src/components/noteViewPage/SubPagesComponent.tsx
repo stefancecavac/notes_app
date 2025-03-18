@@ -11,7 +11,7 @@ export const SubPagesComponent = ({ note }: subPagesProps) => {
 
   return (
     note?.childNotes?.length !== 0 && (
-      <div className="flex flex-col mt-10 p-1  ">
+      <div className="flex flex-col mt-10 p-1 lg:pl-20 ">
         <p className=" text-info-content   font-medium  ">Pages:</p>
         <div className="divider my-0"></div>
         {note?.childNotes?.map((note) => (

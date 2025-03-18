@@ -52,7 +52,7 @@ const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }
           <div
             onClick={(e) => e.stopPropagation()}
             ref={inputRef}
-            style={{ position: "absolute", top: `${menuPosition.top - 26}px`, left: `${menuPosition.left - 205}px`, zIndex: 50 }}
+            style={{ position: "absolute", top: `${menuPosition.top - 25}px`, left: `${10}px`, zIndex: 50 }}
             className=""
           >
             <input

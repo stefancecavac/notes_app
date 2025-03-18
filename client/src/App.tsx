@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Suspense fallback>
+      <Suspense fallback={<Layout>{""}</Layout>}>
         <Routes>
           <Route path="*" element={<Navigate to="/dashboard" />} />
 
