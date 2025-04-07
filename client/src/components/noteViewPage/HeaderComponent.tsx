@@ -2,9 +2,7 @@ import React, { Suspense, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import { useFavouritesHook } from "../../hooks/useFavouritesHook";
-import ExpandNavbarButton from "../navbar/ExpandNavbarButton";
 import { NotesData } from "../../dataTypes";
-import { useNavbarExpandedStore } from "../../Stores/useNavbarExpandedStore";
 import SkeletonLoader from "../loaders/SkeletonLoader";
 
 const NoteViewMenu = React.lazy(() => import("./NoteViewMenu"));
@@ -16,7 +14,6 @@ type HeaderComponentProps = {
 };
 
 const HeaderComponent = React.memo(({ singleNote, singleNoteLoading, breadCrumbs }: HeaderComponentProps) => {
-  const { expanded, toggleExpanded } = useNavbarExpandedStore();
   const { favourite, handleFavourite } = useFavouritesHook(singleNote?.favourite);
 
   const renderBreadcrumbs = useMemo(() => {
@@ -68,9 +65,8 @@ const HeaderComponent = React.memo(({ singleNote, singleNoteLoading, breadCrumbs
   }, [breadCrumbs]);
 
   return (
-    <div className={`sticky top-0 min-w-full flex h-10   z-60 items-center justify-between text-sm bg-base-100 px-3 pl-1 py-2`}>
+    <div className={`sticky top-0 min-w-full flex h-10 pl-7   z-60 items-center justify-between text-sm bg-base-100 px-3  py-2`}>
       <div className="flex items-center gap-2">
-        {!expanded && <ExpandNavbarButton setExpanded={toggleExpanded}></ExpandNavbarButton>}
         {singleNoteLoading ? <SkeletonLoader height={20} width={150}></SkeletonLoader> : renderBreadcrumbs}
       </div>
 

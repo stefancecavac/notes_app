@@ -9,12 +9,13 @@ import { NotesList } from "./NotesListComponents/NotesList";
 import { useGetAllNotes } from "../../api/NoteApi";
 import { useGetAllFavouriteNotes } from "../../api/FavouriteNoteApi";
 import RecycleBinComponent from "./RecycleBinComponent";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const Navbar = () => {
   const { expanded, toggleExpanded, setWidth, width } = useNavbarExpandedStore();
   const { notes, notesLoading } = useGetAllNotes();
   const { favouriteNotes, favouriteNotesLoading, favouriteNotesError } = useGetAllFavouriteNotes();
+  const [resizing, setResizing] = useState(false);
 
   const navRef = useRef<HTMLDivElement>(null);
 
@@ -24,7 +25,7 @@ const Navbar = () => {
     } else if (expanded && navRef.current) {
       navRef.current.style.width = `${width}px`;
     }
-  }, [expanded, setWidth, width]);
+  }, [expanded, width]);
 
   const handleResize = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -42,19 +43,27 @@ const Navbar = () => {
     if (newWidth < 260) newWidth = 260;
     navRef.current.style.width = `${newWidth}px`;
     setWidth(newWidth);
+    setResizing(true);
   };
 
   const handleMouseUp = () => {
     document.removeEventListener("mousemove", handleMouseMove);
     document.removeEventListener("mouseup", handleMouseUp);
+    setResizing(false);
   };
 
   return (
-    <div ref={navRef} style={{ width: width }} className={` ${expanded ? "px-3 " : "w-0"}  flex flex-col  relative`}>
-      <div className={`flex items-center justify-between  z-70   py-2`}>
+    <div
+      ref={navRef}
+      style={{ width: width }}
+      className={` ${expanded ? `px-3 w-50` : "w-0"}  flex flex-col ${resizing ? "" : "transition-all"} relative`}
+    >
+      <div className={`flex items-center justify-between  relative z-70 h-10   py-2 pr-7`}>
         {expanded && <UserComponent></UserComponent>}
 
-        {expanded && <ExpandNavbarButton setExpanded={toggleExpanded}></ExpandNavbarButton>}
+        <div className="relative  ">
+          <ExpandNavbarButton setExpanded={toggleExpanded}></ExpandNavbarButton>
+        </div>
       </div>
       {expanded && (
         <div className="flex flex-col grow overflow-hidden h-full min-h-0">

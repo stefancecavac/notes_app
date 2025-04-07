@@ -99,14 +99,18 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
       </div>
 
       <div
-        className={`flex flex-col flex-1 mb-5    ${!wideMode ? "lg:mr-60 lg:ml-40" : "lg:mx-25 lg:ml-5 "} mx-25 relative    pt-10  transition-all  `}
+        className={`flex flex-col flex-1 mb-5 h-full   ${
+          !wideMode ? "lg:mr-60 lg:ml-40" : "lg:mx-25 lg:ml-5 "
+        } mx-25 relative    pt-10  transition-all  `}
       >
         {singleNote?.modules?.length === 0 && (
-          <div className="   w-full h-full flex   opacity-0  group-hover/global:opacity-100    transition-all   ">
+          <div className="   w-full  flex    ">
             <button
               onClick={() => createTextModule({ content: "", order: 1, noteId: singleNote.id })}
-              className="w-full h-full hover:cursor-text scale-0 transition-all group-hover/global:scale-100 "
-            ></button>
+              className="w-full h-10 text-info-content text-xs btn btn-ghost "
+            >
+              Add content
+            </button>
           </div>
         )}
 

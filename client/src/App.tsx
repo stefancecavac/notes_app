@@ -17,7 +17,11 @@ const App = () => {
   const { user, userLoading } = UseAuthContext();
 
   if (userLoading) {
-    return null;
+    return (
+      <div className="flex items-center justify-center w-full h-screen">
+        <span className="loading loading-ring"></span>
+      </div>
+    );
   }
 
   return (

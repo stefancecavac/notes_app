@@ -17,17 +17,17 @@ export const useCreateTextModule = () => {
   const { mutate: createTextModule } = useMutation({
     mutationKey: ["text-module"],
     mutationFn: postTextModuleApi,
-    onSuccess: () => {
+    onSuccess: (data) => {
       showToast("Text module created");
-      // queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
-      //   return {
-      //     ...oldData,
-      //     modules: [...oldData.modules, data],
-      //     updatedAt: new Date(),
-      //   };
-      // });
+      queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
+        return {
+          ...oldData,
+          modules: [...oldData.modules, data],
+          updatedAt: new Date(),
+        };
+      });
 
-      queryClient.invalidateQueries({ queryKey: ["note", noteId] });
+      // queryClient.invalidateQueries({ queryKey: ["note", noteId] });
     },
   });
 
