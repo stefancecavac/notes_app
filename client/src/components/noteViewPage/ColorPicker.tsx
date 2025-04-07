@@ -8,7 +8,7 @@ type colorPickerProps = {
 
 export const ColorPicker = React.memo(({ setNoteState }: colorPickerProps) => {
   const handleColorPick = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNoteState((prev) => ({ ...prev, color: e.target.value }));
+    setNoteState((prev) => ({ ...prev, noteColor: e.target.value }));
   };
 
   return (
@@ -42,7 +42,7 @@ export const ColorPicker = React.memo(({ setNoteState }: colorPickerProps) => {
           <button
             className="btn btn-sm"
             onClick={() => {
-              setNoteState((prev) => ({ ...prev, color: "" }));
+              setNoteState((prev) => ({ ...prev, noteColor: "" }));
             }}
           >
             Remove

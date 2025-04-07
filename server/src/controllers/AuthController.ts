@@ -1,23 +1,13 @@
 import { NextFunction, Request, Response } from "express";
-import validator from "validator";
-import bcrypt from "bcrypt";
-import { client } from "..";
 import jwt from "jsonwebtoken";
 import { generateAccessToken } from "../util/GenerateAccessToken";
 import { generateRefreshToken } from "../util/GenerateRefreshToken";
-import AppError from "../middleware/ErrorHandlerMiddleware";
+import AppError from "../middleware/errorHandler";
 import { sendMagicLinkEmail } from "../util/EmailSendService";
+import { createIfDoesntExistUserService, getUserByIdService } from "../service/authService";
 
-export const sendMagicLink = async (req: Request, res: Response, next: NextFunction) => {
+export const sendMagicLinkController = async (req: Request, res: Response, next: NextFunction) => {
   const { email } = req.body;
-
-  if (!email) {
-    return next(new AppError("Please fill out all fields", 400));
-  }
-
-  if (!validator.isEmail(email)) {
-    return next(new AppError("Not a valid email", 400));
-  }
 
   try {
     await sendMagicLinkEmail(email);
@@ -33,7 +23,7 @@ interface MagicLinkJwtPayload {
   exp: number;
 }
 
-export const verifyMagicLink = async (req: Request, res: Response, next: NextFunction) => {
+export const verifyMagicLinkController = async (req: Request, res: Response, next: NextFunction) => {
   const { token } = req.body;
 
   if (!token) {
@@ -43,19 +33,7 @@ export const verifyMagicLink = async (req: Request, res: Response, next: NextFun
   try {
     const decoded = jwt.verify(token, process.env.MAGIC_LINK_SECRET as string) as MagicLinkJwtPayload;
 
-    let user = await client.user.findUnique({
-      where: {
-        email: decoded.email,
-      },
-    });
-
-    if (!user) {
-      user = await client.user.create({
-        data: {
-          email: decoded.email,
-        },
-      });
-    }
+    const user = await createIfDoesntExistUserService(decoded.email);
 
     const accessToken = generateAccessToken(user.id);
     const refreshToken = generateRefreshToken(user.id);
@@ -71,7 +49,7 @@ export const verifyMagicLink = async (req: Request, res: Response, next: NextFun
   }
 };
 
-const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
+export const refreshTokenController = async (req: Request, res: Response, next: NextFunction) => {
   const refreshToken = req.cookies.refreshToken;
 
   if (!refreshToken) {
@@ -86,32 +64,26 @@ const refreshToken = async (req: Request, res: Response, next: NextFunction) => 
 
     const accessToken = generateAccessToken((decoded as any).userId);
 
-    return res.status(200).json({ accessToken });
+    res.status(200).json({ accessToken });
   } catch (error) {
     return next(error);
   }
 };
 
-const logoutUser = async (req: Request, res: Response) => {
+export const logoutUser = async (req: Request, res: Response) => {
   res.clearCookie("refreshToken").json({ message: "User successfuly logged out" });
 };
 
-const getCurrentUser = async (req: Request, res: Response, next: NextFunction) => {
+export const getCurrentUserController = async (req: Request, res: Response, next: NextFunction) => {
   const { userId } = req.user;
   try {
-    const user = await client.user.findFirst({
-      where: {
-        id: userId,
-      },
-    });
+    const currentUser = await getUserByIdService(userId);
 
-    if (!user) {
+    if (!currentUser) {
       return next(new AppError("Invalid credentials", 401));
     }
-    res.status(200).json({ email: user?.email });
+    res.status(200).json({ email: currentUser.email });
   } catch (error) {
     return next(error);
   }
 };
-
-export { logoutUser, getCurrentUser, refreshToken };

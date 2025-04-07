@@ -6,14 +6,14 @@ import NewItemButton from "./NewItemButton";
 import { useNavbarExpandedStore } from "../../Stores/useNavbarExpandedStore";
 import DashboardLink from "./DashboardLink";
 import { NotesList } from "./NotesListComponents/NotesList";
-import { useGetAllNotes } from "../../api/NoteApi";
 import { useGetAllFavouriteNotes } from "../../api/FavouriteNoteApi";
 import RecycleBinComponent from "./RecycleBinComponent";
 import React, { useEffect, useRef, useState } from "react";
+import { useGetAllNotesTreeView } from "../../api/NoteApi";
 
 const Navbar = () => {
   const { expanded, toggleExpanded, setWidth, width } = useNavbarExpandedStore();
-  const { notes, notesLoading } = useGetAllNotes();
+  const { notes, notesLoading } = useGetAllNotesTreeView();
   const { favouriteNotes, favouriteNotesLoading, favouriteNotesError } = useGetAllFavouriteNotes();
   const [resizing, setResizing] = useState(false);
 

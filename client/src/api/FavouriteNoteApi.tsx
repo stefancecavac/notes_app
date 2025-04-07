@@ -25,16 +25,15 @@ export const useFavouriteNote = () => {
   const { noteId } = useParams();
   const queryClient = useQueryClient();
 
-  const updateFavourite = async ({ favourite, noteId }: { favourite?: boolean; noteId?: string }) => {
-    const response = await axiosInstance.put(`/api/notes/favourite/addFavourites`, {
-      favourite,
+  const updateFavourite = async ({ noteId }: { noteId?: string }) => {
+    const response = await axiosInstance.put(`/api/notes/favourite/`, {
       noteId,
     });
     return response.data as noteData;
   };
 
-  const { mutate: addToFavourites } = useMutation({
-    mutationKey: ["favouriteNote", noteId],
+  const { mutate: toggleFavourite } = useMutation({
+    mutationKey: ["favouriteNote"],
     mutationFn: updateFavourite,
     onSuccess: (data) => {
       queryClient.setQueryData(["notes"], (oldData: noteData[] | undefined) => {
@@ -42,50 +41,19 @@ export const useFavouriteNote = () => {
         return oldData.map((oData) => (oData.id === data.id ? { ...oData, ...data } : oData));
       });
       queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
-        return { ...oldData, favourite: data.favourite };
+        return { ...oldData, isFavourite: data.isFavourite };
       });
       queryClient.setQueryData(["favouriteNotes"], (oldData: noteData[] | undefined) => {
         if (!oldData) return [data];
-        return [...oldData, data];
+        if (data.isFavourite === true) return [...oldData, data];
+        if (data.isFavourite === false) return oldData.filter((oData) => oData.id !== data.id);
       });
 
       queryClient.setQueryData(["favouriteNote", noteId], (oldData: noteData) => {
-        return { ...oldData, favourite: data.favourite };
+        return { ...oldData, favourite: data.isFavourite };
       });
     },
   });
 
-  return { addToFavourites };
-};
-
-export const useUnFavouriteNote = () => {
-  const { noteId } = useParams();
-  const queryClient = useQueryClient();
-
-  const updateFavourite = async ({ favourite, noteId }: { favourite?: boolean; noteId?: string }) => {
-    const response = await axiosInstance.put(`/api/notes/favourite/removeFavourites`, {
-      favourite,
-      noteId,
-    });
-    return response.data as noteData;
-  };
-
-  const { mutate: removeFromFavourites } = useMutation({
-    mutationKey: ["removeFavourite", noteId],
-    mutationFn: updateFavourite,
-    onSuccess: (data) => {
-      queryClient.setQueryData(["notes"], (oldData: noteData[] | undefined) => {
-        if (!oldData) return oldData;
-        return oldData.map((oData) => (oData.id === data.id ? { ...oData, favourite: false } : oData));
-      });
-      queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
-        return { ...oldData, favourite: data.favourite };
-      });
-      queryClient.setQueryData(["favouriteNotes"], (oldData: noteData[]) => {
-        return oldData.filter((oData) => oData.id !== data.id);
-      });
-    },
-  });
-
-  return { removeFromFavourites };
+  return { toggleFavourite };
 };

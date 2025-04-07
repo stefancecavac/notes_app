@@ -1,4 +1,4 @@
-import { useGraphNotes, useMoveNote } from "../../api/NoteApi";
+import { useGetAllNotes, useMoveNote } from "../../api/NoteApi";
 import { NotesData } from "../../dataTypes";
 import { MouseEvent, useEffect, useRef } from "react";
 
@@ -8,7 +8,7 @@ type noteMoveModalProps = {
 };
 
 export const NoteMoveModal = ({ singleNote, closeModal }: noteMoveModalProps) => {
-  const { graphNotes } = useGraphNotes();
+  const { allNotes } = useGetAllNotes();
   const { moveNote } = useMoveNote();
   const modalRef = useRef<HTMLDialogElement>(null);
 
@@ -37,7 +37,7 @@ export const NoteMoveModal = ({ singleNote, closeModal }: noteMoveModalProps) =>
             </svg>
             Move Note to top
           </button>
-          {graphNotes
+          {allNotes
             ?.filter((gNote) => gNote.id !== singleNote.id)
             .map((gNote) => (
               <span
@@ -45,8 +45,8 @@ export const NoteMoveModal = ({ singleNote, closeModal }: noteMoveModalProps) =>
                 className="flex p-2 items-center gap-2 text-sm text-base-content hover:cursor-pointer hover:bg-base-300  rounded-md"
                 key={gNote.id}
               >
-                {gNote.icon ? (
-                  <div className="size-5 stroke-" dangerouslySetInnerHTML={{ __html: gNote.icon }}></div>
+                {gNote.noteIcon ? (
+                  <div className="size-5 stroke-" dangerouslySetInnerHTML={{ __html: gNote.noteIcon }}></div>
                 ) : (
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@ export const NoteMoveModal = ({ singleNote, closeModal }: noteMoveModalProps) =>
                     <path d="M16 17H8" />
                   </svg>
                 )}
-                {gNote.title}
+                {gNote.noteTitle}
               </span>
             ))}
         </div>

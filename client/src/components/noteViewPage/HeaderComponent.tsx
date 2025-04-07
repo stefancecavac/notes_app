@@ -14,7 +14,7 @@ type HeaderComponentProps = {
 };
 
 const HeaderComponent = React.memo(({ singleNote, singleNoteLoading, breadCrumbs }: HeaderComponentProps) => {
-  const { favourite, handleFavourite } = useFavouritesHook(singleNote?.favourite);
+  const { handleFavourite } = useFavouritesHook();
 
   const renderBreadcrumbs = useMemo(() => {
     if (!breadCrumbs) return null;
@@ -32,8 +32,8 @@ const HeaderComponent = React.memo(({ singleNote, singleNoteLoading, breadCrumbs
               } text-info-content hover:underline gap-2 text-xs flex items-center`}
               to={`/notes/${crumb.id}`}
             >
-              {crumb.icon ? (
-                <div className="size-4 " dangerouslySetInnerHTML={{ __html: crumb.icon }}></div>
+              {crumb.noteIcon ? (
+                <div className="size-4 " dangerouslySetInnerHTML={{ __html: crumb.noteIcon }}></div>
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@ const HeaderComponent = React.memo(({ singleNote, singleNoteLoading, breadCrumbs
                   <path d="M16 17H8" />
                 </svg>
               )}
-              <p className="truncate w-fit"> {crumb.title}</p>
+              <p className="truncate w-fit"> {crumb.noteTitle}</p>
             </Link>
             {array.length > index + 1 && <p className="text-xl text-neutral">/</p>}
           </div>
@@ -71,7 +71,7 @@ const HeaderComponent = React.memo(({ singleNote, singleNoteLoading, breadCrumbs
       </div>
 
       <div className="flex items-center gap-2 text-xs">
-        <p className="text-info-content">Edited {formatDistanceToNow(new Date(singleNote?.updatedAt).toISOString(), { addSuffix: true })}</p>
+        {/* <p className="text-info-content">Edited {formatDistanceToNow(singleNote?.updatedAt, { addSuffix: true })}</p> */}
 
         {!location.pathname.includes("notes-split") && (
           <>
@@ -82,7 +82,7 @@ const HeaderComponent = React.memo(({ singleNote, singleNoteLoading, breadCrumbs
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className={`size-5 hover:cursor-pointer  ${favourite ? "fill-amber-400 text-amber-400" : ""}`}
+              className={`size-5 hover:cursor-pointer  ${singleNote.isFavourite ? "fill-amber-400 text-amber-400" : ""}`}
             >
               <path
                 strokeLinecap="round"

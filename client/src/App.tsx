@@ -26,7 +26,13 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Suspense fallback={<Layout>{""}</Layout>}>
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center w-full h-screen">
+            <span className="loading loading-ring"></span>
+          </div>
+        }
+      >
         <Routes>
           <Route path="*" element={<Navigate to="/dashboard" />} />
 

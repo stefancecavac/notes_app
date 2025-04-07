@@ -1,12 +1,12 @@
 import express from "express";
 
-const router = express.Router();
-import { FavouriteNote, getAllFavouriteNotes, UnFavouriteNote } from "../controllers/FavouriteNoteController";
 import authenticate from "../middleware/authentication";
+import { favouriteOrUnfavouriteNoteController, getAllFavouriteNotesController } from "../controllers/FavouriteNoteController";
+
+const router = express.Router();
 
 router.use(authenticate);
-router.get("/", getAllFavouriteNotes);
-router.put("/addFavourites", FavouriteNote);
-router.put("/removeFavourites", UnFavouriteNote);
+router.get("/", getAllFavouriteNotesController);
+router.put("/", favouriteOrUnfavouriteNoteController);
 
 export default router;

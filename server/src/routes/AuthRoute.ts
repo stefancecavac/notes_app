@@ -1,16 +1,23 @@
 import express from "express";
 
-const router = express.Router();
-import { logoutUser, getCurrentUser, refreshToken, sendMagicLink, verifyMagicLink } from "../controllers/AuthController";
+import authenticate from "../middleware/authentication";
+import {
+  getCurrentUserController,
+  logoutUser,
+  refreshTokenController,
+  sendMagicLinkController,
+  verifyMagicLinkController,
+} from "../controllers/authController";
 
-router.post("/magicLink", sendMagicLink);
-router.post("/verify-magicLink", verifyMagicLink);
+const router = express.Router();
+
+router.post("/magicLink", sendMagicLinkController);
+router.post("/verify-magicLink", verifyMagicLinkController);
 router.post("/logout", logoutUser);
 
-import authenticate from "../middleware/authentication";
-router.post("/refresh-token", refreshToken);
+router.post("/refresh-token", refreshTokenController);
 router.use(authenticate);
 
-router.get("/user", getCurrentUser);
+router.get("/user", getCurrentUserController);
 
 export default router;

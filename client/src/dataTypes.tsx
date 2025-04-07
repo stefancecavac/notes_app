@@ -61,12 +61,11 @@ export const moduleSchema = z.object({
 
 export type NotesData = {
   id: string;
-  title?: string;
-  content?: string;
-  icon?: string;
-  color?: string;
-  favourite: boolean;
-  inTrash: boolean;
+  noteTitle?: string;
+  noteIcon?: string;
+  noteColor?: string;
+  isFavourite: boolean;
+  isThrashed: boolean;
   modules: z.infer<typeof moduleSchema>[];
   tags?: z.infer<typeof tagSchema>[];
   createdAt: string;
@@ -75,18 +74,17 @@ export type NotesData = {
   trashedAt: Date | null;
   parentNoteId: string;
   childNotes?: NotesData[];
-  breadCrumbs?: { id: string; title: string; icon: string }[];
+  breadCrumbs?: { id: string; noteTitle: string; noteIcon: string }[];
 };
 
 export const notesSchema: z.ZodType<NotesData> = z.lazy(() =>
   z.object({
     id: z.string(),
-    title: z.string().default("New note"),
-    content: z.string().default(""),
-    color: z.string().default(""),
-    icon: z.string().default(""),
-    favourite: z.boolean(),
-    inTrash: z.boolean(),
+    noteTitle: z.string().default("New note"),
+    noteColor: z.string().default(""),
+    noteIcon: z.string().default(""),
+    isFavourite: z.boolean(),
+    isThrashed: z.boolean(),
     modules: z.array(moduleSchema),
     tags: z.array(tagSchema).default([]),
     createdAt: z.string(),
@@ -99,8 +97,8 @@ export const notesSchema: z.ZodType<NotesData> = z.lazy(() =>
       .array(
         z.object({
           id: z.string(),
-          title: z.string(),
-          icon: z.string(),
+          noteTitle: z.string(),
+          noteIcon: z.string(),
         })
       )
       .default([]),
@@ -108,9 +106,9 @@ export const notesSchema: z.ZodType<NotesData> = z.lazy(() =>
 );
 
 export const updateDataSchema = z.object({
-  title: z.string().optional(),
-  color: z.string().default("").optional(),
-  icon: z.string().default("").optional(),
+  noteTitle: z.string().optional(),
+  noteColor: z.string().default("").optional(),
+  noteIcon: z.string().default("").optional(),
 });
 export type UpdateData = z.infer<typeof updateDataSchema>;
 

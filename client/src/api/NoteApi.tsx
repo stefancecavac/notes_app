@@ -22,7 +22,7 @@ export const useSearchNotes = (q: string | null) => {
   return { searchedNotes };
 };
 
-export const useGetAllNotes = () => {
+export const useGetAllNotesTreeView = () => {
   const fetchAllNotes = async () => {
     const response = await axiosInstance.get(`/api/notes`, {});
 
@@ -37,19 +37,19 @@ export const useGetAllNotes = () => {
   return { notes, notesLoading };
 };
 
-export const useGraphNotes = () => {
-  const fetchGraphNotes = async () => {
-    const response = await axiosInstance.get(`/api/notes/graph`);
+export const useGetAllNotes = () => {
+  const fetchAllNotes = async () => {
+    const response = await axiosInstance.get(`/api/notes/all`);
 
     return response.data as noteData[];
   };
 
-  const { data: graphNotes } = useQuery({
-    queryKey: ["graphNotes"],
-    queryFn: fetchGraphNotes,
+  const { data: allNotes } = useQuery({
+    queryKey: ["allNotes"],
+    queryFn: fetchAllNotes,
   });
 
-  return { graphNotes };
+  return { allNotes };
 };
 
 export const useGetSingleNote = ({ noteId }: { noteId: string }) => {
@@ -98,8 +98,8 @@ export const useCreateNote = () => {
     });
   };
 
-  const postNoteFunction = async ({ title, content, parentNoteId }: { title: string; content: string; parentNoteId?: string }) => {
-    const response = await axiosInstance.post(`/api/notes`, { title, content, parentNoteId });
+  const postNoteFunction = async ({ noteTitle, parentNoteId }: { noteTitle: string; parentNoteId?: string }) => {
+    const response = await axiosInstance.post(`/api/notes`, { noteTitle, parentNoteId });
     return response.data as noteData;
   };
 
@@ -158,8 +158,8 @@ export const useDuplicateNote = () => {
 export const useUpdateNote = ({ noteId }: { noteId: string }) => {
   const queryClient = useQueryClient();
 
-  const updateNoteFunction = async ({ title, content, color, icon }: { title?: string; content?: string; color?: string; icon?: string }) => {
-    const response = await axiosInstance.put(`/api/notes/${noteId}`, { title, content, color, icon });
+  const updateNoteFunction = async ({ noteTitle, noteColor, noteIcon }: { noteTitle?: string; noteColor?: string; noteIcon?: string }) => {
+    const response = await axiosInstance.put(`/api/notes/${noteId}`, { noteTitle, noteColor, noteIcon });
 
     return response.data;
   };

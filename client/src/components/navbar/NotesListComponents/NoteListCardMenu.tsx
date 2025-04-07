@@ -34,7 +34,7 @@ const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }
 
   useEffect(() => {
     if (debouncedSave) {
-      updateNote({ title: debouncedSave });
+      updateNote({ noteTitle: debouncedSave });
     }
   }, [debouncedSave]);
 
@@ -58,7 +58,7 @@ const NoteListCardMenu = ({ openMenu, note, menuRef, menuPosition, setOpenMenu }
             <input
               autoFocus
               onChange={handleRename}
-              placeholder={note.title}
+              placeholder={note.noteTitle}
               className="input focus:outline-none outline-none border-none  input-sm"
             ></input>
           </div>

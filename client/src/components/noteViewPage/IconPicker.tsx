@@ -12,7 +12,7 @@ export const IconPicker = React.memo(({ setNoteState, noteState }: iconPickerPro
   const [iconsArray, setIconArray] = useState(icons);
 
   const handleIconPick = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNoteState((prev) => ({ ...prev, icon: e.target.value }));
+    setNoteState((prev) => ({ ...prev, noteIcon: e.target.value }));
   };
 
   const handleColorPick = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +50,7 @@ export const IconPicker = React.memo(({ setNoteState, noteState }: iconPickerPro
           <button
             className="btn btn-xs   "
             onClick={() => {
-              setNoteState((prev) => ({ ...prev, icon: "" }));
+              setNoteState((prev) => ({ ...prev, noteIcon: "" }));
             }}
           >
             Remove
@@ -68,14 +68,14 @@ export const IconPicker = React.memo(({ setNoteState, noteState }: iconPickerPro
             <label
               key={index}
               className={`hover:bg-base-300 rounded-lg border border-transparent ${
-                noteState.icon === icon.svg ? "bg-base-300  border-base-content " : ""
+                noteState.noteIcon === icon.svg ? "bg-base-300  border-base-content " : ""
               }`}
             >
               <input
                 onChange={handleIconPick}
                 className="hidden "
                 value={icon.svg}
-                checked={noteState.icon === icon.svg}
+                checked={noteState.noteIcon === icon.svg}
                 name="group"
                 type="radio"
               ></input>

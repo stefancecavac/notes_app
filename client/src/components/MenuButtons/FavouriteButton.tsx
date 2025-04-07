@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useFavouritesHook } from "../../hooks/useFavouritesHook";
 import { NotesData } from "../../dataTypes";
 
@@ -7,12 +6,7 @@ type favouriteButtonProps = {
 };
 
 export const FavouriteButton = ({ note }: favouriteButtonProps) => {
-  const { handleFavourite, setFavourite } = useFavouritesHook(note?.favourite);
-
-  useEffect(() => {
-    if (!note) return;
-    setFavourite(note.favourite);
-  }, [note]);
+  const { handleFavourite } = useFavouritesHook();
 
   return (
     <button
@@ -21,7 +15,7 @@ export const FavouriteButton = ({ note }: favouriteButtonProps) => {
       }}
       className="flex  hover:bg-base-300 items-center gap-4  text-sm btn btn-sm justify-start btn-ghost p-1 rounded-sm"
     >
-      {note.favourite ? (
+      {note.isFavourite ? (
         <>
           <svg
             className="size-4"

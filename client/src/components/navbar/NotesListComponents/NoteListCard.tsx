@@ -52,17 +52,20 @@ export const NoteListCard = React.memo(({ note }: noteListCardProps) => {
         onClick={(e) => {
           if (openMenu) e.preventDefault();
         }}
-        style={{ backgroundColor: note.color !== "" ? `${note.color}20` : "", borderColor: note.color !== "" ? `${note.color}60` : "" }}
+        style={{
+          backgroundColor: note.noteColor !== "" ? `${note.noteColor}20` : "",
+          borderColor: note.noteColor !== "" ? `${note.noteColor}60` : "",
+        }}
         className={({ isActive }) =>
           ` relative transition-all  mb-1 text-xs    items-center font-medium  p-0.5 border border-transparent flex group  gap-2 rounded-md group hover:cursor-pointer hover:bg-base-300 ${
-            isActive ? `bg-base-300 font-bold bg-${note.color} text-base-content ` : "text-info-content"
+            isActive ? `bg-base-300 font-bold bg-${note.noteColor} text-base-content ` : "text-info-content"
           }`
         }
       >
         <div className="size-5 flex items-center relative">
           <div className="size-5 absolute group-hover:opacity-0">
-            {note.icon ? (
-              <div dangerouslySetInnerHTML={{ __html: note.icon }} />
+            {note.noteIcon ? (
+              <div dangerouslySetInnerHTML={{ __html: note.noteIcon }} />
             ) : (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -111,7 +114,7 @@ export const NoteListCard = React.memo(({ note }: noteListCardProps) => {
           </button>
         </div>
 
-        <p className=" truncate flex-1  py-1  ">{note?.title || "Empty note"} </p>
+        <p className=" truncate flex-1  py-1  ">{note?.noteTitle || "Empty note"} </p>
 
         <div className="relative shrink-0 flex items-center">
           <button

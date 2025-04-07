@@ -28,9 +28,9 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
   });
 
   const [noteState, setNoteState] = useState<UpdateData>(() => ({
-    title: singleNote.title,
-    color: singleNote.color,
-    icon: singleNote.icon,
+    noteTitle: singleNote.noteTitle,
+    noteColor: singleNote.noteColor,
+    noteIcon: singleNote.noteIcon,
   }));
 
   const { debouncedValue: debouncedNoteState } = useDebounceHook(noteState, 500);
@@ -38,9 +38,9 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
   useEffect(() => {
     if (!singleNote) return;
     setNoteState({
-      title: singleNote.title,
-      color: singleNote.color,
-      icon: singleNote.icon,
+      noteTitle: singleNote.noteTitle,
+      noteColor: singleNote.noteColor,
+      noteIcon: singleNote.noteIcon,
     });
   }, [singleNote]);
 
@@ -48,9 +48,9 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
     if (!singleNote || singleNoteLoading) return;
 
     if (
-      debouncedNoteState.title !== singleNote.title ||
-      debouncedNoteState.color !== singleNote.color ||
-      debouncedNoteState.icon !== singleNote.icon
+      debouncedNoteState.noteTitle !== singleNote.noteTitle ||
+      debouncedNoteState.noteColor !== singleNote.noteColor ||
+      debouncedNoteState.noteIcon !== singleNote.noteIcon
     ) {
       updateNote(debouncedNoteState);
     }
@@ -62,11 +62,13 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
 
       <div className="group/titleItems ">
         <div
-          style={{ background: noteState.color }}
-          className={`${noteState.color === "" ? "py-7 " : "py-24 "}  relative  transition-all flex items-center justify-center   `}
+          style={{ background: noteState.noteColor }}
+          className={`${noteState.noteColor === "" ? "py-7 " : "py-24 "}  relative  transition-all flex items-center justify-center   `}
         ></div>
 
-        <div className={`${!wideMode ? "lg:mx-60 " : "lg:mx-25 "} mx-25 relative  ${noteState.color === "" ? "mt-5" : "mt-12"}    transition-all`}>
+        <div
+          className={`${!wideMode ? "lg:mx-60 " : "lg:mx-25 "} mx-25 relative  ${noteState.noteColor === "" ? "mt-5" : "mt-12"}    transition-all`}
+        >
           <div className="group-hover/titleItems:flex absolute hidden items-center -top-8 gap-2 scale-up-center z-100 ">
             <IconPicker noteState={noteState} setNoteState={setNoteState}></IconPicker>
             <ColorPicker setNoteState={setNoteState}></ColorPicker>
@@ -76,7 +78,7 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
             {singleNoteLoading ? (
               <SkeletonLoader height={70} width={70}></SkeletonLoader>
             ) : (
-              singleNote.icon !== "" && <div className=" size-12 " dangerouslySetInnerHTML={{ __html: noteState.icon! }}></div>
+              singleNote.noteIcon !== "" && <div className=" size-12 " dangerouslySetInnerHTML={{ __html: noteState.noteIcon! }}></div>
             )}
 
             <div className="flex flex-col w-full h-20">
@@ -85,8 +87,8 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
               ) : (
                 <>
                   <input
-                    onChange={(e) => setNoteState((prev) => ({ ...prev, title: e.target.value }))}
-                    value={noteState.title}
+                    onChange={(e) => setNoteState((prev) => ({ ...prev, noteTitle: e.target.value }))}
+                    value={noteState.noteTitle}
                     placeholder="Empty note"
                     className="focus:outline-hidden text-[2.5rem] h-full font-bold bg-transparent input-lg input-ghost text-base-content  w-full   "
                   ></input>
