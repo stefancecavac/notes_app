@@ -1,37 +1,39 @@
-import { jsonb, pgEnum, pgTable, uuid, varchar } from "drizzle-orm/pg-core";
+import { integer, jsonb, pgEnum, pgTable, uuid } from "drizzle-orm/pg-core";
 import { notesTable } from "./notes";
 import { z, ZodEnum } from "zod";
 
 export const typeEnum = pgEnum("type", ["text", "image", "to-do", "paragraph"]);
 
-export const blocksTable = pgTable("blocks", {
-  id: varchar("id", { length: 12 }).primaryKey().notNull(),
+export const modulesTable = pgTable("modules", {
+  id: uuid("id").primaryKey().notNull().defaultRandom(),
   type: typeEnum().notNull(),
   properties: jsonb().notNull(),
+  order: integer("order").notNull().default(0),
 
   noteId: uuid("noteId").references(() => notesTable.id, { onDelete: "cascade" }),
 });
 
-export const blocksTableSchema = z.object({
+export const modulesTableSchema = z.object({
   id: z.string({ message: "Id required" }),
   type: z.enum(["text", "image", "to-do", "paragraph"], { message: "Invalid type" }),
+  properties: z.record(z.any(), { message: "Invalid properties" }),
+  order: z.number().default(0),
+  noteId: z.string({ message: "Note id required" }).uuid({ message: "Not a valid UUID" }),
+});
+
+export const createModulesSchema = z.object({
+  type: z.enum(["text", "image", "to-do", "paragraph"], { message: "Invalid type" }),
+  order: z.number().default(0),
   properties: z.record(z.any(), { message: "Invalid properties" }),
   noteId: z.string({ message: "Note id required" }).uuid({ message: "Not a valid UUID" }),
 });
 
-export const createBlocksTableSchema = z.object({
-  type: z.enum(["text", "image", "to-do", "paragraph"], { message: "Invalid type" }),
+export type createModulesData = z.infer<typeof createModulesSchema>;
 
-  properties: z.record(z.any(), { message: "Invalid properties" }),
-  noteId: z.string({ message: "Note id required" }).uuid({ message: "Not a valid UUID" }),
-});
-
-export type createBlocksTableType = z.infer<typeof createBlocksTableSchema>;
-
-export const updateBlockTableSchema = z.object({
+export const updateModuleSchema = z.object({
   type: z.enum(["text", "image", "to-do", "paragraph"], { message: "Invalid type" }),
 
   properties: z.record(z.any(), { message: "Invalid properties" }),
   id: z.string({ message: "Id required" }),
 });
-export type updateBlocksTableType = z.infer<typeof updateBlockTableSchema>;
+export type updateModulesData = z.infer<typeof updateModuleSchema>;

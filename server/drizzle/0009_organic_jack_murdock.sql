@@ -1,2 +1,0 @@
-ALTER TABLE "notes" ADD COLUMN "parent_note_id" uuid;--> statement-breakpoint
-ALTER TABLE "notes" ADD CONSTRAINT "notes_parent_note_id_notes_id_fk" FOREIGN KEY ("parent_note_id") REFERENCES "public"."notes"("id") ON DELETE set null ON UPDATE no action;

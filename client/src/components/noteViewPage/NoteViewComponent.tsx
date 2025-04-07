@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useCreateTextModule } from "../../api/modulesApi/TextModuleApi";
 import { useUpdateNote } from "../../api/NoteApi";
 import { useWideModeStore } from "../../Stores/useWideModeStore";
 import HeaderComponent from "./HeaderComponent";
@@ -13,6 +12,7 @@ import { useDebounceHook } from "../../hooks/useDebounceHook";
 
 import ModuleListDraggable from "../ModuleListDraggable";
 import SkeletonLoader from "../loaders/SkeletonLoader";
+import { useCreateModule } from "../../api/ModuleApi";
 
 type noteViewComponentProps = {
   singleNote: noteData;
@@ -22,7 +22,7 @@ type noteViewComponentProps = {
 const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteViewComponentProps) => {
   const { updateNote } = useUpdateNote({ noteId: singleNote?.id });
   const { wideMode } = useWideModeStore();
-  const { createTextModule } = useCreateTextModule();
+  const { createModule } = useCreateModule();
   const { setNodeRef: setDroppableRef } = useDroppable({
     id: singleNote.id,
   });
@@ -108,7 +108,7 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
         {singleNote?.modules?.length === 0 && (
           <div className="   w-full  flex    ">
             <button
-              onClick={() => createTextModule({ content: "", order: 1, noteId: singleNote.id })}
+              onClick={() => createModule({ properties: { content: "" }, type: "text", order: 1, noteId: singleNote.id })}
               className="w-full h-10 text-info-content text-xs btn btn-ghost "
             >
               Add content

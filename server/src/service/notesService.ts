@@ -1,7 +1,23 @@
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, eq, ilike } from "drizzle-orm";
 import { db } from "../db";
 import { notesTable } from "../db/schema/notes";
 import AppError from "../middleware/errorHandler";
+import { modulesTable } from "../db/schema/modules";
+
+export const searchNotesService = async ({ userId, q }: { userId: string; q: string }) => {
+  try {
+    const filter =
+      q.length > 1
+        ? and(ilike(notesTable.noteTitle, q), and(eq(notesTable.userId, userId), eq(notesTable.isThrashed, false)))
+        : and(eq(notesTable.userId, userId), eq(notesTable.isThrashed, false));
+
+    const searchedNotes = await db.select().from(notesTable).where(filter).orderBy(asc(notesTable.createdAt));
+
+    return searchedNotes;
+  } catch (error) {
+    throw new AppError("Database Error", 500);
+  }
+};
 
 export const getAllNotesInTreeViewService = async (userId: string) => {
   try {
@@ -51,9 +67,14 @@ export const getAllNotesService = async (userId: string) => {
 
 export const getNoteByIdService = async (noteId: string) => {
   try {
-    const noteResult = await db.select().from(notesTable).where(eq(notesTable.id, noteId));
+    const noteResult = await db
+      .select()
+      .from(notesTable)
+      .where(eq(notesTable.id, noteId))
+      .leftJoin(modulesTable, eq(modulesTable.noteId, notesTable.id))
+      .groupBy(modulesTable.id, notesTable.id);
 
-    const note = noteResult[0];
+    const note = noteResult[0].notes;
 
     if (!note) {
       return null;
@@ -82,8 +103,11 @@ export const getNoteByIdService = async (noteId: string) => {
       currentParentId = parent.parentNoteId || null;
     }
 
+    const modules = noteResult[0].modules ? noteResult.map((modules) => modules.modules) : [];
+
     return {
       ...note,
+      modules,
       breadCrumbs,
     };
   } catch (error) {
@@ -157,6 +181,40 @@ export const moveNoteByIdService = async ({ userId, noteId, parentNoteId }: { us
       .returning();
 
     return movedNote[0];
+  } catch (error) {
+    console.log(error);
+    throw new AppError("Database Error", 500);
+  }
+};
+
+export const duplicateNoteService = async ({ userId, noteId }: { userId: string; noteId: string }) => {
+  try {
+    const noteToDuiplicate = await db.select().from(notesTable).where(eq(notesTable.id, noteId));
+
+    const modulesToDupliate = await db.select().from(modulesTable).where(eq(modulesTable.noteId, noteId));
+
+    console.log(modulesToDupliate);
+
+    const duplicatedNote = await db
+      .insert(notesTable)
+      .values({
+        userId: userId,
+        noteTitle: `${noteToDuiplicate[0].noteTitle} copy`,
+        noteColor: noteToDuiplicate[0].noteColor,
+        noteIcon: noteToDuiplicate[0].noteIcon,
+      })
+      .returning();
+
+    const newModules = modulesToDupliate.map((module) => ({
+      noteId: duplicatedNote[0].id,
+      type: module.type,
+      properties: module.properties,
+      order: module.order,
+    }));
+
+    await db.insert(modulesTable).values(newModules);
+
+    return duplicatedNote[0];
   } catch (error) {
     console.log(error);
     throw new AppError("Database Error", 500);

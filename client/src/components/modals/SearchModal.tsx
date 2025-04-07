@@ -18,7 +18,7 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
     if (!editorContent) {
       return;
     }
-    createNote({ title: title, content: editorContent });
+    createNote({ noteTitle: title, parentNoteId: undefined });
   };
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -159,7 +159,7 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
           <p className="text-info-content text-sm m-1 ">
             Notes: <span className="kbd"> {searchedNotes?.length ? searchedNotes.length : 0}</span>
           </p>
-          <div className="flex flex-col items-center bg-base-100 rounded-lg p-2 border border-neutral">
+          <div className="flex flex-col items-center rounded-lg">
             {isDebouncing ? (
               <span className="flex justify-center items-center  my-3 grow loading loading-spinner text-primary "></span>
             ) : searchedNotes?.length === 0 ? (
@@ -216,7 +216,7 @@ const SearchModal = ({ closeModal }: searchModalProps) => {
                       <path d="M16 13H8" />
                       <path d="M16 17H8" />
                     </svg>
-                    <p className="truncate w-50">{note.title}</p>
+                    <p className="truncate w-50">{note.noteTitle}</p>
                   </Link>
                   <div className="flex gap-2  ">
                     {note?.tags?.map((tag, tagIndex) => (

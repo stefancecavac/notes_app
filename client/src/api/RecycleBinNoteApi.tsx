@@ -6,7 +6,7 @@ import { NotesData } from "../dataTypes";
 
 export const useGetRecycleBinNotes = () => {
   const fetchAllNotes = async () => {
-    const response = await axiosInstance.get("/api/notes/recycle-bin");
+    const response = await axiosInstance.get("/api/notes/recycleBin");
     return response.data as NotesData[];
   };
 
@@ -28,9 +28,8 @@ export const useMoveTorecycleBin = () => {
   const { showToast } = useToastStore();
   const queryClient = useQueryClient();
 
-  const moveNoteToRecycleBin = async ({ value, noteId }: { value: boolean; noteId: string }) => {
-    const response = await axiosInstance.put("/api/notes/recycle-bin/move-to-recycle-bin", {
-      value,
+  const moveNoteToRecycleBin = async ({ noteId }: { noteId: string }) => {
+    const response = await axiosInstance.put("/api/notes/recycleBin/", {
       noteId,
     });
 
@@ -54,9 +53,8 @@ export const useRestoreFromRecycleBin = () => {
   const { showToast } = useToastStore();
   const queryClient = useQueryClient();
 
-  const restoreNoteFromRecycleBin = async ({ value, noteId }: { value: boolean; noteId?: string }) => {
-    const response = await axiosInstance.put("/api/notes/recycle-bin/restore-from-recycle-bin", {
-      value,
+  const restoreNoteFromRecycleBin = async ({ noteId }: { noteId?: string }) => {
+    const response = await axiosInstance.put("/api/notes/recycleBin/restore", {
       noteId,
     });
 
@@ -82,7 +80,7 @@ export const useDeleteFromRecycleBin = () => {
   const queryClient = useQueryClient();
 
   const removeFromRecycleBinApi = async ({ noteId }: { noteId: string }) => {
-    const response = await axiosInstance.delete("/api/notes/recycle-bin/", { data: { noteId: noteId } });
+    const response = await axiosInstance.delete("/api/notes/recycleBin/", { data: { noteId: noteId } });
 
     return response.data;
   };

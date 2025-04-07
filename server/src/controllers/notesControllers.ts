@@ -1,14 +1,28 @@
 import { NextFunction, Request, Response } from "express";
 import {
-  deleteNoteByIdService,
+  duplicateNoteService,
   getAllNotesInTreeViewService,
   getAllNotesService,
   getNoteByIdService,
   insertNoteIntoDbService,
   moveNoteByIdService,
+  searchNotesService,
   updateNoteService,
 } from "../service/notesService";
 import AppError from "../middleware/errorHandler";
+
+export const SearchNotesController = async (req: Request, res: Response, next: NextFunction) => {
+  const q = req.query.q as string;
+  const { userId } = req.user;
+
+  try {
+    const notes = await searchNotesService({ q, userId });
+
+    res.status(200).json(notes);
+  } catch (error) {
+    return next(error);
+  }
+};
 
 export const getAllNotesInTreeViewController = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -81,6 +95,19 @@ export const moveNoteController = async (req: Request, res: Response, next: Next
     const movedNote = await moveNoteByIdService({ noteId, userId, parentNoteId });
 
     res.status(200).json(movedNote);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export const duplicateNoteController = async (req: Request, res: Response, next: NextFunction) => {
+  const { noteId } = req.body;
+  const { userId } = req.user;
+
+  try {
+    const duplicatedNote = await duplicateNoteService({ noteId, userId });
+
+    res.status(200).json(duplicatedNote);
   } catch (error) {
     return next(error);
   }

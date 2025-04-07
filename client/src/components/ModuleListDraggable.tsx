@@ -4,7 +4,7 @@ import ModuleComponent from "./moduleComponents/ModuleComponent";
 import { createPortal } from "react-dom";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { moduleData } from "../dataTypes";
-import { useUpdateModuleOrder } from "../api/modulesApi/ModuleApi";
+import { useUpdateModuleOrder } from "../api/ModuleApi";
 
 type ModuleListDraggapleProps = {
   modules: moduleData[];

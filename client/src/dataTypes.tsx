@@ -14,50 +14,56 @@ export const tagSchema = z.object({
 });
 export type tagData = z.infer<typeof tagSchema>;
 
-export const textModuleSchema = z.object({
-  id: z.string(),
-  content: z.string(),
-  moduleId: z.string(),
-  type: z.literal("TEXT"),
-});
+// export const textModuleSchema = z.object({
+//   id: z.string(),
+//   content: z.string(),
+//   moduleId: z.string(),
+//   type: z.literal("TEXT"),
+// });
 
-export const imageModuleSchema = z.object({
-  id: z.string(),
-  imageUrl: z.string(),
-  width: z.number(),
-  height: z.number(),
-  moduleId: z.string(),
-  type: z.literal("IMAGE"),
-});
+// export const imageModuleSchema = z.object({
+//   id: z.string(),
+//   imageUrl: z.string(),
+//   width: z.number(),
+//   height: z.number(),
+//   moduleId: z.string(),
+//   type: z.literal("IMAGE"),
+// });
 
-export const toDoModuleSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  completed: z.boolean(),
-  priority: z.string(),
-  moduleId: z.string(),
-  type: z.literal("TODO"),
-});
+// export const toDoModuleSchema = z.object({
+//   id: z.string(),
+//   title: z.string(),
+//   completed: z.boolean(),
+//   priority: z.string(),
+//   moduleId: z.string(),
+//   type: z.literal("TODO"),
+// });
 
-export const drawingModuleSchema = z.object({
-  id: z.string(),
-  data: z.string(),
-  moduleId: z.string(),
-  type: z.literal("DRAWING"),
-});
+// export const drawingModuleSchema = z.object({
+//   id: z.string(),
+//   data: z.string(),
+//   moduleId: z.string(),
+//   type: z.literal("DRAWING"),
+// });
 
-export const moduleSchema = z.object({
-  id: z.string(),
-  type: z.union([z.literal("TEXT"), z.literal("IMAGE"), z.literal("TODO"), z.literal("DRAWING")]),
+const typeEnum = z.enum(["text", "image", "to-do", "drawing"], { message: "Invalid type" });
+
+export const modulesTableSchema = z.object({
+  id: z.string({ message: "Id required" }),
+  type: typeEnum,
+  properties: z.record(z.any(), { message: "Invalid properties" }),
   order: z.number(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-  noteId: z.string(),
-  textModule: textModuleSchema.optional(),
-  imageModule: imageModuleSchema.optional(),
-  TodoModule: z.array(toDoModuleSchema).optional(),
-  DrawingModule: drawingModuleSchema.optional(),
+  noteId: z.string({ message: "Note id required" }).uuid({ message: "Not a valid UUID" }),
 });
+
+export const createModulesSchema = z.object({
+  type: typeEnum,
+  order: z.number(),
+  properties: z.record(z.any(), { message: "Invalid properties" }),
+  noteId: z.string({ message: "Note id required" }).uuid({ message: "Not a valid UUID" }),
+});
+
+export type CreateModuleData = z.infer<typeof createModulesSchema>;
 
 export type NotesData = {
   id: string;
@@ -66,7 +72,7 @@ export type NotesData = {
   noteColor?: string;
   isFavourite: boolean;
   isThrashed: boolean;
-  modules: z.infer<typeof moduleSchema>[];
+  modules: z.infer<typeof modulesTableSchema>[];
   tags?: z.infer<typeof tagSchema>[];
   createdAt: string;
   updatedAt: string;
@@ -85,7 +91,7 @@ export const notesSchema: z.ZodType<NotesData> = z.lazy(() =>
     noteIcon: z.string().default(""),
     isFavourite: z.boolean(),
     isThrashed: z.boolean(),
-    modules: z.array(moduleSchema),
+    modules: z.array(modulesTableSchema),
     tags: z.array(tagSchema).default([]),
     createdAt: z.string(),
     updatedAt: z.string(),
@@ -112,7 +118,7 @@ export const updateDataSchema = z.object({
 });
 export type UpdateData = z.infer<typeof updateDataSchema>;
 
-export type textModuleData = z.infer<typeof textModuleSchema>;
-export type todoModuleData = z.infer<typeof toDoModuleSchema>;
-export type moduleData = z.infer<typeof moduleSchema>;
+// export type textModuleData = z.infer<typeof textModuleSchema>;
+// export type todoModuleData = z.infer<typeof toDoModuleSchema>;
+export type moduleData = z.infer<typeof modulesTableSchema>;
 export type noteData = z.infer<typeof notesSchema>;

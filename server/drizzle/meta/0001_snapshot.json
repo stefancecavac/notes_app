@@ -1,11 +1,11 @@
 {
-  "id": "1aac0f20-5b0c-48d6-97d7-4634a5ca3c91",
-  "prevId": "2ca35947-8a45-4d52-8e9c-c01a2aec717f",
+  "id": "25070966-2d2c-45a7-9d20-30ea7f53c468",
+  "prevId": "cc077bdc-636e-48ba-b206-ab030dbd07a7",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.blocks": {
-      "name": "blocks",
+    "public.modules": {
+      "name": "modules",
       "schema": "",
       "columns": {
         "id": {
@@ -28,6 +28,13 @@
           "primaryKey": false,
           "notNull": true
         },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
         "noteId": {
           "name": "noteId",
           "type": "uuid",
@@ -37,9 +44,9 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "blocks_noteId_notes_id_fk": {
-          "name": "blocks_noteId_notes_id_fk",
-          "tableFrom": "blocks",
+        "modules_noteId_notes_id_fk": {
+          "name": "modules_noteId_notes_id_fk",
+          "tableFrom": "modules",
           "tableTo": "notes",
           "columnsFrom": [
             "noteId"
@@ -74,6 +81,46 @@
           "primaryKey": false,
           "notNull": true
         },
+        "note_icon": {
+          "name": "note_icon",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "note_color": {
+          "name": "note_color",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "isFavourite": {
+          "name": "isFavourite",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "isThrashed": {
+          "name": "isThrashed",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "userId": {
+          "name": "userId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "parent_note_id": {
+          "name": "parent_note_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
@@ -90,9 +137,70 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "notes_userId_users_id_fk": {
+          "name": "notes_userId_users_id_fk",
+          "tableFrom": "notes",
+          "tableTo": "users",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "notes_parent_note_id_notes_id_fk": {
+          "name": "notes_parent_note_id_notes_id_fk",
+          "tableFrom": "notes",
+          "tableTo": "notes",
+          "columnsFrom": [
+            "parent_note_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -104,7 +212,9 @@
       "schema": "public",
       "values": [
         "text",
-        "image"
+        "image",
+        "to-do",
+        "paragraph"
       ]
     }
   },

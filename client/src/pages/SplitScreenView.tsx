@@ -7,7 +7,7 @@ import { closestCenter, DndContext, DragEndEvent, DragOverlay, DragStartEvent } 
 import { useDragStore } from "../Stores/useDragStore";
 import { createPortal } from "react-dom";
 import ModuleComponent from "../components/moduleComponents/ModuleComponent";
-import { useUpdateModuleOrder } from "../api/modulesApi/ModuleApi";
+import { useUpdateModuleOrder } from "../api/ModuleApi";
 import { useDebounce } from "use-debounce";
 
 const SplitScreenView = () => {

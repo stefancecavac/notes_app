@@ -1,1 +1,0 @@
-ALTER TABLE "notes" ALTER COLUMN "note_icon" SET DATA TYPE varchar;

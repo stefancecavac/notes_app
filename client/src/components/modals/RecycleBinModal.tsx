@@ -55,7 +55,7 @@ const RecycleBinModal = ({ closeModal }: recycleBinModalProps) => {
                       ref={(el) => {
                         if (el)
                           el.innerHTML =
-                            note.icon ||
+                            note.noteIcon ||
                             ` <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={5} stroke="currentColor" className="size-6">
                   <path
                     strokeLinecap="round"
@@ -66,10 +66,10 @@ const RecycleBinModal = ({ closeModal }: recycleBinModalProps) => {
                       }}
                     ></div>
 
-                    <p className="text-base-content truncate w-80 text-sm">{note.title}</p>
+                    <p className="text-base-content truncate w-80 text-sm">{note.noteTitle}</p>
                   </div>
                   <button
-                    onClick={() => restoreFromRecycleBin({ value: false, noteId: note.id })}
+                    onClick={() => restoreFromRecycleBin({ noteId: note.id })}
                     className={`flex btn-ghost btn-neutral text-info-content btn btn-xs btn-square shrink-0 relative rounded-lg transition-all `}
                   >
                     <svg

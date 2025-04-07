@@ -1,5 +1,5 @@
 import { moduleData } from "../../dataTypes";
-import { useDeleteModule } from "../../api/modulesApi/ModuleApi";
+import { useDeleteModule } from "../../api/ModuleApi";
 import { useSortable } from "@dnd-kit/sortable";
 import { NewModuleModal } from "./NewModuleModal";
 
@@ -37,20 +37,20 @@ const ModuleComponent = React.memo(({ module, nextModule, singleNoteLoading }: m
       )}
       {(() => {
         switch (module?.type) {
-          case "TEXT":
+          case "text":
             return (
               <Suspense fallback={""}>
                 <TextModuleComponent module={module} />
               </Suspense>
             );
-          case "IMAGE":
+          case "image":
             return (
               <Suspense fallback={""}>
                 <ImageModuleComponent module={module} />
               </Suspense>
             );
 
-          case "TODO":
+          case "to-do":
             return (
               <Suspense fallback={""}>
                 <ToDoModuleComponent module={module} />
