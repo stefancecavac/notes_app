@@ -67,7 +67,7 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
         ></div>
 
         <div
-          className={`${!wideMode ? "lg:mx-60 " : "lg:mx-25 "} mx-25 relative  ${noteState.noteColor === "" ? "mt-5" : "mt-12"}    transition-all`}
+          className={`${!wideMode ? "lg:mx-60 " : "lg:mx-25 "} mx-25 relative   ${noteState.noteColor === "" ? "mt-5" : "mt-12"}    transition-all`}
         >
           <div className="group-hover/titleItems:flex absolute hidden items-center -top-8 gap-2 scale-up-center z-100 ">
             <IconPicker noteState={noteState} setNoteState={setNoteState}></IconPicker>
@@ -118,7 +118,7 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
 
         <ModuleListDraggable modules={singleNote.modules} singleNoteId={singleNote.id} singleNoteLoading={singleNoteLoading} />
 
-        <SubPagesComponent note={singleNote}></SubPagesComponent>
+        {/* <SubPagesComponent note={singleNote}></SubPagesComponent> */}
       </div>
     </div>
   );

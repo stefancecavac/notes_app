@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 export const createModuleService = async ({ noteId, type, properties, order }: createModulesData) => {
   try {
     const createdModule = await db.insert(modulesTable).values({ noteId, type, properties, order }).returning();
-    return createdModule;
+    return createdModule[0];
   } catch (error) {
     console.log(error);
     throw new AppError("Database error", 500);

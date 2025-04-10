@@ -23,7 +23,6 @@ export const useCreateModule = () => {
         return {
           ...oldData,
           modules: [...oldData.modules, data],
-          updatedAt: new Date(),
         };
       });
 
