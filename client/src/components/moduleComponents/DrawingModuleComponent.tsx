@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { moduleData } from "../../dataTypes";
 import CanvasDraw from "react-canvas-draw";
-import { useUpdateDrawingModule } from "../../api/modulesApi/DrawingModuleApi";
 import { colors } from "../../util/Colors";
+import { useUpdateModule } from "../../api/ModuleApi";
 
 const DrawingModuleComponent = React.memo(({ module }: { module: moduleData }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<CanvasDraw | null>(null);
 
-  const { updateDrawingModule } = useUpdateDrawingModule({ noteId: module.noteId });
+  const { updateModule } = useUpdateModule({ noteId: module.id });
 
   const baseContentColor = getComputedStyle(document.documentElement).getPropertyValue("--color-base-content");
   const eraserColor = getComputedStyle(document.documentElement).getPropertyValue("--color-base-200");
@@ -18,7 +18,7 @@ const DrawingModuleComponent = React.memo(({ module }: { module: moduleData }) =
 
   const [canvasWidth, setCanvasWidth] = useState<number>(800);
 
-  const [savedData, setSavedData] = useState<string | undefined>(module.DrawingModule?.data);
+  const [savedData, setSavedData] = useState<string | undefined>(module.properties.data);
 
   useEffect(() => {
     const updateWidth = () => {
@@ -106,8 +106,8 @@ const DrawingModuleComponent = React.memo(({ module }: { module: moduleData }) =
         </div>
 
         <button
-          disabled={savedData === module.DrawingModule?.data}
-          onClick={() => updateDrawingModule({ moduleId: module.id, noteId: module.noteId, data: savedData })}
+          disabled={savedData === module.properties?.data}
+          onClick={() => updateModule({ moduleId: module.id, noteId: module.noteId, type: "drawing", properties: { data: savedData! } })}
           className="btn btn-soft btn-sm"
         >
           Save
@@ -138,7 +138,7 @@ const DrawingModuleComponent = React.memo(({ module }: { module: moduleData }) =
         ref={canvasRef}
         brushColor={selectedColor}
         hideGrid
-        saveData={module.DrawingModule?.data}
+        saveData={module.properties?.data}
         immediateLoading
         brushRadius={selectedBrushWidth}
         lazyRadius={5}

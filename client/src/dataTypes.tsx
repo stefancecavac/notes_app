@@ -58,19 +58,18 @@ export const modulesTableSchema = z.object({
 
 export const createModulesSchema = z.discriminatedUnion("type", [
   z.object({
-    moduleId: z.string(),
+    moduleId: z.string().optional(),
     type: z.literal("text"),
-    order: z.number(),
+    order: z.number().optional(),
     noteId: z.string().uuid(),
     properties: z.object({
       content: z.string(),
     }),
   }),
   z.object({
-    moduleId: z.string(),
-
+    moduleId: z.string().optional(),
     type: z.literal("image"),
-    order: z.number(),
+    order: z.number().optional(),
     noteId: z.string().uuid(),
     properties: z.object({
       imageUrl: z.string().url(),
@@ -79,10 +78,9 @@ export const createModulesSchema = z.discriminatedUnion("type", [
     }),
   }),
   z.object({
-    moduleId: z.string(),
-
+    moduleId: z.string().optional(),
     type: z.literal("to-do"),
-    order: z.number(),
+    order: z.number().optional(),
     noteId: z.string().uuid(),
     properties: z.object({
       items: z.array(
@@ -95,10 +93,9 @@ export const createModulesSchema = z.discriminatedUnion("type", [
     }),
   }),
   z.object({
-    moduleId: z.string(),
-
+    moduleId: z.string().optional(),
     type: z.literal("drawing"),
-    order: z.number(),
+    order: z.number().optional(),
     noteId: z.string().uuid(),
     properties: z.object({
       data: z.string(),

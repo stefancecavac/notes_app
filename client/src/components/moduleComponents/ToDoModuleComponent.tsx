@@ -12,7 +12,6 @@ const ToDoModuleComponent = React.memo(({ module }: { module: moduleData }) => {
       moduleId: module.id,
       noteId: module.noteId,
       properties: { items: [...module.properties.items, { id: Math.random().toString(16).substring(2, 9), title: title, completed: false }] },
-      order: 0,
     });
     setTitle("");
   };
