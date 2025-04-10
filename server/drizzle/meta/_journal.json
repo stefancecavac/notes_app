@@ -15,6 +15,13 @@
       "when": 1744045616550,
       "tag": "0001_cooing_firebrand",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1744311453373,
+      "tag": "0002_green_wind_dancer",
+      "breakpoints": true
     }
   ]
 }

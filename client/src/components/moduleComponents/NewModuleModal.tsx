@@ -1,11 +1,8 @@
-import { useCreateTextModule } from "../../api/modulesApi/TextModuleApi";
 import { moduleData } from "../../dataTypes";
 import { useCreateNote } from "../../api/NoteApi";
 import { useParams } from "react-router-dom";
-import { useCreateImageModule } from "../../api/modulesApi/ImageModuleApi";
-import { useCreateTodoModule } from "../../api/modulesApi/TodoModuleApi";
-import { useCreateDrawingModule } from "../../api/modulesApi/DrawingModuleApi";
 import React, { useEffect, useRef, useState } from "react";
+import { useCreateModule } from "../../api/ModuleApi";
 
 type newModuleModalProps = {
   module?: moduleData;
@@ -13,11 +10,10 @@ type newModuleModalProps = {
 };
 
 export const NewModuleModal = React.memo(({ module, nextModule }: newModuleModalProps) => {
-  const { createTextModule } = useCreateTextModule();
   const { createNote } = useCreateNote();
-  const { createImageModule } = useCreateImageModule();
-  const { createTodoModule } = useCreateTodoModule();
-  const { createDrawingModule } = useCreateDrawingModule();
+
+  const { createModule } = useCreateModule();
+
   const [modal, setModal] = useState(false);
 
   const { noteId } = useParams();
@@ -46,15 +42,23 @@ export const NewModuleModal = React.memo(({ module, nextModule }: newModuleModal
   };
 
   const handleUploadPic = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!module) return;
+
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
       const base64Image = reader.result as string;
-      createImageModule({ imagePath: base64Image, order: calculateOrder(module!.order, nextModule?.order), noteId: module?.noteId });
+      createModule({
+        type: "image",
+        properties: { imageUrl: base64Image, height: 250, width: 250 },
+        order: calculateOrder(module!.order, nextModule?.order),
+        noteId: module?.noteId,
+      });
     };
   };
+  if (!module) return;
 
   return (
     <>
@@ -74,7 +78,7 @@ export const NewModuleModal = React.memo(({ module, nextModule }: newModuleModal
 
             <div className="flex flex-col my-5 ">
               <button
-                onClick={() => createNote({ title: "New page", content: "", parentNoteId: noteId })}
+                onClick={() => createNote({ noteTitle: "New page", parentNoteId: noteId })}
                 className=" items-center btn btn-ghost hover:bg-base-300  h-full justify-start  flex p-1  gap-5"
               >
                 <div className="rounded-lg  p-1 bg-neutral/50">
@@ -102,7 +106,14 @@ export const NewModuleModal = React.memo(({ module, nextModule }: newModuleModal
               </button>
 
               <button
-                onClick={() => createTextModule({ content: "", order: calculateOrder(module!.order, nextModule?.order), noteId: module?.noteId })}
+                onClick={() =>
+                  createModule({
+                    type: "text",
+                    properties: { content: "" },
+                    order: calculateOrder(module!.order, nextModule?.order),
+                    noteId: module?.noteId,
+                  })
+                }
                 className=" items-center btn btn-ghost hover:bg-base-300  h-full justify-start  flex p-1  gap-5"
               >
                 <div className="rounded-lg p-1 bg-neutral/50">
@@ -152,7 +163,14 @@ export const NewModuleModal = React.memo(({ module, nextModule }: newModuleModal
                 </div>
               </label>
               <button
-                onClick={() => createTodoModule({ order: calculateOrder(module!.order, nextModule?.order), noteId: module?.noteId })}
+                onClick={() =>
+                  createModule({
+                    type: "to-do",
+                    properties: { items: [] },
+                    order: calculateOrder(module!.order, nextModule?.order),
+                    noteId: module?.noteId,
+                  })
+                }
                 className=" items-center btn btn-ghost hover:bg-base-300  h-full justify-start  flex p-1  gap-5"
               >
                 <div className="rounded-lg  p-1 bg-neutral/50">
@@ -177,7 +195,14 @@ export const NewModuleModal = React.memo(({ module, nextModule }: newModuleModal
               </button>
 
               <button
-                onClick={() => createDrawingModule({ order: calculateOrder(module!.order, nextModule?.order), noteId: module?.noteId })}
+                onClick={() =>
+                  createModule({
+                    type: "drawing",
+                    properties: { data: "" },
+                    order: calculateOrder(module!.order, nextModule?.order),
+                    noteId: module?.noteId,
+                  })
+                }
                 className=" items-center btn btn-ghost hover:bg-base-300  h-full justify-start  flex p-1  gap-5"
               >
                 <div className="rounded-lg  p-1 bg-neutral/50">

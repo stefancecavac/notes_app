@@ -36,7 +36,7 @@ export const useCreateModule = () => {
 export const useUpdateModule = ({ noteId }: { noteId: string }) => {
   const queryClient = useQueryClient();
 
-  const updateModuleApi = async ({ properties, moduleId, noteId }: { properties: Record<string, unknown>; moduleId: string; noteId: string }) => {
+  const updateModuleApi = async ({ properties, moduleId, noteId }: CreateModuleData) => {
     const response = await axiosInstance.put(`/api/notes/modules/`, { properties: properties, moduleId, noteId }, { withCredentials: true });
     return response.data;
   };
@@ -60,8 +60,8 @@ export const useUpdateModuleOrder = () => {
   const queryClient = useQueryClient();
   const { noteId } = useParams();
 
-  const updateModuleOrderApi = async ({ modules, noteId }: { modules: moduleData[]; noteId: string }) => {
-    const response = await axiosInstance.put(`/api/notes/modules/update-module-order`, { modules, noteId }, { withCredentials: true });
+  const updateModuleOrderApi = async ({ modules }: { modules: moduleData[] }) => {
+    const response = await axiosInstance.put(`/api/notes/modules/reorder`, { modules }, { withCredentials: true });
     return response.data as moduleData[];
   };
 
@@ -86,7 +86,7 @@ export const useDeleteModule = () => {
   const { showToast } = useToastStore();
 
   const deleteModuleApi = async ({ moduleId, noteId }: { moduleId: string; noteId: string }) => {
-    const response = await axiosInstance.delete(`/api/notes/modules/delete-module`, {
+    const response = await axiosInstance.delete(`/api/notes/modules/`, {
       data: { moduleId, noteId },
       withCredentials: true,
     });

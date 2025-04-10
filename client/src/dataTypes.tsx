@@ -56,12 +56,55 @@ export const modulesTableSchema = z.object({
   noteId: z.string({ message: "Note id required" }).uuid({ message: "Not a valid UUID" }),
 });
 
-export const createModulesSchema = z.object({
-  type: typeEnum,
-  order: z.number(),
-  properties: z.record(z.any(), { message: "Invalid properties" }),
-  noteId: z.string({ message: "Note id required" }).uuid({ message: "Not a valid UUID" }),
-});
+export const createModulesSchema = z.discriminatedUnion("type", [
+  z.object({
+    moduleId: z.string(),
+    type: z.literal("text"),
+    order: z.number(),
+    noteId: z.string().uuid(),
+    properties: z.object({
+      content: z.string(),
+    }),
+  }),
+  z.object({
+    moduleId: z.string(),
+
+    type: z.literal("image"),
+    order: z.number(),
+    noteId: z.string().uuid(),
+    properties: z.object({
+      imageUrl: z.string().url(),
+      width: z.number(),
+      height: z.number(),
+    }),
+  }),
+  z.object({
+    moduleId: z.string(),
+
+    type: z.literal("to-do"),
+    order: z.number(),
+    noteId: z.string().uuid(),
+    properties: z.object({
+      items: z.array(
+        z.object({
+          id: z.string(),
+          title: z.string(),
+          completed: z.boolean(),
+        })
+      ),
+    }),
+  }),
+  z.object({
+    moduleId: z.string(),
+
+    type: z.literal("drawing"),
+    order: z.number(),
+    noteId: z.string().uuid(),
+    properties: z.object({
+      data: z.string(),
+    }),
+  }),
+]);
 
 export type CreateModuleData = z.infer<typeof createModulesSchema>;
 

@@ -1,0 +1,1 @@
+ALTER TABLE "modules" ALTER COLUMN "order" SET DATA TYPE double precision;

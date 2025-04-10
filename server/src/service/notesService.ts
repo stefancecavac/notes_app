@@ -72,6 +72,7 @@ export const getNoteByIdService = async (noteId: string) => {
       .from(notesTable)
       .where(eq(notesTable.id, noteId))
       .leftJoin(modulesTable, eq(modulesTable.noteId, notesTable.id))
+      .orderBy(asc(modulesTable.order))
       .groupBy(modulesTable.id, notesTable.id);
 
     const note = noteResult[0].notes;

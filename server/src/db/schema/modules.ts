@@ -1,6 +1,6 @@
-import { integer, jsonb, pgEnum, pgTable, uuid } from "drizzle-orm/pg-core";
+import { doublePrecision, jsonb, numeric, pgEnum, pgTable, uuid } from "drizzle-orm/pg-core";
 import { notesTable } from "./notes";
-import { z, ZodEnum } from "zod";
+import { z } from "zod";
 
 export const typeEnum = pgEnum("type", ["text", "image", "to-do", "paragraph"]);
 
@@ -8,7 +8,7 @@ export const modulesTable = pgTable("modules", {
   id: uuid("id").primaryKey().notNull().defaultRandom(),
   type: typeEnum().notNull(),
   properties: jsonb().notNull(),
-  order: integer("order").notNull().default(0),
+  order: doublePrecision("order").notNull().default(0),
 
   noteId: uuid("noteId").references(() => notesTable.id, { onDelete: "cascade" }),
 });
@@ -20,6 +20,7 @@ export const modulesTableSchema = z.object({
   order: z.number().default(0),
   noteId: z.string({ message: "Note id required" }).uuid({ message: "Not a valid UUID" }),
 });
+export type moduleData = z.infer<typeof modulesTableSchema>;
 
 export const createModulesSchema = z.object({
   type: z.enum(["text", "image", "to-do", "paragraph"], { message: "Invalid type" }),

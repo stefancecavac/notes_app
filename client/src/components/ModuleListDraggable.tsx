@@ -12,7 +12,7 @@ type ModuleListDraggapleProps = {
   singleNoteLoading: boolean;
 };
 
-const ModuleListDraggable = React.memo(({ modules, singleNoteId, singleNoteLoading }: ModuleListDraggapleProps) => {
+const ModuleListDraggable = React.memo(({ modules, singleNoteLoading }: ModuleListDraggapleProps) => {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const { updateModuleOrder } = useUpdateModuleOrder();
 
@@ -46,12 +46,12 @@ const ModuleListDraggable = React.memo(({ modules, singleNoteId, singleNoteLoadi
           });
 
           setModulesData(updatedModules);
-          updateModuleOrder({ modules: updatedModules, noteId: singleNoteId });
+          updateModuleOrder({ modules: updatedModules });
         }
       }
       setActiveId(null);
     },
-    [memoModules, singleNoteId, updateModuleOrder]
+    [memoModules, updateModuleOrder]
   );
 
   if (!memoModules) return;
@@ -59,7 +59,7 @@ const ModuleListDraggable = React.memo(({ modules, singleNoteId, singleNoteLoadi
   return (
     <DndContext collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <SortableContext items={modulesData} strategy={rectSortingStrategy}>
-        <div className="flex flex-col gap-1    ">
+        <div className="flex flex-col gap-5   ">
           {modulesData.map((module, index) => (
             <ModuleComponent key={module.id} module={module} nextModule={modulesData[index + 1] || null} singleNoteLoading={singleNoteLoading} />
           ))}
@@ -69,7 +69,7 @@ const ModuleListDraggable = React.memo(({ modules, singleNoteId, singleNoteLoadi
       {createPortal(
         <DragOverlay>
           {activeId ? (
-            <div className="shadow-md rounded-sm border-dashed border-neutral opacity-40  border-2">
+            <div className="shadow-md rounded-sm border-dashed border-neutral opacity-40   border-2">
               <ModuleComponent key={activeId} module={modulesData.find((module) => module.id === activeId)!} />
             </div>
           ) : null}

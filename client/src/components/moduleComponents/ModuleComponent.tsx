@@ -57,7 +57,7 @@ const ModuleComponent = React.memo(({ module, nextModule, singleNoteLoading }: m
               </Suspense>
             );
 
-          case "DRAWING":
+          case "drawing":
             return (
               <Suspense fallback={""}>
                 <DrawingModuleComponent module={module} />
@@ -65,7 +65,7 @@ const ModuleComponent = React.memo(({ module, nextModule, singleNoteLoading }: m
             );
         }
       })()}
-      <div className="absolute   flex-row-reverse gap-1  items-center -left-27 lg:-left-8 top-0 px-5 hidden group-hover/handle:flex scale-up-center ">
+      <div className="absolute   flex-row-reverse gap-1  items-center -left-28 lg:-left-12 -top-1 px-5 hidden group-hover/handle:flex scale-up-center ">
         <div {...attributes} {...listeners} className="btn btn-xs btn-ghost hover:bg-base-300 text-info-content btn-square">
           <svg
             xmlns="http://www.w3.org/2000/svg"

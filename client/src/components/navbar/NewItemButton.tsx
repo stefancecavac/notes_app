@@ -5,7 +5,7 @@ const NewItemButton = React.memo(() => {
   const { createNote } = useCreateNote();
 
   const handleCreateNote = useCallback(() => {
-    createNote({ noteTitle: "" });
+    createNote({ noteTitle: "New note" });
   }, [createNote]);
 
   useEffect(() => {
