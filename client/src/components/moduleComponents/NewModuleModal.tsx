@@ -70,15 +70,17 @@ export const NewModuleModal = React.memo(({ module, nextModule }: newModuleModal
 
       {modal && (
         <dialog ref={modalRef} id="module-modal" className="modal " onCancel={handleCloseModal} onMouseLeave={handleCloseModal}>
-          <div className="modal-box p-3  max-w-sm">
+          <div className="modal-box p-3  max-w-sm scale-up-center">
             <div className="flex flex-col p-1 text-start">
               <h2 className="text-sm text-base-content font-bold">Modules</h2>
               <p className="text-info-content text-xs">Choose what modules to insert</p>
             </div>
 
-            <div className="flex flex-col my-5 ">
+            <div className="flex flex-col mt-5 ">
               <button
-                onClick={() => createNote({ noteTitle: "New page", parentNoteId: noteId })}
+                onClick={() => {
+                  createNote({ noteTitle: "New page", parentNoteId: noteId });
+                }}
                 className=" items-center btn btn-ghost hover:bg-base-300  h-full justify-start  flex p-1  gap-5"
               >
                 <div className="rounded-lg  p-1 bg-neutral/50">

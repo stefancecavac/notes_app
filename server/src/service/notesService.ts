@@ -106,16 +106,23 @@ export const getNoteByIdService = async (noteId: string) => {
 
     const modules = noteResult[0].modules ? noteResult.map((modules) => modules.modules) : [];
 
+    const childNotes = await db
+      .select({ noteTitle: notesTable.noteTitle, id: notesTable.id, noteIcon: notesTable.noteIcon })
+      .from(notesTable)
+      .where(and(eq(notesTable.parentNoteId, noteResult[0].notes.id), eq(notesTable.isThrashed, false)));
+
     return {
       ...note,
       modules,
       breadCrumbs,
+      childNotes,
     };
   } catch (error) {
     console.log(error);
     throw new AppError("Database Error", 500);
   }
 };
+
 export const insertNoteIntoDbService = async ({
   noteTitle,
   noteColor,

@@ -4,7 +4,6 @@ import ExpandNavbarButton from "./ExpandNavbarButton";
 import SettingsLink from "./SettingsLink";
 import NewItemButton from "./NewItemButton";
 import { useNavbarExpandedStore } from "../../Stores/useNavbarExpandedStore";
-import DashboardLink from "./DashboardLink";
 import { NotesList } from "./NotesListComponents/NotesList";
 import { useGetAllFavouriteNotes } from "../../api/FavouriteNoteApi";
 import RecycleBinComponent from "./RecycleBinComponent";
@@ -66,11 +65,10 @@ const Navbar = () => {
         </div>
       </div>
       {expanded && (
-        <div className="flex flex-col grow overflow-hidden h-full min-h-0">
+        <div className="flex flex-col grow overflow-hidden h-full mt-5 min-h-0">
           <div className="flex flex-col gap-1 ">
             <NewItemButton />
             <SearchComponent />
-            <DashboardLink />
             <SettingsLink />
             <RecycleBinComponent />
           </div>

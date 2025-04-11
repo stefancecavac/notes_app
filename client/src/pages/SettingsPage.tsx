@@ -1,6 +1,16 @@
+import { useEffect } from "react";
 import PreferencesSettingsComponent from "../components/settings/PreferencesSettingsComponent";
 
 const SettingsPage = () => {
+  useEffect(() => {
+    const favicon = document.getElementById("favicon") as HTMLLinkElement | null;
+
+    if (favicon) {
+      favicon.href = "/pencil.png";
+      favicon.type = "image/svg+xml";
+    }
+  }, []);
+
   return (
     <div className="flex flex-col h-full w-full ">
       <div className="p-5 px-20">

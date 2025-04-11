@@ -1,4 +1,14 @@
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, pointerWithin, UniqueIdentifier } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
+  PointerSensor,
+  pointerWithin,
+  UniqueIdentifier,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { arrayMove, rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import ModuleComponent from "./moduleComponents/ModuleComponent";
 import { createPortal } from "react-dom";
@@ -54,10 +64,18 @@ const ModuleListDraggable = React.memo(({ modules, singleNoteLoading }: ModuleLi
     [memoModules, updateModuleOrder]
   );
 
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    })
+  );
+
   if (!memoModules) return;
 
   return (
-    <DndContext collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+    <DndContext sensors={sensors} collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <SortableContext items={modulesData} strategy={rectSortingStrategy}>
         <div className="flex flex-col gap-5   ">
           {modulesData.map((module, index) => (

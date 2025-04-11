@@ -26,6 +26,11 @@ const ModuleComponent = React.memo(({ module, nextModule, singleNoteLoading }: m
     },
   });
 
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    console.log("clicked");
+  };
+
   if (singleNoteLoading) return null;
 
   return (
@@ -43,6 +48,7 @@ const ModuleComponent = React.memo(({ module, nextModule, singleNoteLoading }: m
                 <TextModuleComponent module={module} />
               </Suspense>
             );
+
           case "image":
             return (
               <Suspense fallback={""}>
@@ -66,7 +72,7 @@ const ModuleComponent = React.memo(({ module, nextModule, singleNoteLoading }: m
         }
       })()}
       <div className="absolute   flex-row-reverse gap-1  items-center -left-28 lg:-left-12 -top-1 px-5 hidden group-hover/handle:flex scale-up-center ">
-        <div {...attributes} {...listeners} className="btn btn-xs btn-ghost hover:bg-base-300 text-info-content btn-square">
+        <div onClick={handleClick} {...attributes} {...listeners} className="btn btn-xs btn-ghost hover:bg-base-300 text-info-content btn-square">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"

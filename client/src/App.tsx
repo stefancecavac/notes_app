@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import { UseAuthContext } from "./context/AuthContext";
 import Layout from "./Layout";
+import { DashboardPage } from "./pages/DashboardPage";
 
 const NoteViewPage = lazy(() => import("./pages/NoteViewPage"));
 const SignupPage = lazy(() => import("./pages/SignupPage"));
@@ -10,7 +11,6 @@ const SettingsPage = lazy(() => import("./pages/SettingsPage"));
 const ProfileSettingsComponent = lazy(() => import("./components/settings/ProfileSettingsComponent"));
 const PreferencesSettingsComponent = lazy(() => import("./components/settings/PreferencesSettingsComponent"));
 const LandingPage = lazy(() => import("./pages/LandingPage"));
-const DashboardPage = lazy(() => import("./pages/DashboardPage"));
 const MagicLoginPage = lazy(() => import("./pages/MagicLoginPage"));
 
 const App = () => {
@@ -34,10 +34,10 @@ const App = () => {
         }
       >
         <Routes>
-          <Route path="*" element={<Navigate to="/dashboard" />} />
+          <Route path="*" element={<Navigate to="/" />} />
 
           <Route
-            path="/dashboard"
+            path="/"
             element={
               user ? (
                 <Layout>
@@ -79,7 +79,7 @@ const App = () => {
             <Route path="notifications" element={user ? <ProfileSettingsComponent /> : <Navigate to="/" />} />
           </Route>
 
-          <Route path="/" element={!user ? <LandingPage /> : <Navigate to="/notes-explorer" />} />
+          <Route path="/" element={!user ? <LandingPage /> : <Navigate to="/" />} />
           <Route path="/magic-login" element={!user ? <MagicLoginPage /> : <Navigate to="/" />} />
           <Route path="/signup" element={!user ? <SignupPage /> : <Navigate to="/" />} />
           <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/" />} />

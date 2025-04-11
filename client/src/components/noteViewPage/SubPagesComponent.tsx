@@ -17,8 +17,8 @@ export const SubPagesComponent = ({ note }: subPagesProps) => {
         {note?.childNotes?.map((note) => (
           <div key={note.id} className="flex items-center justify-between gap-3   group hover:bg-base-200 rounded-lg p-1">
             <Link className="flex items-center  text-info-content   gap-2 hover:underline " to={`/notes/${note.id}`}>
-              {note.icon ? (
-                <div className="size-5 " dangerouslySetInnerHTML={{ __html: note.icon }}></div>
+              {note.noteIcon ? (
+                <div className="size-5 " dangerouslySetInnerHTML={{ __html: note.noteIcon }}></div>
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,7 @@ export const SubPagesComponent = ({ note }: subPagesProps) => {
                 </svg>
               )}
 
-              <p className=" text-sm ">{note.title}</p>
+              <p className=" text-sm ">{note.noteTitle}</p>
             </Link>
             <button
               onClick={() => handleDeleteNote(note.id)}

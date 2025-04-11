@@ -43,12 +43,12 @@ const ToDoModuleComponent = React.memo(({ module }: { module: moduleData }) => {
   };
 
   return (
-    <div className="rounded p-1 bg-base-100">
+    <div className="rounded  bg-base-100">
       <div className="flex flex-col gap-1 mb-2">
         {module.properties.items.map((todo: { id: string; title: string; completed: boolean }) => (
           <label
             key={todo.id}
-            className={`flex items-center p-1 justify-between h-6  rounded-lg hover:cursor-pointer group/todo hover:bg-base-200  gap-5 ${"bg-base-200l"} `}
+            className={`flex items-center relative p-1 justify-between  rounded-lg hover:cursor-pointer group/todo hover:bg-base-200   gap-5 ${"bg-base-200l"} `}
           >
             <div className="flex items-center gap-2">
               <input
@@ -57,11 +57,12 @@ const ToDoModuleComponent = React.memo(({ module }: { module: moduleData }) => {
                 type="checkbox"
                 className="checkbox checkbox-xs rounded-sm  checkbox-primary peer"
               />
-              <p className=" text-base-content text-sm font-medium peer-checked:line-through peer-checked:text-info-content w-full  ">
-                {todo?.title}
-              </p>
+              <p className=" text-base-content text-sm font-medium peer-checked:line-through peer-checked:text-info-content w-fit">{todo?.title}</p>
             </div>
-            <button onClick={() => handleRemoveTodo(todo)} className=" btn  btn-xs btn-error btn-square btn-soft hidden group-hover/todo:flex">
+            <button
+              onClick={() => handleRemoveTodo(todo)}
+              className=" btn absolute right-0  btn-xs btn-error btn-square btn-soft hidden group-hover/todo:flex"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4 ">
                 <path
                   strokeLinecap="round"
@@ -77,6 +78,12 @@ const ToDoModuleComponent = React.memo(({ module }: { module: moduleData }) => {
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && title.trim()) {
+              e.preventDefault();
+              handleAddTodo();
+            }
+          }}
           placeholder="Add task"
           className="input border-none input-sm focus-within:appearance-none focus-within:outline-none focus-within:border"
         ></input>

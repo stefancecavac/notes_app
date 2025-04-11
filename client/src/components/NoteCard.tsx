@@ -8,7 +8,7 @@ const NoteCard = ({ note }: { note: noteData }) => {
       to={`/notes/${note.id}`}
       className=" rounded-lg shadow-md  bg-base-200 flex flex-col overflow-hidden  border border-neutral hover:scale-105 transition-all  "
     >
-      <div style={{ backgroundColor: note.color }} className="py-8 bg-neutral"></div>
+      <div style={{ backgroundColor: note.noteColor }} className="py-8 bg-neutral"></div>
       <div className="flex items-center justify-between  p-2 ">
         <div className="flex  items-center gap-2 text-base-content truncate my-1 ">
           <div className="bg-neutral rounded-lg p-1">

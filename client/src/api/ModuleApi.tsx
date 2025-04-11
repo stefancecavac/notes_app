@@ -71,7 +71,6 @@ export const useUpdateModuleOrder = () => {
 
     onSuccess(data) {
       queryClient.setQueryData(["note", noteId], (oldData: noteData) => {
-        console.log("mutation data", data);
         return { ...oldData, modules: data };
       });
     },

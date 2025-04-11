@@ -36,6 +36,21 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
   const { debouncedValue: debouncedNoteState } = useDebounceHook(noteState, 500);
 
   useEffect(() => {
+    if (!singleNote && singleNoteLoading) return;
+    document.title = singleNote.noteTitle!;
+
+    const favicon = document.getElementById("favicon") as HTMLLinkElement | null;
+
+    if (!favicon && singleNote.noteIcon === "") return;
+    const svg = singleNote.noteIcon!.trim();
+    const encoded = encodeURIComponent(svg).replace(/'/g, "%27").replace(/"/g, "%22");
+
+    const dataUrl = `data:image/svg+xml,${encoded}`;
+    favicon!.type = "image/svg+xml";
+    favicon!.href = dataUrl;
+  }, [singleNote, singleNoteLoading]);
+
+  useEffect(() => {
     if (!singleNote) return;
     setNoteState({
       noteTitle: singleNote.noteTitle,
@@ -118,7 +133,7 @@ const NoteViewComponent = React.memo(({ singleNote, singleNoteLoading }: noteVie
 
         <ModuleListDraggable modules={singleNote.modules} singleNoteId={singleNote.id} singleNoteLoading={singleNoteLoading} />
 
-        {/* <SubPagesComponent note={singleNote}></SubPagesComponent> */}
+        <SubPagesComponent note={singleNote}></SubPagesComponent>
       </div>
     </div>
   );
