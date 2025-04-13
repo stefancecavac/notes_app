@@ -52,6 +52,7 @@ const TextModuleComponent = React.memo(({ module }: { module: moduleData }) => {
       }
     }
   }, [debouncedValue]);
+
   return (
     <div className={`h-fit relative  rounded-lg  bg-base-100    flex flex-col hover:cursor-text`}>
       <FloatingMenuBar editor={editor!} />
