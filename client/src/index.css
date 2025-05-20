@@ -5,6 +5,7 @@
 
 @plugin "daisyui" {
   themes: light --default, dark;
+  exclude: rootscrollgutter;
 }
 
 @theme {

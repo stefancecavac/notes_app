@@ -84,6 +84,7 @@ export const getNoteByIdService = async (noteId: string) => {
     const breadCrumbs: { id: string; noteTitle: string; noteIcon: string }[] = [];
 
     let currentParentId = note.parentNoteId;
+    breadCrumbs.unshift({ id: note.id, noteIcon: note.noteIcon, noteTitle: note.noteTitle });
 
     while (currentParentId) {
       const result = await db

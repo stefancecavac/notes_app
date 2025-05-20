@@ -6,7 +6,7 @@ const UserComponent = React.memo(() => {
   const { user, userLoading, logout } = UseAuthContext();
 
   if (userLoading) {
-    return null;
+    return <div className="w-full  skeleton h-8"></div>;
   }
 
   return (

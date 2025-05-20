@@ -1,6 +1,5 @@
 import React, { Suspense, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { formatDistanceToNow } from "date-fns";
 import { useFavouritesHook } from "../../hooks/useFavouritesHook";
 import { NotesData } from "../../dataTypes";
 import SkeletonLoader from "../loaders/SkeletonLoader";
@@ -24,12 +23,12 @@ const HeaderComponent = React.memo(({ singleNote, singleNoteLoading, breadCrumbs
 
       if (shouldRender) {
         return (
-          <div key={crumb.id} className="flex items-center gap-2 pl-3">
+          <div key={crumb.id} className="flex items-center gap-2 ">
             {array.length > 4 && index === array.length - 2 && <p className="text-info-content text-sm">...</p>}
             <Link
               className={`${
                 index === array.length - 1 ? "font-bold text-base-content" : ""
-              } text-info-content hover:underline gap-2 text-xs flex items-center`}
+              } text-info-content hover:underline gap-2 text-xs flex items-center ${crumb.id === singleNote.id ? "underline" : ""}`}
               to={`/notes/${crumb.id}`}
             >
               {crumb.noteIcon ? (
@@ -65,7 +64,7 @@ const HeaderComponent = React.memo(({ singleNote, singleNoteLoading, breadCrumbs
   }, [breadCrumbs]);
 
   return (
-    <div className={`sticky top-0 min-w-full flex h-10 pl-7   z-60 items-center justify-between text-sm bg-base-100 px-3  py-2`}>
+    <div className={`sticky top-0 min-w-full flex h-10 pl-10   z-60 items-center justify-between text-sm bg-base-100 px-3  py-2`}>
       <div className="flex items-center gap-2">
         {singleNoteLoading ? <SkeletonLoader height={20} width={150}></SkeletonLoader> : renderBreadcrumbs}
       </div>

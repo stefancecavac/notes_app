@@ -9,6 +9,7 @@ import { useGetAllFavouriteNotes } from "../../api/FavouriteNoteApi";
 import RecycleBinComponent from "./RecycleBinComponent";
 import React, { useEffect, useRef, useState } from "react";
 import { useGetAllNotesTreeView } from "../../api/NoteApi";
+import { DashboardLink } from "./DashboardLink";
 
 const Navbar = () => {
   const { expanded, toggleExpanded, setWidth, width } = useNavbarExpandedStore();
@@ -67,6 +68,7 @@ const Navbar = () => {
       {expanded && (
         <div className="flex flex-col grow overflow-hidden h-full mt-5 min-h-0">
           <div className="flex flex-col gap-1 ">
+            <DashboardLink />
             <NewItemButton />
             <SearchComponent />
             <SettingsLink />

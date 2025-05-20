@@ -1,90 +1,114 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { lazy, Suspense } from "react";
-import { UseAuthContext } from "./context/AuthContext";
 import Layout from "./Layout";
+import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
+import NoteViewPage from "./pages/NoteViewPage";
+import SettingsPage from "./pages/SettingsPage";
+import ProfileSettingsComponent from "./components/settings/ProfileSettingsComponent";
+import PreferencesSettingsComponent from "./components/settings/PreferencesSettingsComponent";
+import LandingPage from "./pages/LandingPage";
+import MagicLoginPage from "./pages/MagicLoginPage";
+import SignupPage from "./pages/SignupPage";
+import LoginPage from "./pages/LoginPage";
 import { DashboardPage } from "./pages/DashboardPage";
 
-const NoteViewPage = lazy(() => import("./pages/NoteViewPage"));
-const SignupPage = lazy(() => import("./pages/SignupPage"));
-const LoginPage = lazy(() => import("./pages/LoginPage"));
-const SettingsPage = lazy(() => import("./pages/SettingsPage"));
-const ProfileSettingsComponent = lazy(() => import("./components/settings/ProfileSettingsComponent"));
-const PreferencesSettingsComponent = lazy(() => import("./components/settings/PreferencesSettingsComponent"));
-const LandingPage = lazy(() => import("./pages/LandingPage"));
-const MagicLoginPage = lazy(() => import("./pages/MagicLoginPage"));
-
 const App = () => {
-  const { user, userLoading } = UseAuthContext();
-
-  if (userLoading) {
-    return (
-      <div className="flex items-center justify-center w-full h-screen">
-        <span className="loading loading-ring"></span>
-      </div>
-    );
-  }
-
   return (
     <BrowserRouter>
-      <Suspense
-        fallback={
-          <div className="flex items-center justify-center w-full h-screen">
-            <span className="loading loading-ring"></span>
-          </div>
-        }
-      >
-        <Routes>
-          <Route path="*" element={<Navigate to="/" />} />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <DashboardPage />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
 
+        <Route
+          path="/notes/:noteId"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <NoteViewPage />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <SettingsPage />
+              </Layout>
+            </ProtectedRoute>
+          }
+        >
           <Route
-            path="/"
+            path="profile"
             element={
-              user ? (
-                <Layout>
-                  <DashboardPage />
-                </Layout>
-              ) : (
-                <Navigate to="/" />
-              )
+              <ProtectedRoute>
+                <ProfileSettingsComponent />
+              </ProtectedRoute>
             }
           />
-
           <Route
-            path="/notes/:noteId"
+            path="preferences"
             element={
-              user ? (
-                <Layout>
-                  <NoteViewPage />
-                </Layout>
-              ) : (
-                <Navigate to="/" />
-              )
+              <ProtectedRoute>
+                <PreferencesSettingsComponent />
+              </ProtectedRoute>
             }
           />
-
           <Route
-            path="/settings"
+            path="notifications"
             element={
-              user ? (
-                <Layout>
-                  <SettingsPage />
-                </Layout>
-              ) : (
-                <Navigate to="/" />
-              )
+              <ProtectedRoute>
+                <ProfileSettingsComponent />
+              </ProtectedRoute>
             }
-          >
-            <Route path="profile" element={user ? <ProfileSettingsComponent /> : <Navigate to="/" />} />
-            <Route path="preferences" element={user ? <PreferencesSettingsComponent /> : <Navigate to="/" />} />
-            <Route path="notifications" element={user ? <ProfileSettingsComponent /> : <Navigate to="/" />} />
-          </Route>
+          />
+        </Route>
 
-          <Route path="/" element={!user ? <LandingPage /> : <Navigate to="/" />} />
-          <Route path="/magic-login" element={!user ? <MagicLoginPage /> : <Navigate to="/" />} />
-          <Route path="/signup" element={!user ? <SignupPage /> : <Navigate to="/" />} />
-          <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/" />} />
-        </Routes>
-      </Suspense>
+        <Route
+          path="/"
+          element={
+            <PublicRoute>
+              <LandingPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/magic-login"
+          element={
+            <PublicRoute>
+              <MagicLoginPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <PublicRoute>
+              <SignupPage />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <LoginPage />
+            </PublicRoute>
+          }
+        />
+
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </BrowserRouter>
   );
 };
